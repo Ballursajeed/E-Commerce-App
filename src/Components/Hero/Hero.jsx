@@ -16,7 +16,7 @@ const Hero=()=>{
         <img src={hand_icon} alt="" />      
       </div>    
       <p>Collection</p>
-      <p>for evertone</p> 
+      <p>for everyone</p> 
     </div>  
     <div className="hero-latest-btn">
      <div>Latest Collection</div>
