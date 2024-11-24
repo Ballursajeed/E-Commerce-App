@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "A Backend Server of an E-Commerce Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ballursajeed/E-Commerce-App.git"
+  },
+  "author": "Sajeed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ballursajeed/E-Commerce-App/issues"
+  },
+  "homepage": "https://github.com/Ballursajeed/E-Commerce-App#readme",
+  "dependencies": {
+    "cloudinary": "^2.5.1",
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.2",
+    "nodemon": "^3.1.7"
+  }
+}
