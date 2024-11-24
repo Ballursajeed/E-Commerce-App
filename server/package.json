@@ -2,9 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "A Backend Server of an E-Commerce Application",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"npx tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -24,7 +27,14 @@
     "express": "^4.21.1",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.8.2",
-    "nodemon": "^3.1.7"
+    "mongoose": "^8.8.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.3",
+    "concurrently": "^9.1.0",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }
