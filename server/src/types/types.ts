@@ -14,6 +14,20 @@ export interface MulterRequest extends Request {
       };
   }
 
+  export interface newProductRequest extends Request {
+    files: {
+      image?: Express.Multer.File[]; // The avatar field will be an array of files
+    };
+    body: {
+      name: string;
+      description: string;
+      category: string;
+      price: number;
+      stocks: number;
+      owner: Document;
+      };
+  }
+
 export interface AvatarType {
     
         asset_id: string,

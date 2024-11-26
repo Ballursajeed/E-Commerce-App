@@ -2,7 +2,6 @@ import express from "express";
 import { userLogin, userLogout, userRegister } from "../controllers/user.controller";
 import { upload } from "../middlewares/multer.middleware";
 import { validateUser } from "../middlewares/auth";
-import { MiddlewareOptions } from "mongoose";
 
 const route = express.Router()
 

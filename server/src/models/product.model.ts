@@ -6,6 +6,7 @@ interface IProduct extends Document {
     category: string;
     rating: number;
     price: number;
+    image:string;
     stocks: number;
     owner: Document;
 }
@@ -23,6 +24,9 @@ const productSchema = new Schema<IProduct>(
     price:{
         type: Number,
         required: true,
+    },
+    image: {
+       type: String,
     },
     stocks:{
         type: Number,
@@ -45,4 +49,4 @@ const productSchema = new Schema<IProduct>(
     timestamps: true
 });
 
-const Product:Model<IProduct> = model("Product",productSchema)
+export const Product:Model<IProduct> = model("Product",productSchema)
