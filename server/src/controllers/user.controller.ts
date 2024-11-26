@@ -1,5 +1,5 @@
 import { CookieOptions, NextFunction, Request, Response } from "express";
-import { AvatarType, loginUserRequest, middlewareRequest, MulterRequest } from "../types/types";
+import { AvatarType, loginUserRequest, middlewareValidateUserRequest, MulterRequest } from "../types/types";
 import { User } from "../models/user.model";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 
@@ -128,7 +128,7 @@ export const userLogin = async(req: Request,res: Response, next:NextFunction) =>
 
 }
 
-export const userLogout = async(req:middlewareRequest, res:Response, next:NextFunction) => {
+export const userLogout = async(req:middlewareValidateUserRequest, res:Response, next:NextFunction) => {
   const id = req.user;
 
   const user = await User.findByIdAndUpdate(id,{
