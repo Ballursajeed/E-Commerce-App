@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { newUserRequestType } from "../types/types";
+import { AvatarType, MulterRequest } from "../types/types";
 import { User } from "../models/user.model";
+import { uploadOnCloudinary } from "../utils/cloudinary";
 
-export const userRegister = async(req:Request,res:Response, next: NextFunction) => {
+export const userRegister = async(req:MulterRequest,res:Response, next: NextFunction) => {
 
       try {
-         const {fullName, email, username, password,avatar} = req.body;
+         const {fullName, email, username, password} = req.body;
   
          if (!fullName || !email || !username || !password) {
               return res.status(400).json({
@@ -31,13 +32,20 @@ export const userRegister = async(req:Request,res:Response, next: NextFunction) 
               success: false
           }) 
         }
-  
+
+        let avatar
+
+        if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
+            const fileBuffer = req.files.avatar[0].buffer;
+            avatar = await uploadOnCloudinary(fileBuffer) as AvatarType;  
+        }
+
         const user = await User.create({
           fullName,
           email,
           username,
           password,
-          avatar: avatar || undefined,
+          avatar:  avatar?.url || undefined,
         });
   
         return res.status(201).json({
@@ -47,12 +55,20 @@ export const userRegister = async(req:Request,res:Response, next: NextFunction) 
         })
       } catch (error) {
 
-        return res.status(500).json({
-            message: "Something went wrong while Registering the user!",
-            success: false,
-            errorMessage: error 
-        })
-
+        if (error instanceof Error) {
+            // Access error.message safely
+            return res.status(500).json({
+              message: "Something went wrong during registration!",
+              success: false,
+              errorMessage: error.message, // Accessible here
+            });
+          } else {
+            // Handle cases where error is not an instance of Error
+            return res.status(500).json({
+              message: "Unknown error occurred!",
+              success: false,
+            });
+          }
       }
 
 }
