@@ -5,7 +5,8 @@ interface IUser extends Document {
    email: string;
    username: string;
    password: string;
-   avatar: string;
+   avatar?: string;
+   isAdmin: Boolean;
    accessToken: string;
 }
 
@@ -31,6 +32,10 @@ const userSchema = new Schema<IUser>(
   },
   avatar:{
     type: String // cloudinary url
+  },
+  isAdmin:{
+    type: Boolean,
+    default: false
   },
   accessToken: {
     type: String
