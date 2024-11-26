@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { AvatarType, MulterRequest } from "../types/types";
+import { CookieOptions, NextFunction, Request, Response } from "express";
+import { AvatarType, loginUserRequest, MulterRequest } from "../types/types";
 import { User } from "../models/user.model";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 
@@ -56,19 +56,74 @@ export const userRegister = async(req:MulterRequest,res:Response, next: NextFunc
       } catch (error) {
 
         if (error instanceof Error) {
-            // Access error.message safely
             return res.status(500).json({
               message: "Something went wrong during registration!",
               success: false,
-              errorMessage: error.message, // Accessible here
+              errorMessage: error.message, 
             });
           } else {
-            // Handle cases where error is not an instance of Error
             return res.status(500).json({
               message: "Unknown error occurred!",
               success: false,
             });
           }
       }
+
+}
+
+export const userLogin = async(req: Request,res: Response, next:NextFunction) => {
+
+  const { username,password } = req.body;
+
+  console.log("username",username);
+  console.log("password:",password);
+  
+  if (!username || !password) {
+    return res.status(400).json({
+      message: "All fields are required!",
+      success:false
+  })
+  }
+
+  const user = await User.findOne({username});
+
+  if (!user) {
+    return res.status(404).json({
+      message: "Username not found",
+      success:false
+  })
+  }
+
+  const isPasswordMatch = await user.isPasswordCorrect(password);
+
+  if (!isPasswordMatch) {
+     return res.status(400).json({
+       message: "username or password is InCorrect!",
+       success: false
+     })
+  }
+        const accessToken = user.generateAccessToken();
+    
+        user.accessToken = accessToken as string;
+    
+        await user.save({validateBeforeSave: false})
+        
+        const option:CookieOptions = {
+          secure: true,
+          sameSite: 'none', // Corrected the case
+          path: '/',
+          httpOnly: true,
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+        };
+    
+        return res
+          .cookie("accessToken", accessToken, option)
+          .status(200)
+          .json({
+            message: "User logged in successfully!",
+            success: true,
+            user,
+          });
+
 
 }

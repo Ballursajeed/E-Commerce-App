@@ -1,5 +1,6 @@
 import { Model, Document, model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 interface IUser extends Document {
    fullName: string;
@@ -9,6 +10,8 @@ interface IUser extends Document {
    avatar?: string;
    isAdmin: Boolean;
    accessToken: string;
+   isPasswordCorrect: (password:string) => {};
+   generateAccessToken:() => {}
 }
 
 const userSchema = new Schema<IUser>(
@@ -53,6 +56,19 @@ userSchema.pre("save",async function (next) {
         next() 
     }
     next()
-})
+});
+
+userSchema.methods.generateAccessToken = function (): string {
+  return jwt.sign(
+    { _id: this._id },
+    process.env.ACCESS_TOKEN as string,
+    { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
+  );
+};
+
+userSchema.methods.isPasswordCorrect = async function(password:string) {
+  return await bcrypt.compare(password, this.password)
+}
+
 
  export const User: Model<IUser> = model("User",userSchema);

@@ -39,3 +39,10 @@ export interface AvatarType {
       
 }
 
+export interface loginUserRequest {
+  body:{
+    username:string;
+  password: string;
+  }
+}
+
