@@ -1,5 +1,5 @@
 import { CookieOptions, NextFunction, Request, Response } from "express";
-import { AvatarType, loginUserRequest, MulterRequest } from "../types/types";
+import { AvatarType, loginUserRequest, middlewareRequest, MulterRequest } from "../types/types";
 import { User } from "../models/user.model";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 
@@ -127,3 +127,29 @@ export const userLogin = async(req: Request,res: Response, next:NextFunction) =>
 
 
 }
+
+export const userLogout = async(req:middlewareRequest, res:Response, next:NextFunction) => {
+  const id = req.user;
+
+  const user = await User.findByIdAndUpdate(id,{
+    $unset:{
+        accessToken: null
+    },
+},
+   {
+      new: true
+   }
+)
+ res.clearCookie('accessToken', {
+    httpOnly: true,
+    secure: true        
+});
+
+res.status(200).json({
+    message: "User LoggedOut Successfully!",
+    status:200,
+    user
+})
+
+}
+  

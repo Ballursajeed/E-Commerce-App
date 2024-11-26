@@ -1,3 +1,4 @@
+import exp from "constants";
 import { Request } from "express";
 
 // Extend Multer's File type
@@ -46,3 +47,11 @@ export interface loginUserRequest {
   }
 }
 
+
+export interface middlewareRequest extends Request{
+  user: string
+}
+
+export interface decodeMiddlewareType {
+  _id: string; iat: number; exp: number;
+}
