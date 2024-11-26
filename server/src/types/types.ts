@@ -1,5 +1,6 @@
 import exp from "constants";
 import { Request } from "express";
+import { IUser } from "../models/user.model";
 
 // Extend Multer's File type
 export interface MulterRequest extends Request {
@@ -26,6 +27,7 @@ export interface MulterRequest extends Request {
       stocks: number;
       owner: Document;
       };
+      user: Document;
   }
 
 export interface AvatarType {
@@ -62,8 +64,12 @@ export interface loginUserRequest {
 }
 
 
-export interface middlewareRequest extends Request{
+export interface middlewareValidateUserRequest extends Request{
   user: string
+}
+
+export interface middlewareIsAdminRequest extends Request{
+  user: IUser
 }
 
 export interface decodeMiddlewareType {
