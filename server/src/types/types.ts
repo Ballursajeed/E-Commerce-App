@@ -28,6 +28,7 @@ export interface MulterRequest extends Request {
       owner: Document;
       };
       user: Document;
+      userId: string;
   }
 
 export interface AvatarType {
@@ -69,7 +70,8 @@ export interface middlewareValidateUserRequest extends Request{
 }
 
 export interface middlewareIsAdminRequest extends Request{
-  user: IUser
+  user: IUser;
+  userId: string;
 }
 
 export interface decodeMiddlewareType {

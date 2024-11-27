@@ -62,7 +62,8 @@ export const isAdmin = async(req:middlewareIsAdminRequest,res:Response,next:Next
     }
     
     if (user.isAdmin === true) {
-        req.user = user
+        req.user = user 
+        req.userId = user._id
         next()
     }
 

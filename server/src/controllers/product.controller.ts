@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AvatarType, newProductRequest } from "../types/types";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { Product } from "../models/product.model";
+import { User } from "../models/user.model";
 
 export const getAllProducts = async(req:newProductRequest, res: Response, next:NextFunction) => {
    
@@ -77,6 +78,17 @@ export const addProduct = async(req:newProductRequest, res: Response, next:NextF
         image = await uploadOnCloudinary(fileBuffer) as AvatarType;  
     }
 
+    const id = req.userId 
+
+    const user = await User.findById(id);
+
+    if (!user) {
+        return res.status(404).json({
+            message: "User Not Found!",
+            success: false
+        })
+    }
+
     const product = await Product.create({
         name,
         price,
@@ -86,6 +98,9 @@ export const addProduct = async(req:newProductRequest, res: Response, next:NextF
         owner: req.user,
         image: image?.url || undefined
     });
+
+   user.products.push(product);
+   await user.save({ validateBeforeSave: false })
 
     return res.status(201).json({
         success: true,

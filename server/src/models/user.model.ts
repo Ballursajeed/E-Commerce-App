@@ -1,8 +1,9 @@
-import { Model, Document, model, Schema } from "mongoose";
+import mongoose, { Model, Document, model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export interface IUser extends Document {
+   _id: string;
    fullName: string;
    email: string;
    username: string;
@@ -10,6 +11,7 @@ export interface IUser extends Document {
    avatar?: string;
    isAdmin: Boolean;
    accessToken: string;
+   products:Document[];
    isPasswordCorrect: (password:string) => {};
    generateAccessToken:() => {}
 }
@@ -41,6 +43,12 @@ const userSchema = new Schema<IUser>(
     type: Boolean,
     default: false
   },
+  products:[
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Products"
+    }
+  ],
   accessToken: {
     type: String
   }
