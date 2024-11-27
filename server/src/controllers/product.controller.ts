@@ -49,8 +49,16 @@ export const getLatestProducts = async (req: newProductRequest, res:Response, ne
         success: true,
         products,
       });
-    }
+}
   
+export const getAllCategories = async(req: newProductRequest, res:Response, next:NextFunction) => {
+   const categories = await Product.distinct("category");
+
+  return res.status(200).json({
+    success: true,
+    categories,
+  });
+}
 
 export const addProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
     const { name, price, category, description, stocks } = req.body
