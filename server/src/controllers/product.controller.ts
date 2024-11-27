@@ -41,6 +41,17 @@ export const getSingleProduct = async(req:newProductRequest, res: Response, next
 
 }
 
+export const getLatestProducts = async (req: newProductRequest, res:Response, next:NextFunction) => {
+
+    const products = await Product.find({}).sort({ createdAt: -1 }).limit(5);
+  
+      return res.status(200).json({
+        success: true,
+        products,
+      });
+    }
+  
+
 export const addProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
     const { name, price, category, description, stocks } = req.body
 
