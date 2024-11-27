@@ -3,6 +3,17 @@ import { AvatarType, newProductRequest } from "../types/types";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { Product } from "../models/product.model";
 
+export const getAllProducts = async(req:newProductRequest, res: Response, next:NextFunction) => {
+   
+    const products = await Product.find();
+
+    return res.status(200).json({
+       message: "Products Fetched Successfully!",
+       success: true,
+       products
+    })
+}
+
 export const addProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
     const { name, price, category, description, stocks } = req.body
 
