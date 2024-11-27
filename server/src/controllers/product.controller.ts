@@ -14,6 +14,33 @@ export const getAllProducts = async(req:newProductRequest, res: Response, next:N
     })
 }
 
+export const getSingleProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({
+            message: "Please Pass Id",
+            success: false
+        })
+    }
+
+    const product = await Product.findById(id);
+
+    if (!product) {
+        return res.status(404).json({
+            message:"Product Not Found!",
+            success: false
+        })
+    }
+
+    return res.status(200).json({
+        message: "Product fetched Successfully!",
+        success:true,
+        product
+    })
+
+}
+
 export const addProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
     const { name, price, category, description, stocks } = req.body
 
