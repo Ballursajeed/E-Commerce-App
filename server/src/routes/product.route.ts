@@ -1,7 +1,7 @@
 import express from "express";
 import { upload } from "../middlewares/multer.middleware";
 import { isAdmin } from "../middlewares/auth";
-import { addProduct, deleteProduct, getAllCategories, getAllProducts, getLatestProducts, getSingleProduct, updateProduct } from "../controllers/product.controller";
+import { addProduct, deleteProduct, getAdminProducts, getAllCategories, getAllProducts, getLatestProducts, getSingleProduct, updateProduct } from "../controllers/product.controller";
 
 const route = express.Router()
 
@@ -9,6 +9,7 @@ route.route("/getAllProducts").get(getAllProducts as unknown as express.RequestH
 route.route("/getSingleProduct/:id").get(getSingleProduct as unknown as express.RequestHandler)
 route.route("/getLatestProducts").get(getLatestProducts as unknown as express.RequestHandler)
 route.route("/getAllCategories").get(getAllCategories as unknown as express.RequestHandler)
+route.route("/getAdminProducts").get(isAdmin as unknown as express.RequestHandler,getAdminProducts as unknown as express.RequestHandler )
 
 route.route("/newProduct").post(isAdmin as unknown as express.RequestHandler,upload.fields([
     {

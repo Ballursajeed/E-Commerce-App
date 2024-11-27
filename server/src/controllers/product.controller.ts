@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { AvatarType, newProductRequest } from "../types/types";
 import { uploadOnCloudinary } from "../utils/cloudinary";
-import { Product } from "../models/product.model";
-import { User } from "../models/user.model";
+import { IProduct, Product } from "../models/product.model";
+import { IUser, User } from "../models/user.model";
 
 export const getAllProducts = async(req:newProductRequest, res: Response, next:NextFunction) => {
    
@@ -59,6 +59,43 @@ export const getAllCategories = async(req: newProductRequest, res:Response, next
     success: true,
     categories,
   });
+}
+ 
+export const getAdminProducts = async(req: newProductRequest, res:Response, next:NextFunction) => {
+    const productsId = req.user.products;
+
+    if (productsId.length === 0) {
+        return res.status(404).json({
+            message: "You don not have any Products",
+            status: 404
+        })
+    }
+
+    const products = await Product.find({
+        _id: { $in: productsId },
+      })
+        .sort({ createdAt: -1 }) // Sort by createdAt in descending order (most recent first)
+        .lean();
+     
+       
+       let productWithUser = [];
+       for (let i = 0; i < products.length; i++) {
+         let product = products[i] as IProduct ;
+         let user:IUser
+         if (product?.owner) {
+           user = await User.findById(product.owner).lean() as IUser;
+           product.owner = user;
+           productWithUser.push(product);
+         }
+       }      
+ 
+ 
+   res.status(200).json({
+     message:"Fetched MY Blogs!",
+     status: 200,
+     products: productWithUser
+   })
+    
 }
 
 export const addProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {

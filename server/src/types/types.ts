@@ -27,7 +27,7 @@ export interface MulterRequest extends Request {
       stocks: number;
       owner: Document;
       };
-      user: Document;
+      user: IUser;
       userId: string;
   }
 
