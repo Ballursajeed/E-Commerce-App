@@ -77,7 +77,6 @@ export const getAdminProducts = async(req: newProductRequest, res:Response, next
         .sort({ createdAt: -1 }) // Sort by createdAt in descending order (most recent first)
         .lean();
      
-       
        let productWithUser = [];
        for (let i = 0; i < products.length; i++) {
          let product = products[i] as IProduct ;

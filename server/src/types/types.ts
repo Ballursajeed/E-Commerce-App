@@ -69,6 +69,10 @@ export interface middlewareValidateUserRequest extends Request{
   user: string
 }
 
+export interface addCartTypes extends Request {
+  user: string,
+}
+
 export interface middlewareIsAdminRequest extends Request{
   user: IUser;
   userId: string;
