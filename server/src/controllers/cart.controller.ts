@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from "express";
+import {  Response } from "express";
 import { Product } from "../models/product.model";
 import { Cart } from "../models/cart.models";
 import { addCartTypes } from "../types/types";
-import mongoose, { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 
-export const addItems = async(req:addCartTypes, res:Response, next:NextFunction) => {
+export const addItems = async(req:addCartTypes, res:Response) => {
        try {
         const { id,stocks } = req.body;
  
@@ -96,4 +96,79 @@ export const addItems = async(req:addCartTypes, res:Response, next:NextFunction)
         })
        }
 
+}
+
+export const deleteItem = async(req:addCartTypes, res:Response) => {
+    try {
+        const { id } = req.params;
+
+        // Validate product ID
+        if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                message: "Invalid or missing product ID",
+                success: false,
+            });
+        }
+
+        // Find the product
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found!",
+                success: false,
+            });
+        }
+
+        // Find the user's cart
+        const cart = await Cart.findOne({ customer: req.user });
+        if (!cart) {
+            return res.status(404).json({
+                message: "Cart not found!",
+                success: false,
+            });
+        }
+
+        // Check if the product exists in the cart
+        const productExists = cart.items.some((item) =>
+            item.toString() === id
+        );
+
+        if (!productExists) {
+            return res.status(404).json({
+                message: "Product not found in the cart!",
+                success: false,
+            });
+        }
+
+        // Remove the product from the cart
+        cart.items = cart.items.filter(
+            (item) => item.toString() !== id
+        );
+
+        // Update cart total
+
+        if (cart.total) {
+            cart.total -= product.price;
+            if (cart.total < 0) cart.total = 0; // Prevent negative total
+        }
+
+        await cart.save({ validateBeforeSave: false });
+
+        // Restore product stock
+        product.stocks++;
+        await product.save({ validateBeforeSave: false });
+
+        return res.status(200).json({
+            message: "Product removed from the cart successfully!",
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: "Something went wrong while deleting the item!",
+            success: false,
+        });
+    }
+     
 }
