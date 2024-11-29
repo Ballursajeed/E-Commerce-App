@@ -17,7 +17,7 @@ route.route("/newProduct").post(isAdmin as unknown as express.RequestHandler,upl
         maxCount: 1
     }
 ]),addProduct as unknown as express.RequestHandler);
-route.route("/update/:id").post(isAdmin as unknown as express.RequestHandler,upload.fields([
+route.route("/update/:id").put(isAdmin as unknown as express.RequestHandler,upload.fields([
     {
         name:"image",
         maxCount: 1
