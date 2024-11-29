@@ -172,3 +172,20 @@ export const deleteItem = async(req:addCartTypes, res:Response) => {
     }
      
 }
+
+export const getAllCart = async(req:addCartTypes, res:Response) =>{
+  const carts = await Cart.find({customer: req.user});
+
+  if (!carts) {
+    return res.status(404).json({
+        message: "You don't add any items to cart",
+        success: false
+      })
+  }
+
+  return res.status(200).json({
+    message: "Carts Fetched Successfully!",
+    success: true,
+    carts
+  })
+}
