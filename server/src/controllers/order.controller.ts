@@ -4,45 +4,98 @@ import { Order } from "../models/order.model";
 import { Cart } from "../models/cart.models";
 import { User } from "../models/user.model";
 
+import Stripe from "stripe";
+
+// Initialize Stripe with your secret key
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: "2024-11-20.acacia",
+});
+
 export const newOrder = async(req:newOrderRequestType,res:Response) => {
    try {
-     const { address,country,state,district,name,pincode,paymentMethod } = req.body;
- 
-     if (!address || !country || !state || !district || !name || !pincode || !paymentMethod) {
-         return res.status(400).json({
-             message: "All Fields are Required!",
-             success: false
-         });
-     }
- 
-     const userCart = await Cart.findOne({customer: req.user});
- 
-     if (!userCart) {
-         return res.status(404).json({
-             message: "User's cart not Found",
-             success: false
-         });
-     }
- 
-     const order = await Order.create({
-         address,
-         country,
-         state,
-         district,
-         name,
-         pincode,
-         paymentMethod,
-         totalAmount: userCart.total,
-         items: userCart.items,
-         customer: req.user,
- 
-     });
- 
-     return res.status(201).json({
-         message: "Order Created Successfully!",
-         success: true,
-         order
-     });
+    const { address, country, state, district, name, pincode, paymentMethod } = req.body;
+
+    // Validate input fields
+    if (!address || !country || !state || !district || !name || !pincode || !paymentMethod) {
+      return res.status(400).json({
+        message: "All Fields are Required!",
+        success: false,
+      });
+    }
+
+    // Check if user cart exists
+    const userCart = await Cart.findOne({ customer: req.user });
+
+    if (!userCart) {
+      return res.status(404).json({
+        message: "User's cart not Found",
+        success: false,
+      });
+    }
+
+    let totalAmount = userCart.total; // Assuming `total` is stored in the cart model
+
+    if (!totalAmount) {
+        totalAmount = 0;
+    }
+
+    // Handle Stripe payment for "card" payment method
+    if (paymentMethod === "card") {
+      // Create a Stripe PaymentIntent
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: totalAmount * 100, // Convert to smallest currency unit (e.g., cents for USD)
+        currency: "inr", 
+        payment_method_types: ["card"],
+        metadata: {
+          customerName: name,
+          address: `${address}, ${district}, ${state}, ${country}, ${pincode}`,
+          items: JSON.stringify(userCart.items), // Optionally include cart items
+        },
+      });
+
+      // Create an order with "pending" status
+      const order = await Order.create({
+        address,
+        country,
+        state,
+        district,
+        name,
+        pincode,
+        paymentMethod,
+        totalAmount,
+        items: userCart.items,
+        customer: req.user,
+        status: "pending", // Set initial status to "pending"
+      });
+
+      return res.status(201).json({
+        message: "Order Created Successfully! Proceed to Payment",
+        success: true,
+        clientSecret: paymentIntent.client_secret, // Send this to the frontend
+        order,
+      });
+    }
+
+    // For other payment methods (e.g., UPI, cash on delivery)
+    const order = await Order.create({
+      address,
+      country,
+      state,
+      district,
+      name,
+      pincode,
+      paymentMethod,
+      totalAmount,
+      items: userCart.items,
+      customer: req.user,
+      status: paymentMethod === "cash" ? "pending" : "processing", // Set status accordingly
+    });
+
+    return res.status(201).json({
+      message: "Order Created Successfully!",
+      success: true,
+      order,
+    });
    } catch (error) {
      return res.status(500).json({
         message:"Something Went Wrong!",
