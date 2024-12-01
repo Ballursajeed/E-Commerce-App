@@ -6,12 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginStart,loginSuccess } from '../../auth/authSlice.js';
 import './Register.css'
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import 'react-toastify/dist/ReactToastify.css'; 
 import Loading from '../Loader/Loader.tsx';
 
 interface ErrorResponse {
   message: string;
-  // Add any other properties your error response might have
 }
 
 const Register = () => {
