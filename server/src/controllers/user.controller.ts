@@ -152,4 +152,19 @@ res.status(200).json({
 })
 
 }
+export const checkAuth = async(req:middlewareValidateUserRequest,res:Response) => {
+  try {
+      const user = req.user; 
+      if (!user) {
+          return res.status(401).json({ message: "Not authenticated" });
+      }
+      res.status(200).json({ 
+          message:"User Authenticated",
+          success: true,
+          user
+       });
+  } catch (error) {
+      res.status(500).json({ message: "Server Error" });
+  }
+}
   
