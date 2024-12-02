@@ -4,12 +4,10 @@ import { useDispatch } from "react-redux";
 import { loginSuccess } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
-
-
 export const useCheckAuth = () => {
 
   const dispatch = useDispatch()
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const checkAuth = async(path: string) => {
     try {

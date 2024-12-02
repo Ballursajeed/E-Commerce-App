@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useCheckAuth } from "../../hooks/authCheck";
+import { useCheckAuth } from "../../hooks/useAuthCheck";
 
 const Cart = () => {
 
