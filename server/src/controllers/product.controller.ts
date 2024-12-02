@@ -6,13 +6,21 @@ import { IUser, User } from "../models/user.model";
 
 export const getAllProducts = async(req:newProductRequest, res: Response, next:NextFunction) => {
    
-    const products = await Product.find();
-
-    return res.status(200).json({
-       message: "Products Fetched Successfully!",
-       success: true,
-       products
-    })
+    try {
+        const products = await Product.find();
+    
+        return res.status(200).json({
+           message: "Products Fetched Successfully!",
+           success: true,
+           products
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "something went wrong, while fetching products!",
+            success: false,
+            error
+         })
+    }
 }
 
 export const getSingleProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
