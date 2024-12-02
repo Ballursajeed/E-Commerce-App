@@ -6,7 +6,7 @@
   }
   
   .right {
-    margin-left: 2rem;
+    margin-left: 100px;
     margin-right: 1rem;
     display: flex;
     flex-direction: column;
@@ -14,11 +14,12 @@
   }
   
   .left {
+    margin-left:40px ;
     display: flex;
     flex-direction: column;
     width: 20%; /* Increased width for better visibility */
     gap: 1.5rem;
-    padding: 1rem;
+    padding: 50px;
     border: 1px solid #ddd; /* Adds a subtle border */
     border-radius: 8px;
     background-color: #f9f9f9; /* Light background for contrast */
@@ -93,5 +94,20 @@
     font-size: 1rem;
     color: #007bff;
     cursor: pointer;
+  }
+
+  .latestProducts{
+    margin-top: 10px;
+    width: 80%;
+  }
+
+  .banner{
+    width: 78%;
+  }
+
+.products
+  {
+    margin-top: 5px;
+    padding: 30px
   }
   

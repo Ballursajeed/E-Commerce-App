@@ -1,6 +1,7 @@
 import { Slider } from "6pp";
 import Navbar from "../Navbar/Navbar"
 import "./Home.css"
+import GetProducts from "../GetProducts/GetProducts";
 
 const banners = [
   "https://res.cloudinary.com/dj5q966nb/image/upload/v1719253445/rmbjpuzctjdbtt8hewaz.png",
@@ -63,14 +64,19 @@ const Home = () => {
         
       </div>
       <div className="right">
-      <Slider
+     <div className="banner">
+     <Slider
             autoplay
             autoplayDuration={1500}
             showNav={false}
             images={banners}
           />
+     </div>
          <div className="latestProducts">
-            <h1>products</h1>
+            <h1>Latest Products</h1>
+            <div className="products">
+              <GetProducts />
+            </div>
          </div>
       </div>
     </div>
