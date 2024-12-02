@@ -90,6 +90,12 @@
     color: #007bff; /* Match hover effect with theme */
   }
   
+  #more{
+    margin-left: 1460px;
+    text-decoration: none;
+    color: rgb(83, 83, 208)
+  }
+
   .left aside .findmore {
     font-size: 1rem;
     color: #007bff;
@@ -102,7 +108,7 @@
   }
 
   .banner{
-    width: 78%;
+    width: 95%;
   }
 
 .products

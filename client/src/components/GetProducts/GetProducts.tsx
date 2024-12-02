@@ -36,7 +36,14 @@ const GetProducts = ({
    
      {
       product.map((product,index) => {
-             return <Product key={index} product={product}/>
+        if (limit) {
+          if (index < limit) {
+            return <Product key={index} product={product}/>
+          }
+        } else
+        return <Product key={index} product={product}/>
+        
+            
       })
      }
  

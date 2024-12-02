@@ -3,7 +3,7 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
-    width: 360px;
+    width: 340px;
   }
   
   /* On mouse-over, add a deeper shadow */
@@ -13,8 +13,8 @@
   
   .card img {
     border-radius: 5px 5px 0 0;
-    width: 360px;
-    height: 360px;
+    width: 340px;
+    height: 340px;
   }
 
   /* Add some padding inside the card container */

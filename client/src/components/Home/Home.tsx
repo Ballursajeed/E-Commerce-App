@@ -2,6 +2,7 @@ import { Slider } from "6pp";
 import Navbar from "../Navbar/Navbar"
 import "./Home.css"
 import GetProducts from "../GetProducts/GetProducts";
+import { Link } from "react-router-dom";
 
 const banners = [
   "https://res.cloudinary.com/dj5q966nb/image/upload/v1719253445/rmbjpuzctjdbtt8hewaz.png",
@@ -74,8 +75,9 @@ const Home = () => {
      </div>
          <div className="latestProducts">
             <h1>Latest Products</h1>
+            <Link to={"/products"} id="more">MORE</Link>
             <div className="products">
-              <GetProducts />
+              <GetProducts limit={4} />
             </div>
          </div>
       </div>
