@@ -1,0 +1,6 @@
+.productContainer{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
