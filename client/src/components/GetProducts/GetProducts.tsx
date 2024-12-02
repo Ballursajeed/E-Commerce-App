@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import Product from '../Product/Product'
+import SingleProduct from '../SingleProduct/SingleProduct'
 import "./GetProducts.css"
 import axios from 'axios'
 import { SERVER } from '../../constant'
 
 interface myPropTypes {
-  limit: number
+  limit?: number
 }
 
 const GetProducts = ({
@@ -38,12 +38,10 @@ const GetProducts = ({
       product.map((product,index) => {
         if (limit) {
           if (index < limit) {
-            return <Product key={index} product={product}/>
+            return <SingleProduct key={index} product={product}/>
           }
         } else
-        return <Product key={index} product={product}/>
-        
-            
+        return <SingleProduct key={index} product={product}/>
       })
      }
  

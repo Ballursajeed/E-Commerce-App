@@ -75,7 +75,7 @@ const Home = () => {
      </div>
          <div className="latestProducts">
             <h1>Latest Products</h1>
-            <Link to={"/products"} id="more">MORE</Link>
+            <Link to={"/view"} id="more">MORE</Link>
             <div className="products">
               <GetProducts limit={4} />
             </div>
