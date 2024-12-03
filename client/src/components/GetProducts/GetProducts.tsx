@@ -16,7 +16,7 @@ const GetProducts = ({
 
   useEffect(() => {
         const getProducts = async() => {
-              const res = await axios.get(`${SERVER}/product/getAllProducts`);
+              const res = await axios.get(`${SERVER}/product/getLatestProducts`);
               
               if (res.data.success) {
               console.log(res.data.products);
