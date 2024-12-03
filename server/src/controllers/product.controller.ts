@@ -24,29 +24,37 @@ export const getAllProducts = async(req:newProductRequest, res: Response, next:N
 }
 
 export const getSingleProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
-    const { id } = req.params;
-
-    if (!id) {
-        return res.status(400).json({
-            message: "Please Pass Id",
-            success: false
+    try {
+        const { id } = req.params;
+    
+        if (!id) {
+            return res.status(400).json({
+                message: "Please Pass Id",
+                success: false
+            })
+        }
+    
+        const product = await Product.findById(id);
+    
+        if (!product) {
+            return res.status(404).json({
+                message:"Product Not Found!",
+                success: false
+            })
+        }
+    
+        return res.status(200).json({
+            message: "Product fetched Successfully!",
+            success:true,
+            product
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "Something went wrong,while fetching a product!",
+            success:false,
+            error
         })
     }
-
-    const product = await Product.findById(id);
-
-    if (!product) {
-        return res.status(404).json({
-            message:"Product Not Found!",
-            success: false
-        })
-    }
-
-    return res.status(200).json({
-        message: "Product fetched Successfully!",
-        success:true,
-        product
-    })
 
 }
 

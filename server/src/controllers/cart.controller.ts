@@ -183,9 +183,27 @@ export const getAllCart = async(req:addCartTypes, res:Response) =>{
       })
   }
 
+  let productsId:any[] = [];
+
+  carts.forEach(element => {
+    element.items.forEach((item) => {
+        productsId.push(item)
+    })
+  });
+
+
+  const products = await Product.find({
+    _id: { $in: productsId },
+  })
+    .sort({ createdAt: -1 }) // Sort by createdAt in descending order (most recent first)
+    .lean();
+  console.log(products);
+  
+
   return res.status(200).json({
     message: "Carts Fetched Successfully!",
     success: true,
-    carts
+    carts,
+    products
   })
 }
