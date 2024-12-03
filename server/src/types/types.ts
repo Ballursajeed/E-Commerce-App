@@ -34,16 +34,16 @@ export interface MulterRequest extends Request {
   export interface newOrderRequestType extends Request {
     body:{
       name: string;
-    country: string;
-    status: string;
-    state: string;
-    district: String;
-    address: String;
-    pincode: String;
-    customer: IUser;
-    paymentMethod:string;
-    items: Document[];
-    totalAmount: string;   
+     country: string;
+     status: string;
+     state: string;
+     district: String;
+     address: String;
+     pincode: String;
+     customer: IUser;
+     paymentMethod:string;
+     items: Document[];
+     totalAmount: string;   
     } ,
     user: IUser,
   }
