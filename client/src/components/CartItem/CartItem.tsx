@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { productType } from "../SingleProduct/SingleProduct";
 import "./cartItem.css"
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { SERVER } from "../../constant";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CartItem = ({
     product
 }:productType) => {
 
     const [counter,setCounter] = useState(1);
-
+    const navigate = useNavigate()
 
     const counterNagativeHandler = () => {
         if (counter <= 1) {
@@ -22,6 +26,31 @@ const CartItem = ({
 
       console.log(product);
       
+    const handleBuy = () => {
+      navigate(`/order/${product._id}/${counter}`);
+    }  
+
+    const handleDelete = async() => {
+      const res = await axios.post(`${SERVER}/cart//delete/${product._id}`,{},{
+        withCredentials: true
+      })
+     if (res.data.success) {
+       console.log(res);
+       toast.success('Item Deleted Successfully!', {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        onClose: async () => { 
+          window.location.reload()
+      }
+    })
+     }
+      
+    }
+
 
   return (
     <div>
@@ -40,11 +69,18 @@ const CartItem = ({
             <p>quantity:{counter}</p>
             <button className="counterBtn" onClick={() => setCounter((prev) => prev+1)}>+</button>
           </div>
-          <button className="deletebtn deletebtn-delete">
-            <span>Delete</span>
-          </button>
+          <div className="delBuy">
+            <button onClick={handleBuy} className="buybtn buybtn-buy">
+              <span>Proceed to Buy</span>
+            </button>
+            <button onClick={handleDelete} className="deletebtn deletebtn-delete">
+              <span>Delete</span>
+            </button>
+          </div>
+          
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }

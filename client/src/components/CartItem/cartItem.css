@@ -1,6 +1,5 @@
 .item {
     display: flex;
-    justify-content: space-between;
     gap: 1rem;
     padding: 1rem 0;
     border-bottom: 1px solid #ddd;
@@ -13,14 +12,11 @@
     border: 1px solid #ddd;
     border-radius: 4px;
   }
-  
-  .itemRight {
-    flex: 1;
+
+  .itemRight{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
-  
 
   .info h1 {
     font-size: 2rem;
@@ -43,7 +39,8 @@
   .counter {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.9rem;
+    margin: 0;
   }
   
   .counter p {
@@ -73,8 +70,6 @@
   }
   
   .deletebtn {
-    margin-bottom: 0.3173rem;
-    margin-right: 800px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -93,3 +88,28 @@
     background-color: #b71c1c;
   }
   
+  .delBuy{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .buybtn {
+    margin-bottom: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #e0821d;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .buybtn:hover {
+    background-color: #e47129;
+  }
