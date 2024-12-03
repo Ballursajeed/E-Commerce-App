@@ -5,11 +5,11 @@ import "./ListProducts.css"
 
 const ListProducts = () => {
 
-    const [sort, setSort] = useState("");
+    // const [sort, setSort] = useState("");
     const [maxPrice, setMaxPrice] = useState(100); // Set a default max price
-  const [currentPrice, setCurrentPrice] = useState(50); // Example current price
+  // const [currentPrice, setCurrentPrice] = useState(50); // Example current price
 
-  const progressPercentage = (currentPrice / maxPrice) * 100;
+  // const progressPercentage = (currentPrice / maxPrice) * 100;
 
   return (
     <div>
