@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router-dom"
 import "./Product.css"
 
-interface productType {
+ interface productType {
    product:{
    _id:string,
    category: string,
@@ -17,8 +18,12 @@ interface productType {
 const SingleProduct = ({
     product
 }:productType) => {
+
+
+   const navigate = useNavigate()
+
   return (
-     <div className="card">
+     <div className="card" onClick={() => navigate(`/single/${product._id}`)}>
        <img src={`${product.image}`} alt="Avatar" />
        <div className="cardContainer">
          <div className="cardleft">
