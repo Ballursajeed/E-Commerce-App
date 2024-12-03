@@ -1,8 +1,10 @@
 /* General Navbar Styles */
+
 *{
   margin: 0;
   padding: 0;
 }
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -10,10 +12,10 @@
   background-color: #2c3e50;
   padding: 10px 20px;
   color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Logo Section */
@@ -23,7 +25,23 @@
   margin: 0;
 }
 
-/* Search Bar Section */
+/* Hamburger Icon */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Navbar Menu */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .navbar-search {
   flex: 1;
   display: flex;
@@ -38,7 +56,6 @@
   border: 1px solid #bdc3c7;
   border-radius: 4px 0 0 4px;
   font-size: 1rem;
-  outline: none;
 }
 
 .navbar-search .search-button {
@@ -51,19 +68,9 @@
   font-size: 1rem;
 }
 
-.navbar-search .search-button:hover {
-  background-color: #c0392b;
-}
-
-/* Buttons Section */
 .navbar-buttons {
   display: flex;
   gap: 10px;
-}
-
-.navbar-buttons .nav-btn a{
-  text-decoration: none;
-  color: white ;
 }
 
 .navbar-buttons .nav-btn {
@@ -79,4 +86,73 @@
 
 .navbar-buttons .nav-btn:hover {
   background-color: #1abc9c;
+}
+
+.navbar-buttons .nav-btn a {
+  text-decoration: none;
+  color: white;
+}
+
+/* Responsive Styles for Mobile Devices */
+@media screen and (max-width: 768px) {
+  .navbar {
+    display: flex;
+    align-items: end;
+    flex-direction: row;
+    background-color: #2c3e50;
+    padding: 10px 20px;
+    margin-bottom: 0px;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-logo h1{
+      margin-right: 280px;
+      width: 84px;
+      margin-left: 20px;
+  }
+
+  .navbar-logo{
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #34495e;
+    padding: 10px 0;
+  }
+
+  .navbar-menu.open {
+    display: flex;
+  }
+
+  .navbar-search {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  .navbar-search input {
+    width: 70%;
+  }
+
+  .navbar-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-buttons .nav-btn {
+    width: 90%;
+    text-align: center;
+  }
 }
