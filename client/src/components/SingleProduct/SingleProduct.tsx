@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import "./Product.css"
 
- interface productType {
+ export interface productType {
    product:{
    _id:string,
    category: string,

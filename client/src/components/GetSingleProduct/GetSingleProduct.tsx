@@ -5,7 +5,7 @@ import axios from "axios"
 import { SERVER } from "../../constant"
 import { useParams } from "react-router-dom"
 
-interface singleProductType {
+ export interface singleProductType {
   _id:string;
    category: string;
    createdAt: string;
