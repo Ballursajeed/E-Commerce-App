@@ -1,23 +1,4 @@
-.cart {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
-  
-  .cart h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #0f1111;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .item {
+.item {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
@@ -110,17 +91,5 @@
   
   .deletebtn:hover {
     background-color: #b71c1c;
-  }
-  
-  .subTotal {
-    margin-top: 1.5rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #0f1111;
-    text-align: center;
-  }
-  
-  .subTotal span {
-    color: #b12704; /* Red color for subtotal */
   }
   
