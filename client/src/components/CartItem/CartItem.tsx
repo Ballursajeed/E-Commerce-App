@@ -2,10 +2,15 @@ import { useState } from "react";
 import { productType } from "../SingleProduct/SingleProduct";
 import "./cartItem.css"
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { SERVER } from "../../constant";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+interface ErrorResponse {
+  message: string;
+}
+
 
 const CartItem = ({
     product
@@ -31,22 +36,39 @@ const CartItem = ({
     }  
 
     const handleDelete = async() => {
-      const res = await axios.post(`${SERVER}/cart//delete/${product._id}`,{},{
-        withCredentials: true
-      })
-     if (res.data.success) {
-       console.log(res);
-       toast.success('Item Deleted Successfully!', {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        onClose: async () => { 
-          window.location.reload()
+     try {
+       const res = await axios.post(`${SERVER}/cart//delete/${product._id}`,{},{
+         withCredentials: true
+       })
+      if (res.data.success) {
+        console.log(res);
+        toast.success('Item Deleted Successfully!', {
+         position: "top-center",
+         autoClose: 1000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         onClose: async () => { 
+           window.location.reload()
+       }
+     })
       }
-    })
+     } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>; // Explicitly assert the error type
+
+        console.log(axiosError.response); // Now TypeScript knows this exists
+        toast.error(
+          `${axiosError?.response?.data?.message || "Something went wrong!"}`,
+          {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          }
+        );
      }
       
     }
