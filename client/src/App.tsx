@@ -6,7 +6,7 @@ import Login from "./components/login/Login";
 import Cart from "./components/Cart/Cart";
 import ListProducts from "./components/ListProducts/ListProducts";
 import GetSingleProduct from "./components/GetSingleProduct/GetSingleProduct";
-import Navbar from "./components/Navbar/Navbar";
+import Order from "./components/Order/Order";
 
 function App() {
 
@@ -17,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register/>} />  
         <Route path="/login" element={<Login/>} />  
         <Route path="/cart" element={<Cart/>} />  
+        <Route path="/order/:id/:stocks" element={<Order/>} />  
         <Route path="/view" element={<ListProducts/>} />  
         <Route path="/single/:id" element={<GetSingleProduct/>} />  
       </Routes>

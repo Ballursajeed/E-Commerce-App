@@ -3,7 +3,9 @@ import Navbar from "../Navbar/Navbar"
 import "./GetSingleProduct.css"
 import axios from "axios"
 import { SERVER } from "../../constant"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
  export interface singleProductType {
   _id:string;
@@ -32,6 +34,7 @@ const GetSingleProduct = () => {
    updatedAt: '',
   });
   const [counter,setCounter] = useState(product.stocks);
+  const navigate = useNavigate();
 
   useEffect(() => {
         const singleProduct = async() => {
@@ -51,6 +54,39 @@ const GetSingleProduct = () => {
           setCounter((prev) => prev - 1)
 
         }
+  }
+
+  const addToCart = async() => {
+       const res = await axios.post(`${SERVER}/cart/addItems`,{
+        id,stocks: counter
+       },{
+        withCredentials:true
+       });
+       if (res.data.success) {
+        toast.success('Product Added to cart Successfully!', {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          onClose: () => {
+            navigate("/cart")
+          }
+      })
+       }
+       
+  }
+
+  const buyNow = async() => {
+    const res = await axios.post(`${SERVER}/cart/addItems`,{
+      id,stocks: counter
+     },{
+      withCredentials:true
+     })
+     if (res.data.success) {
+      navigate(`/order/${product._id}/${counter}`)
+     }
   }
 
   return (
@@ -81,8 +117,8 @@ const GetSingleProduct = () => {
         </div>
 
         <div className="buttons">
-            <button id="add">Add To Cart</button>
-            <button id="buy">Buy Now</button>
+            <button id="add" onClick={addToCart}>Add To Cart</button>
+            <button id="buy" onClick={buyNow}>Buy Now</button>
         </div>
 
         <div className="description">
@@ -91,6 +127,7 @@ const GetSingleProduct = () => {
         </div>
       </div>
     </div>
+    <ToastContainer />
     </>
   
   )
