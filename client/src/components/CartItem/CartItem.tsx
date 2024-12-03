@@ -29,8 +29,6 @@ const CartItem = ({
         }
       }
 
-      console.log(product);
-      
     const handleBuy = () => {
       navigate(`/order/${product._id}/${counter}`);
     }  

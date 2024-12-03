@@ -20,16 +20,13 @@
     width: 20%; /* Increased width for better visibility */
     gap: 1.5rem;
     padding: 50px;
-    border: 1px solid #ddd; /* Adds a subtle border */
-    border-radius: 8px;
     background-color: #f9f9f9; /* Light background for contrast */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    
   }
   
-  .left button {
+  .container #admin {
     background-color: #007bff; /* Primary button color */
     color: white;
-    padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -37,7 +34,7 @@
     text-align: center;
   }
   
-  .left button:hover {
+  .container #admin:hover {
     background-color: #0056b3; /* Darker shade on hover */
   }
   
@@ -116,5 +113,159 @@
   {
     margin-top: 5px;
     margin-left: 0px;
+  }
+
+  .categories {
+    position: relative;
+  }
+  
+  .categories h1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.5rem;
+  }
+  
+  /* Hamburger Icon */
+  .homeHamburger {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+    margin-right: 9px;
+    display: none; /* Hide by default */
+    display: inline;
+  }
+
+  @media only screen and (max-width: 768px) {
+    /* General container adjustments for mobile */
+    .container {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column; /* Stack content vertically */
+      gap: 1.5rem;
+      padding: 0 1rem; /* Add padding for better spacing on small screens */
+    }
+  
+    /* Left section (categories and seller button) */
+    .left {
+      width: 100%; /* Full width for mobile */
+      padding: 1rem;
+      margin-left: 0;
+      margin-right: 30px;
+      border-radius: 8px;
+      background-color: white;
+      display: none;
+    }
+  
+    .left button {
+      width: 100%; /* Full width for the button */
+      font-size: 0.9rem; /* Slightly smaller text for mobile */
+      padding: 0.5rem 1rem;
+    }
+  
+    .left aside .categories h1 {
+      font-size: 1.2rem; /* Slightly reduced for better fit */
+      margin-bottom: 1rem;
+    }
+  
+    .left aside .categories ul {
+      gap: 0.5rem; /* Reduced spacing between list items */
+    }
+  
+    .left aside .categories ul li {
+      font-size: 0.9rem; /* Smaller font size for readability */
+    }
+  
+    .left aside .categories ul li a {
+      font-size: 0.9rem; /* Match with the list item font size */
+    }
+  
+    /* Right section (banner and latest products) */
+    .right {
+      width: 100%; /* Full width on mobile */
+    }
+  
+    .banner {
+      width: 100%; /* Ensure banner spans full width */
+      margin-bottom: 1rem;
+    }
+  
+    .latestProducts {
+      width: 100%; /* Full width for product display */
+      margin: 0;
+    }
+  
+    .latestProducts h1 {
+      font-size: 1.2rem; /* Slightly smaller heading */
+    }
+  
+    #more {
+      margin-left: 0; /* Center-align 'MORE' link */
+      display: inline-block;
+      text-decoration: none;
+      color: rgb(83, 83, 208);
+      font-size: 0.9rem; /* Adjust font size for mobile */
+    }
+  
+    /* Products section */
+    .products {
+      display: grid; /* Use grid layout for better mobile presentation */
+      grid-template-columns: repeat(2, 1fr); /* Two columns for product display */
+      gap: 0.5rem; /* Spacing between products */
+      margin-top: 1rem;
+    }
+  
+    /* Navbar adjustments for mobile */
+    .navbar {
+      flex-direction: column; /* Stack items vertically */
+      padding: 0.5rem 1rem;
+    }
+  
+    .navbar-logo {
+      font-size: 1.5rem; /* Adjust font size */
+      text-align: center; /* Center-align the logo */
+    }
+  
+    .navbar-search {
+      margin: 0.5rem 0;
+      width: 100%; /* Full width search bar */
+    }
+  
+    .navbar-buttons {
+      display: flex;
+      flex-wrap: wrap; /* Wrap buttons to next line */
+      justify-content: center;
+      gap: 0.5rem;
+    }
+  
+    .nav-btn {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+    }
+  
+    /* Adjust Slider for mobile */
+    .slider {
+      width: 100%; /* Full width slider */
+      height: auto; /* Maintain aspect ratio */
+    }
+    .homeHamburger {
+      font-size: 1.7rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      margin-top: 0.2rem;
+      margin-right: 220px;
+      display: inline;
+    }
+    .categories ul {
+      display: none; /* Hide the list by default */
+    }
+  
+    .categories ul.active {
+      display: block; /* Show list when active */
+    }
   }
   
