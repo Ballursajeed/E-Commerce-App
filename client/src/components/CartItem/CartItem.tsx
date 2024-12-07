@@ -17,6 +17,7 @@ const CartItem = ({
 }:productType) => {
 
     const [counter,setCounter] = useState(1);
+    const [price,setPrice] = useState(product.price);
     const navigate = useNavigate()
 
     const counterNagativeHandler = () => {
@@ -25,8 +26,14 @@ const CartItem = ({
         }
         else{
           setCounter((prev) => prev - 1)
+          setPrice((prev) => prev - product.price)
       
         }
+      }
+
+      const counterAdd = () => {
+        setCounter((prev) => prev+1)
+        setPrice((prev) => prev + product.price)
       }
 
     const handleBuy = () => {
@@ -81,13 +88,13 @@ const CartItem = ({
         <div className="itemRight">
           <div className="info">
             <h1>{product.name}</h1>
-            <h3>Price: <span id="prc">${product.price}</span></h3>
+            <h3>Price: <span id="prc">${price}</span></h3>
             
           </div>
           <div className="counter">
             <button className="counterBtn" onClick={counterNagativeHandler}>-</button>
             <p>quantity:{counter}</p>
-            <button className="counterBtn" onClick={() => setCounter((prev) => prev+1)}>+</button>
+            <button className="counterBtn" onClick={counterAdd}>+</button>
           </div>
           <div className="delBuy">
             <button onClick={handleBuy} className="buybtn buybtn-buy">
