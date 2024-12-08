@@ -23,7 +23,9 @@ useEffect(() => {
       setProducts(res.data.products)
       setTotal(res.data.carts[0].total)
      }
-     
+     if (res.data.products.length === 0) {
+       setTotal(0);
+     }
    }
    getMyCart()
 },[])
