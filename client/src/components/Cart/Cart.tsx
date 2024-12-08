@@ -5,12 +5,22 @@ import "./Cart.css"
 import axios from "axios";
 import { SERVER } from "../../constant";
 import CartItem from "../CartItem/CartItem";
+import { useDispatch, useSelector } from "react-redux";
+import { setAmount } from "../../subTotal/subTotalSlice";
+
+interface stateType {
+  subTotal: {
+    amount: string;
+  };
+}
+
 
 const Cart = () => {
 
     const checkAuth = useCheckAuth();
-    const [total,setTotal] = useState(0);
     const [products,setProducts] = useState([])
+    const count = useSelector((state:stateType) => state.subTotal.amount);
+    const dispatch = useDispatch();
 
 useEffect(() => {
    checkAuth('/login');
@@ -21,10 +31,10 @@ useEffect(() => {
      console.log(res.data.carts);
      if (res.data.success) {
       setProducts(res.data.products)
-      setTotal(res.data.carts[0].total)
+      dispatch(setAmount(res.data.carts[0].total))
      }
      if (res.data.products.length === 0) {
-       setTotal(0);
+      dispatch(setAmount(0))
      }
    }
    getMyCart()
@@ -42,7 +52,7 @@ useEffect(() => {
       }
 
       <div className="subTotal">
-        <span>SubToal(1 item): ${total}</span>
+        <span>SubToal(1 item): ${count}</span>
       </div>
      </div>
     </>

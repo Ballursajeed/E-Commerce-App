@@ -6,6 +6,8 @@ import axios, { AxiosError } from "axios";
 import { SERVER } from "../../constant";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from "react-redux";
+import { decrementByAmount, incrementByAmount } from "../../subTotal/subTotalSlice";
 
 interface ErrorResponse {
   message: string;
@@ -18,7 +20,8 @@ const CartItem = ({
 
     const [counter,setCounter] = useState(1);
     const [price,setPrice] = useState(product.price);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const counterNagativeHandler = () => {
         if (counter <= 1) {
@@ -27,18 +30,19 @@ const CartItem = ({
         else{
           setCounter((prev) => prev - 1)
           setPrice((prev) => prev - product.price)
-      
+          dispatch(decrementByAmount(product.price))
         }
       }
 
       const counterAdd = () => {
         setCounter((prev) => prev+1)
         setPrice((prev) => prev + product.price)
+        dispatch(incrementByAmount(product.price))
       }
 
-    const handleBuy = () => {
-      navigate(`/order/${product._id}/${counter}`);
-    }  
+      const handleBuy = () => {
+       navigate(`/order/${product._id}/${counter}`);
+      }  
 
     const handleDelete = async() => {
      try {
@@ -46,17 +50,17 @@ const CartItem = ({
          withCredentials: true
        })
       if (res.data.success) {
-        console.log(res);
-        toast.success('Item Deleted Successfully!', {
-         position: "top-center",
-         autoClose: 1000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         onClose: async () => { 
-           window.location.reload()
-       }
+          console.log(res);
+          toast.success('Item Deleted Successfully!', {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          onClose: async () => { 
+            window.location.reload()
+          }
      })
       }
      } catch (error) {
