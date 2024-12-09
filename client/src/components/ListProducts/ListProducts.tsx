@@ -34,6 +34,14 @@ const ListProducts = () => {
        } 
   }
 
+  const priceSort = async(sort:string) => {
+    setIsAll(false)
+    const res = await axios.get(`${SERVER}/product/price/${sort}`);
+    if (res.data.success) {
+      setProducts(res.data.products)
+    } 
+  }
+
   return (
     <div>
       <Navbar />  
@@ -44,8 +52,8 @@ const ListProducts = () => {
       <div className="priceLong">
         <select>
           <option value="">None</option>
-          <option value="asc">Price (Low to High)</option>
-          <option value="dsc">Price (High to Low)</option>
+          <option value="asc" onClick={() => priceSort('asc')} >Price (Low to High)</option>
+          <option value="dsc" onClick={() => priceSort('dsc')}>Price (High to Low)</option>
         </select>
         <div className="price-range-container">
           <span>Max Price: {maxPrice || ""}</span>
