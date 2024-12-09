@@ -23,6 +23,43 @@ export const getAllProducts = async(req:newProductRequest, res: Response, next:N
     }
 }
 
+export const getSearchResults = async(req:Request,res:Response) => {
+   try {
+     const {search} = req.query;
+ 
+     if (!search) {
+         res.status(400).json({
+             message:"Search Query is Required!",
+             success: false
+         })
+     } 
+ 
+     const results = await Product.find({
+         name: { $regex: search, $options: "i" }, // 'i' makes it case-insensitive
+       });
+ 
+     if (!results) {
+         res.status(404).json({
+             message: "no Results Found!",
+             success: false
+         })
+     } 
+ 
+     res.status(200).json({
+         message: "Results Fetched!",
+         success: true,
+         products: results
+     })
+   } catch (error) {
+     res.status(500).json({
+        message: "Something Went Wrong!",
+        success: false,
+        error
+     })
+   }
+
+}
+
 export const getSingleProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
     try {
         const { id } = req.params;

@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
     origin: ['https://e-commerce-app-six-plum.vercel.app',"http://localhost:5173"],
-    credentials: true,  // Allow cookies and credentials,
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }))
