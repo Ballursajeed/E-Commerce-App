@@ -1,15 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GetProducts from '../GetProducts/GetProducts'
 import Navbar from '../Navbar/Navbar'
 import "./ListProducts.css"
+import axios from 'axios';
+import { SERVER } from '../../constant';
 
 const ListProducts = () => {
 
     // const [sort, setSort] = useState("");
     const [maxPrice, setMaxPrice] = useState(100); // Set a default max price
   // const [currentPrice, setCurrentPrice] = useState(50); // Example current price
-
+     const [categories,setCategory] = useState([]);
   // const progressPercentage = (currentPrice / maxPrice) * 100;
+    
+
+  useEffect(() => {
+      const fetchCategory = async() => {
+        const response = await axios.get(`${SERVER}/product/getAllCategories`);
+        if (response.data.success) {
+            setCategory(response.data.categories)
+        }
+      }    
+      fetchCategory()
+  },[])
 
   return (
     <div>
@@ -37,8 +50,11 @@ const ListProducts = () => {
         <span>Category</span>
         <select>
           <option>All</option>
-          <option>Phone</option>
-          <option>Books</option>
+          {/* <option>Phone</option>
+          <option>Books</option> */}
+          {
+            categories.map((category) => <option>{category}</option> )
+          }
         </select>
       </div>
     </div>

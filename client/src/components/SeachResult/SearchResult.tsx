@@ -73,12 +73,12 @@ const SearchResult = () => {
     <>
      <h1 id="empty">No Results Found!</h1>
     </> : 
-    (
+     (
         products.map((product,index) => {
     
             return <SingleProduct key={index} product={product}/>
           })
-    ) 
+     ) 
      }
      </div>
     </div>
