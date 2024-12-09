@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface stateType {
   auth: {
@@ -10,11 +10,27 @@ interface stateType {
 }
 
 const Navbar = () => {
+  
   const user = useSelector((state: stateType) => state.auth.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
+  };
+
+  const handleSearch = async () => {
+    if (!searchValue.trim()) {
+      alert("Please enter a search term.");
+      return;
+    }
+
+    try {
+      navigate(`/search?query=${searchValue}`);
+    } catch (error) {
+      console.error("Error during search:", error);
+    }
   };
 
   return (
@@ -29,8 +45,8 @@ const Navbar = () => {
         
         <div className={`navbar-menu ${isMenuOpen ? "open" : ""}`}>
           <div className="navbar-search">
-            <input type="text" placeholder="Search for products..." />
-            <button className="search-button">Search</button>
+            <input type="text" onChange={(e) => setSearchValue(e.target.value)} placeholder="Search for products..." />
+            <button onClick={handleSearch} className="search-button">Search</button>
           </div>
           <div className="navbar-buttons">
             <button className="nav-btn">

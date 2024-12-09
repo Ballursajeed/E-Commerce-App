@@ -7,6 +7,7 @@ import Cart from "./components/Cart/Cart";
 import ListProducts from "./components/ListProducts/ListProducts";
 import GetSingleProduct from "./components/GetSingleProduct/GetSingleProduct";
 import CheckOut from "./components/CheckOut/CheckOut";
+import SearchResult from "./components/SeachResult/SearchResult";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/order/:id/:stocks" element={<CheckOut/>} />  
         <Route path="/view" element={<ListProducts/>} />  
         <Route path="/single/:id" element={<GetSingleProduct/>} />  
+        <Route path="/search" element={<SearchResult />} />
       </Routes>
     </>
   )

@@ -10,6 +10,7 @@ export const useCheckAuth = () => {
   const navigate = useNavigate();
 
   const checkAuth = async(path: string) => {
+
     try {
       const response = await axios.get(`${SERVER}/user/me`, {
           withCredentials: true
@@ -20,13 +21,13 @@ export const useCheckAuth = () => {
           user:response.data?.user,
           token: response.data?.user?.accessToken
          }))
-           
       }
-     
+
   } catch (error) {
       console.error('Failed to fetch user details:', error);
       navigate(`${path}`)
   }
+  
 }
 
 return checkAuth;
