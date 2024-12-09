@@ -110,6 +110,7 @@ export const getAllCategories = async(req: newProductRequest, res:Response, next
    const categories = await Product.distinct("category");
 
   return res.status(200).json({
+    message: "Category fetched Successfully!",
     success: true,
     categories,
   });
