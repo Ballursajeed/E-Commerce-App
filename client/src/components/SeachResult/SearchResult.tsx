@@ -18,8 +18,15 @@ const SearchResult = () => {
             try {
               const response = await axios.get(`${SERVER}/product/search?search=${query}`);
               setProducts(response.data.products);
+
+              if (response.data.products.length === 0) {
+                 setProducts([]);
+                 console.log("I am Here!");
+              }
+
             } catch (error) {
               console.error('Error fetching search results:', error);
+
             }
           };
       
@@ -58,16 +65,24 @@ const SearchResult = () => {
     </div>
   </div>
       <div className="listRight">
-      <h1>Products</h1>
-  <div className='productContainer'> {
-      products.map((product,index) => {
+      <h1>Products:</h1>
+  <div className='productContainer'> 
     
-        return <SingleProduct key={index} product={product}/>
-      })
-     }</div>
-         
-      </div>
+    {
+    products.length === 0 ?
+    <>
+     <h1 id="empty">No Results Found!</h1>
+    </> : 
+    (
+        products.map((product,index) => {
+    
+            return <SingleProduct key={index} product={product}/>
+          })
+    ) 
+     }
+     </div>
     </div>
+   </div>
     
   </div>
   )

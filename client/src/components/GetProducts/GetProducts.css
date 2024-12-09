@@ -6,6 +6,10 @@
     padding: 0px;
     width: 400px;
   }
+
+  .productContainer #empty {
+    margin-left: 80px;
+  }
   
   .productContainer > div {
     /* Optional: Add styles for individual product cards */
