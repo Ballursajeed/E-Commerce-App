@@ -4,6 +4,7 @@ import Navbar from '../Navbar/Navbar'
 import "./ListProducts.css"
 import axios from 'axios';
 import { SERVER } from '../../constant';
+import SingleProduct from '../SingleProduct/SingleProduct';
 
 const ListProducts = () => {
 
@@ -11,8 +12,9 @@ const ListProducts = () => {
     const [maxPrice, setMaxPrice] = useState(100); // Set a default max price
   // const [currentPrice, setCurrentPrice] = useState(50); // Example current price
      const [categories,setCategory] = useState([]);
+     const [products,setProducts] = useState([]);
+     const [isAll,setIsAll] = useState(true);
   // const progressPercentage = (currentPrice / maxPrice) * 100;
-    
 
   useEffect(() => {
       const fetchCategory = async() => {
@@ -23,6 +25,14 @@ const ListProducts = () => {
       }    
       fetchCategory()
   },[])
+
+  const categoryHandler = async(category:string) => {
+       setIsAll(false)
+       const res = await axios.get(`${SERVER}/product/getProductByCategory/${category}`);
+       if (res.data.success) {
+         setProducts(res.data.products)
+       } 
+  }
 
   return (
     <div>
@@ -49,18 +59,31 @@ const ListProducts = () => {
         </div>
         <span>Category</span>
         <select>
-          <option>All</option>
-          {/* <option>Phone</option>
-          <option>Books</option> */}
+          <option onClick={() => setIsAll(true)}>All</option>
           {
-            categories.map((category) => <option>{category}</option> )
+            categories.map(
+              (category) => 
+              <option onClick={() => categoryHandler(category)}>
+                {category}
+              </option> )
           }
         </select>
       </div>
     </div>
         <div className="listRight">
             <h1>Products</h1>
-          <GetProducts />
+            {
+              isAll ?  <GetProducts /> :  
+              <div className='productContainer'>
+                {
+                products.map((product,index) => {
+                  
+                  return <SingleProduct key={index} product={product}/>
+                })
+                }
+             </div> 
+            }
+         
         </div>
       </div>
       
