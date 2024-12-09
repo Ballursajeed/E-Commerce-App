@@ -136,6 +136,46 @@ export const getProductByCategory = async(req:Request,res:Response) => {
     })
 
 }
+
+export const getProductByPrice = async(req:Request,res:Response) => {
+    const { sort } = req.params;
+
+    if (sort === 'asc') {
+        const products = await Product.find().sort({ price : 1 });
+
+        if (!products) {
+            res.status(404).json({
+                message: "Products Not Found!",
+                success: false
+            })
+        }
+
+        res.status(200).json({
+            message: "Product Fetched Successfully!",
+            success: true,
+            products
+        })
+
+    } 
+    if (sort === 'dsc') {
+        const products = await Product.find().sort({ price : -1 });
+
+        if (!products) {
+            res.status(404).json({
+                message: "Products Not Found!",
+                success: false
+            })
+        }
+
+        res.status(200).json({
+            message: "Product Fetched Successfully!",
+            success: true,
+            products
+        })
+
+    } 
+
+}
  
 export const getAdminProducts = async(req: newProductRequest, res:Response, next:NextFunction) => {
     const productsId = req.user.products;
