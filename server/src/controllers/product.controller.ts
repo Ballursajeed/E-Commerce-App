@@ -41,7 +41,8 @@ export const getSearchResults = async(req:Request,res:Response) => {
      if (!results) {
          res.status(404).json({
              message: "no Results Found!",
-             success: false
+             success: false,
+             products: [],
          })
      } 
  
@@ -112,6 +113,27 @@ export const getAllCategories = async(req: newProductRequest, res:Response, next
     success: true,
     categories,
   });
+}
+
+export const getProductByCategory = async(req:Request,res:Response) => {
+    const { category } = req.params;
+
+    const products = await Product.find({category});
+
+    if (!products) {
+        res.status(404).json({
+            message: "Products Not Found!",
+            success: false,
+            products,
+        })
+    }
+
+    res.status(200).json({
+        message: "Products Fetched!",
+        success: true,
+        products
+    })
+
 }
  
 export const getAdminProducts = async(req: newProductRequest, res:Response, next:NextFunction) => {
