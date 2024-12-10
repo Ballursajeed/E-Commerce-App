@@ -216,6 +216,7 @@
       flex-direction: row; /* Two columns for product display */
       gap: 0.5rem; /* Spacing between products */
       margin-top: 1rem;
+      margin-left: 23px;
     }
   
     /* Navbar adjustments for mobile */
