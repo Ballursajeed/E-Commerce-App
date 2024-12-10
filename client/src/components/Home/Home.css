@@ -184,12 +184,14 @@
   
     /* Right section (banner and latest products) */
     .right {
-      width: 100%; /* Full width on mobile */
+      width: 100%;
+      margin: 0; /* Full width on mobile */
     }
   
     .banner {
       width: 100%; /* Ensure banner spans full width */
       margin-bottom: 1rem;
+      margin-right: 100px;
     }
   
     .latestProducts {

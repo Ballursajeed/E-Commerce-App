@@ -8,13 +8,10 @@ import SingleProduct from '../SingleProduct/SingleProduct';
 
 const ListProducts = () => {
 
-    // const [sort, setSort] = useState("");
-    const [maxPrice, setMaxPrice] = useState(100000); // Set a default max price
-  // const [currentPrice, setCurrentPrice] = useState(50); // Example current price
+     const [maxPrice, setMaxPrice] = useState(100000); 
      const [categories,setCategory] = useState([]);
      const [products,setProducts] = useState([]);
      const [isAll,setIsAll] = useState(true);
-  // const progressPercentage = (currentPrice / maxPrice) * 100;
 
   useEffect(() => {
       const fetchCategory = async() => {
