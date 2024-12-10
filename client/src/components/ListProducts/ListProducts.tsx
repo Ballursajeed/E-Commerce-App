@@ -9,7 +9,7 @@ import SingleProduct from '../SingleProduct/SingleProduct';
 const ListProducts = () => {
 
     // const [sort, setSort] = useState("");
-    const [maxPrice, setMaxPrice] = useState(100); // Set a default max price
+    const [maxPrice, setMaxPrice] = useState(100000); // Set a default max price
   // const [currentPrice, setCurrentPrice] = useState(50); // Example current price
      const [categories,setCategory] = useState([]);
      const [products,setProducts] = useState([]);
@@ -42,6 +42,16 @@ const ListProducts = () => {
     } 
   }
 
+  const maxPriceSorting  = async(price:Number) => {
+    setIsAll(false)
+
+    const res = await axios.get(`${SERVER}/product/price/${price}`);
+    if (res.data.success) {
+      setProducts(res.data.products)
+    } 
+
+  }
+
   return (
     <div>
       <Navbar />  
@@ -51,7 +61,7 @@ const ListProducts = () => {
       <span>Sort</span>
       <div className="priceLong">
         <select>
-          <option value="">None</option>
+          <option value="" onClick={() => setIsAll(true)}>None</option>
           <option value="asc" onClick={() => priceSort('asc')} >Price (Low to High)</option>
           <option value="dsc" onClick={() => priceSort('dsc')}>Price (High to Low)</option>
         </select>
@@ -64,6 +74,7 @@ const ListProducts = () => {
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
           />
+          <button onClick={() => maxPriceSorting(maxPrice)}>Go</button>
         </div>
         <span>Category</span>
         <select>
