@@ -175,6 +175,26 @@ export const getProductByPrice = async(req:Request,res:Response) => {
 
     } 
 
+    if (typeof sort === 'string') { //for sorting by Max Price
+                const products = await Product.find({});
+                const filteredProducts = products.filter((product) => product.price < Number(sort));
+                
+                if (!filteredProducts) {
+                    res.status(404).json({
+                        message: "No Products Found!",
+                        success: false,
+                        products: filteredProducts
+                    })
+                }
+
+                res.status(200).json({
+                    message: "Products Fetched!",
+                    success: true,
+                    products: filteredProducts
+                })
+
+    } 
+
 }
  
 export const getAdminProducts = async(req: newProductRequest, res:Response, next:NextFunction) => {
