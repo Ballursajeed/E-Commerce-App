@@ -122,7 +122,7 @@
 
   .hamburger {
     display: block;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
   }
 
   .navbar-menu {
@@ -135,6 +135,10 @@
 
   .navbar-menu.open {
     display: flex;
+    width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 0;
   }
 
   .navbar-search {
@@ -154,5 +158,6 @@
   .navbar-buttons .nav-btn {
     width: 90%;
     text-align: center;
+    border: 0.127rem solid #2c3e50;
   }
 }
