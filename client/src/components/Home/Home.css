@@ -191,7 +191,6 @@
     .banner {
       width: 100%; /* Ensure banner spans full width */
       margin-bottom: 1rem;
-      margin-right: 100px;
     }
   
     .latestProducts {
@@ -213,8 +212,8 @@
   
     /* Products section */
     .products {
-      display: grid; /* Use grid layout for better mobile presentation */
-      grid-template-columns: repeat(2, 1fr); /* Two columns for product display */
+      display: flex; /* Use grid layout for better mobile presentation */
+      flex-direction: row; /* Two columns for product display */
       gap: 0.5rem; /* Spacing between products */
       margin-top: 1rem;
     }
