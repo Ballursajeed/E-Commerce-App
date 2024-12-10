@@ -199,7 +199,8 @@
     }
   
     .latestProducts h1 {
-      font-size: 1.2rem; /* Slightly smaller heading */
+      font-size: 1.2rem;
+      margin-bottom: 13px;
     }
   
     #more {
@@ -215,7 +216,7 @@
       display: flex; /* Use grid layout for better mobile presentation */
       flex-direction: row; /* Two columns for product display */
       gap: 0.5rem; /* Spacing between products */
-      margin-top: 1rem;
+      margin-top: 0.001rem;
       margin-left: 23px;
     }
   
