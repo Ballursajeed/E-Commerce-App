@@ -138,62 +138,84 @@ export const getProductByCategory = async(req:Request,res:Response) => {
 }
 
 export const getProductByPrice = async(req:Request,res:Response) => {
-    const { sort } = req.params;
+    try {
+        const { sort } = req.params;
+    
+        if (sort === 'asc') {
+            const products = await Product.find().sort({ price : 1 });
+    
+            if (!products) {
+               return res.status(404).json({
+                    message: "Products Not Found!",
+                    success: false
+                })
+            }
 
-    if (sort === 'asc') {
-        const products = await Product.find().sort({ price : 1 });
-
-        if (!products) {
-            res.status(404).json({
-                message: "Products Not Found!",
-                success: false
+            if (products.length === 0) {
+               return res.status(404).json({
+                    message: "Products Not Found!",
+                    success: false
+                })
+            }
+    
+           return res.status(200).json({
+                message: "Product Fetched Successfully!",
+                success: true,
+                products
             })
-        }
+    
+        } 
+        if (sort === 'dsc') {
+            const products = await Product.find().sort({ price : -1 });
+    
+            if (!products) {
+               return res.status(404).json({
+                    message: "Products Not Found!",
+                    success: false
+                })
+            }
 
-        res.status(200).json({
-            message: "Product Fetched Successfully!",
-            success: true,
-            products
-        })
-
-    } 
-    if (sort === 'dsc') {
-        const products = await Product.find().sort({ price : -1 });
-
-        if (!products) {
-            res.status(404).json({
-                message: "Products Not Found!",
-                success: false
+            if (products.length === 0) {
+               return res.status(404).json({
+                    message: "Products Not Found!",
+                    success: false
+                })
+            }
+    
+            return res.status(200).json({
+                message: "Product Fetched Successfully!",
+                success: true,
+                products
             })
-        }
-
-        res.status(200).json({
-            message: "Product Fetched Successfully!",
-            success: true,
-            products
-        })
-
-    } 
-
-    if (typeof sort === 'string') { //for sorting by Max Price
-                const products = await Product.find({});
-                const filteredProducts = products.filter((product) => product.price < Number(sort));
-                
-                if (!filteredProducts) {
-                    res.status(404).json({
-                        message: "No Products Found!",
-                        success: false,
+    
+        } 
+    
+        if (typeof sort === 'string') { //for sorting by Max Price
+                    const products = await Product.find({});
+                    const filteredProducts = products.filter((product) => product.price < Number(sort));
+                    
+                    if (!filteredProducts) {
+                        return res.status(404).json({
+                            message: "No Products Found!",
+                            success: false,
+                            products: filteredProducts
+                        })
+                    }
+    
+                    return res.status(200).json({
+                        message: "Products Fetched!",
+                        success: true,
                         products: filteredProducts
                     })
-                }
-
-                res.status(200).json({
-                    message: "Products Fetched!",
-                    success: true,
-                    products: filteredProducts
-                })
-
-    } 
+    
+        } 
+    } catch (error) {
+        res.status(500).json({
+            message: "Something Went Wrong!",
+            success:false,
+            error
+        })
+    }
 
 }
  

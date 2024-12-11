@@ -79,4 +79,4 @@ userSchema.methods.isPasswordCorrect = async function(password:string) {
 }
 
 
- export const User: Model<IUser> = model("User",userSchema);
+export const User: Model<IUser> = model("User",userSchema);
