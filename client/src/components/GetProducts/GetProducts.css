@@ -22,9 +22,9 @@
   @media only screen and (max-width: 768px) {
     .productContainer {
       display: flex;
-     flex-direction: column; /* 4 products per row */
+      flex-direction: column; /* 4 products per row */
       gap: 2rem; /* Spacing between the products */
       padding: 0px;
-      width: 400px;
+      width: 300px;
     }
   }
