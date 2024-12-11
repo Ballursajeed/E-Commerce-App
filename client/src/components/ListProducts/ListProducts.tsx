@@ -12,6 +12,7 @@ const ListProducts = () => {
      const [categories,setCategory] = useState([]);
      const [products,setProducts] = useState([]);
      const [isAll,setIsAll] = useState(true);
+     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
       const fetchCategory = async() => {
@@ -21,7 +22,11 @@ const ListProducts = () => {
         }
       }    
       fetchCategory()
-  },[])
+  },[]);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   const categoryHandler = async(category:string) => {
        setIsAll(false)
@@ -53,7 +58,10 @@ const ListProducts = () => {
     <div>
       <Navbar />  
       <div className="listContainer">
-      <div className="listLeft">
+      <button id='ham' className="listhHamburger" onClick={toggleMenu}>
+      <span className="icon">🔍</span> Filters
+      </button>
+      <div className = {`listLeft ${isMenuOpen ? "open" : ""}`}>
       <h1>FILTER</h1>
       <span>Sort</span>
       <div className="priceLong">
@@ -86,6 +94,7 @@ const ListProducts = () => {
         </select>
       </div>
     </div>
+   
         <div className="listRight">
             <h1>Products</h1>
             {
