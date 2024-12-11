@@ -52,21 +52,41 @@ const SearchResult = () => {
    setIsMenuOpen((prev) => !prev);
  };
 
- const categoryHandler = async(category:string) => {
-      setIsAll(false)
+ const handlePriceSortChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const sort = e.target.value;
+  if (sort === "") {
+    setIsAll(true);
+  } else {
+    setIsAll(false);
+    try {
+      const res = await axios.get(`${SERVER}/product/price/${sort}`);
+      if (res.data.success) {
+        console.log("Price sort:", res.data);
+        setProducts(res.data.products);
+      }
+    } catch (error) {
+      console.error("Error fetching price-sorted products:", error);
+    }
+  }
+};
+
+const handleCategoryChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const category = e.target.value;
+  if (category === "All") {
+    setIsAll(true);
+  } else {
+    setIsAll(false);
+    try {
       const res = await axios.get(`${SERVER}/product/getProductByCategory/${category}`);
       if (res.data.success) {
-        setProducts(res.data.products)
-      } 
- }
-
- const priceSort = async(sort:string) => {
-   setIsAll(false)
-   const res = await axios.get(`${SERVER}/product/price/${sort}`);
-   if (res.data.success) {
-     setProducts(res.data.products)
-   } 
- }
+        console.log("Category sort:", res.data);
+        setProducts(res.data.products);
+      }
+    } catch (error) {
+      console.error("Error fetching category-sorted products:", error);
+    }
+  }
+};
 
  const maxPriceSorting  = async(price:Number) => {
    setIsAll(false)
@@ -90,10 +110,10 @@ const SearchResult = () => {
       <h1>FILTER</h1>
       <span>Sort</span>
       <div className="priceLong">
-        <select>
+        <select onChange={handlePriceSortChange}>
           <option value="" onClick={() => setIsAll(true)}>None</option>
-          <option value="asc" onClick={() => priceSort('asc')} >Price (Low to High)</option>
-          <option value="dsc" onClick={() => priceSort('dsc')}>Price (High to Low)</option>
+          <option value="asc" >Price (Low to High)</option>
+          <option value="dsc" >Price (High to Low)</option>
         </select>
         <div className="price-range-container">
           <span>Max Price: {maxPrice || ""}</span>
@@ -107,18 +127,19 @@ const SearchResult = () => {
           <button onClick={() => maxPriceSorting(maxPrice)}>Go</button>
         </div>
         <span>Category</span>
-        <select>
+        <select onChange={handleCategoryChange}>
           <option onClick={() => setIsAll(true)}>All</option>
           {
             categories.map(
               (category) => 
-              <option onClick={() => categoryHandler(category)}>
+              <option>
                 {category}
               </option> )
           }
         </select>
       </div>
     </div>
+   
       <div className="listRight">
       <h1>Products:</h1>
     
