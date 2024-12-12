@@ -94,6 +94,9 @@ const GetSingleProduct = () => {
       <Navbar />
     <div className="singleProduct">
       <div className="singleLeft">
+      <div className="left-name">
+            <h1>{product.name}</h1>
+        </div>
         <div className="image">
             <img src={product.image} alt="hello" />
         </div>
@@ -115,7 +118,12 @@ const GetSingleProduct = () => {
         <div className="avaible">
           <span>In Stocks</span>
         </div>
-
+        <div className="right-quantity">
+          <button className="counterBtn" onClick={counterNagativeHandler}>-</button>
+          <p>quantity:{counter}</p>
+          <button className="counterBtn" onClick={() => setCounter((prev) => prev+1)}>+</button>
+        </div>
+        <span id="right-span">Available: {product.stocks - counter}</span>
         <div className="buttons">
             <button id="add" onClick={addToCart}>Add To Cart</button>
             <button id="buy" onClick={buyNow}>Buy Now</button>
