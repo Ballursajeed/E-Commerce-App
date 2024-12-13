@@ -107,6 +107,11 @@
     color: green;
   }
 
+  .singleRight .avaible #outStock{
+    font-size: 36px;
+    color: red;
+  }
+
   .singleRight .name h1 {
     font-size: 1.4rem;
     font-weight: 500;

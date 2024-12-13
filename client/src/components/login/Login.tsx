@@ -10,7 +10,7 @@ import Loading from '../Loader/Loader.jsx';
 import '../Register/Register.css'
 
 
-interface ErrorResponse {
+export interface ErrorResponse {
   message: string;
 }
 

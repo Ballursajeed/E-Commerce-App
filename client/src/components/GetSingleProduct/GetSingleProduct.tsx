@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import Navbar from "../Navbar/Navbar"
 import "./GetSingleProduct.css"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { SERVER } from "../../constant"
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import { ErrorResponse } from "../login/Login"
 
  export interface singleProductType {
   _id:string;
@@ -57,24 +58,41 @@ const GetSingleProduct = () => {
   }
 
   const addToCart = async() => {
-       const res = await axios.post(`${SERVER}/cart/addItems`,{
-        id,stocks: counter
-       },{
-        withCredentials:true
-       });
-       if (res.data.success) {
-        toast.success('Product Added to cart Successfully!', {
+      try {
+         const res = await axios.post(`${SERVER}/cart/addItems`,{
+          id,stocks: counter
+         },{
+          withCredentials:true
+         });
+         if (res.data.success) {
+          toast.success('Product Added to cart Successfully!', {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            onClose: () => {
+              navigate("/cart")
+            }
+        })
+         }
+      } catch (error) {
+         
+        const axiosError = error as AxiosError<ErrorResponse>; // Explicitly assert the error type
+
+        console.log(axiosError.response); // Now TypeScript knows this exists
+        toast.error(
+          `${axiosError?.response?.data?.message || "Something went wrong!"}`,
+          {
           position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          onClose: () => {
-            navigate("/cart")
-          }
-      })
-       }
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+        })
+      }
        
   }
 
@@ -116,7 +134,10 @@ const GetSingleProduct = () => {
             ${product.price}
         </div>
         <div className="avaible">
-          <span>In Stocks</span>
+          {
+            product.stocks <= 0 ? <span id="outStock">Out Of Stocks</span> : <span>In Stocks</span>
+          }
+          
         </div>
         <div className="right-quantity">
           <button className="counterBtn" onClick={counterNagativeHandler}>-</button>
