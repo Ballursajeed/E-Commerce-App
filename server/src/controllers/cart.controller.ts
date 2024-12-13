@@ -17,7 +17,7 @@ export const addItems = async(req:addCartTypes, res:Response) => {
          });
         }
  
-        if (product.stocks < 0) {
+        if (product.stocks <= 0) {
          return res.status(409).json({
              message: "Product is out of Stocks!",
              success: false
