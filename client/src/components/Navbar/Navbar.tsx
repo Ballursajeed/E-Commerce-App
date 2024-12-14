@@ -60,12 +60,12 @@ const Navbar = () => {
               )}
             </button>
             <button className="nav-btn">
-               <Link to={'/admin'}>become a seller</Link>
+               <Link to={'/become-admin'}>become a seller</Link>
             </button>
             <button className="nav-btn">
               <Link to={"/myOrder"}>Orders</Link>
             </button>
-            <button className="nav-btn">
+            <button className="nav-btn">.
               <Link to={"/cart"}>Cart</Link>
             </button>
           </div>

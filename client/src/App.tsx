@@ -8,6 +8,8 @@ import ListProducts from "./components/ListProducts/ListProducts";
 import GetSingleProduct from "./components/GetSingleProduct/GetSingleProduct";
 import CheckOut from "./components/CheckOut/CheckOut";
 import SearchResult from "./components/SeachResult/SearchResult";
+import NewAdmin from "./components/NewAdmin/NewAdmin";
+import PolicyAgree from "./components/PolicyAgree/PolicyAgree";
 
 function App() {
 
@@ -22,6 +24,9 @@ function App() {
         <Route path="/view" element={<ListProducts/>} />  
         <Route path="/single/:id" element={<GetSingleProduct/>} />  
         <Route path="/search" element={<SearchResult />} />
+        <Route path="/become-admin" element={<NewAdmin />}>
+          <Route path="agree" element={<PolicyAgree />} />
+        </Route> 
       </Routes>
     </>
   )
