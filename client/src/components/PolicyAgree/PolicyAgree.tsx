@@ -1,6 +1,31 @@
+import { useNavigate } from "react-router-dom";
 import "./PolicyAgree.css"; // Create a CSS file for styling
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const PolicyAgree = () => {
+
+    const navigate = useNavigate()
+
+    const agreeHandler = () => {
+        toast.success('Now you are a Seller!', {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            onClose: () => {
+              navigate("/")
+            }
+        })
+    }
+
+
+    const cancelHandler = () => {
+       navigate('/become-admin')
+    }
+
   return (
     <div className="policy-agree">
       <div className="policy-content">
@@ -13,10 +38,11 @@ const PolicyAgree = () => {
           <li><strong>Expand Your Business:</strong> Reach a larger audience and grow your brand.</li>
         </ul>
         <div className="policy-actions">
-          <button className="agree-button" >Agree</button>
-          <button className="cancel-button" >Cancel</button>
+          <button className="agree-button" onClick={agreeHandler}>Agree</button>
+          <button className="cancel-button" onClick={cancelHandler} >Cancel</button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
