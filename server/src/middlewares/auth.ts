@@ -68,3 +68,39 @@ export const isAdmin = async(req:middlewareIsAdminRequest,res:Response,next:Next
     }
 
 }
+export const isSeller = async(req:middlewareIsAdminRequest,res:Response,next:NextFunction) => {
+
+    const token = req.cookies.accessToken || req.header("Authorization")?.replace("Bearer ","");
+
+    if (!token) {
+        return res.status(400).json({
+            message:"Unauthorized Request!",
+            success: false
+        })
+    }
+
+    const decode = jwt.verify(token,process.env.ACCESS_TOKEN as string) as decodeMiddlewareType;
+
+    const user = await User.findById(decode._id).select("-password");
+
+    if (!user) {
+        return res.status(400).json({
+            message: "Invalid Access Token",
+            status: 400,
+         }) 
+      }
+
+    if(user.isAdmin === false){
+       return res.status(400).json({
+            message:"Unauthorized Request! You're not Admin",
+            success: false
+       })
+    }
+    
+    if (user.role === 'seller') {
+        req.user = user 
+        req.userId = user._id
+        next()
+    }
+
+}
