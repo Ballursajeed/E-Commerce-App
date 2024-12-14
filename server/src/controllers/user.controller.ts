@@ -71,12 +71,9 @@ export const userRegister = async(req:MulterRequest,res:Response, next: NextFunc
 
 }
 
-export const userLogin = async(req: Request,res: Response, next:NextFunction) => {
+export const userLogin = async(req: Request,res: Response) => {
 
   const { username,password } = req.body;
-
-  console.log("username",username);
-  console.log("password:",password);
   
   if (!username || !password) {
     return res.status(400).json({
@@ -166,5 +163,50 @@ export const checkAuth = async(req:middlewareValidateUserRequest,res:Response) =
   } catch (error) {
       res.status(500).json({ message: "Server Error" });
   }
+}
+
+export const becomeSeller = async(req: Request,res: Response) => {
+ 
+  const { email,username,password } = req.body;
+  console.log("Hello Bitch",email,username,password);
+  
+  
+  if (!username || !password || !email) {
+    return res.status(400).json({
+      message: "All fields are required!",
+      success:false
+  })
+  }
+
+  const user = await User.findOne({username});
+
+  if (!user) {
+    return res.status(404).json({
+      message: "Username not found",
+      success:false
+  })
+  }
+
+  const isPasswordMatch = await user.isPasswordCorrect(password);
+
+  if (!isPasswordMatch) {
+     return res.status(400).json({
+       message: "username or password is InCorrect!",
+       success: false
+     })
+  }
+
+  user.role = 'seller';
+
+  await user.save({validateBeforeSave: false})
+  
+  return res
+          .status(200)
+          .json({
+            message: "You are now a Seller!",
+            success: true,
+            user,
+          });
+
 }
   
