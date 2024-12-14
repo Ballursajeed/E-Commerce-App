@@ -68,6 +68,7 @@ export const isAdmin = async(req:middlewareIsAdminRequest,res:Response,next:Next
     }
 
 }
+
 export const isSeller = async(req:middlewareIsAdminRequest,res:Response,next:NextFunction) => {
 
     const token = req.cookies.accessToken || req.header("Authorization")?.replace("Bearer ","");
