@@ -9,6 +9,7 @@ export interface IUser extends Document {
    username: string;
    password: string;
    avatar?: string;
+   role:string;
    isAdmin: Boolean;
    accessToken: string;
    products:Document[];
@@ -38,6 +39,11 @@ const userSchema = new Schema<IUser>(
   },
   avatar:{
     type: String // cloudinary url
+  },
+  role: {
+    type: String,
+    enum: ['user', 'seller'], // Define roles
+    default: 'user', // Default role for new users
   },
   isAdmin:{
     type: Boolean,
