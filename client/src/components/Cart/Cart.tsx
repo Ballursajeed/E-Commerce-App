@@ -48,7 +48,7 @@ useEffect(() => {
       <h1>Shopping Cart</h1>
       
       {
-        products.map((item) => <CartItem product={item}/>)
+        products.map((item,index) => <CartItem product={item} key={index} slNo = {index}/>)
       }
 
       <div className="subTotal">

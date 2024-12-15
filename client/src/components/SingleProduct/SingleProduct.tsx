@@ -13,6 +13,7 @@ import "./Product.css"
    stocks: number,
    updatedAt: string,
    }
+   ,slNo: Number;
 }
 
 const SingleProduct = ({
