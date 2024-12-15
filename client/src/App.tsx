@@ -10,6 +10,7 @@ import CheckOut from "./components/CheckOut/CheckOut";
 import SearchResult from "./components/SeachResult/SearchResult";
 import NewAdmin from "./components/NewAdmin/NewAdmin";
 import PolicyAgree from "./components/PolicyAgree/PolicyAgree";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/become-admin" element={<NewAdmin />}>
           <Route path="agree" element={<PolicyAgree />} />
         </Route> 
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </>
   )

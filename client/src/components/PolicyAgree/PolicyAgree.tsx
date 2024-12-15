@@ -16,7 +16,7 @@ const PolicyAgree = () => {
             pauseOnHover: true,
             draggable: true,
             onClose: () => {
-              navigate("/")
+              navigate("/dashboard")
             }
         })
     }
