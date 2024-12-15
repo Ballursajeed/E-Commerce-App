@@ -15,7 +15,7 @@ interface ErrorResponse {
 
 
 const CartItem = ({
-    product
+    product,slNo
 }:productType) => {
 
     const [counter,setCounter] = useState(1);
@@ -90,7 +90,7 @@ const CartItem = ({
       <div className="item">
       
         <div className="itemImage">
-       
+        <h1 id="mobile-name"><span>{Number(slNo) + 1}) </span>{product.name}</h1>
           <img id="prd" src={product.image} alt="" />
         </div>
         <div className="itemRight">
