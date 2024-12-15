@@ -118,3 +118,68 @@
   #mobile-name{
     display: none;
   }
+
+  @media screen and (max-width: 768px) {
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #ddd;
+    }
+    #mobile-name{
+      display: block;
+    }
+
+    .info h1 {
+      display: none;
+    }
+    .itemRight{
+      gap: 20px;
+    }
+    .delBuy{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .deletebtn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #fff;
+      background-color: #d32f2f;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-right: 0;
+    }
+
+    .buybtn{
+      margin-bottom: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #fff;
+      background-color: #e0821d;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .itemImage img {
+      max-width: 340px;
+      max-height: 440px;
+      object-fit: contain;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+  
+  }
