@@ -14,6 +14,7 @@ import { useCheckAuth } from '../../hooks/useAuthCheck';
 const Profile = () => {
 
     const user = useSelector((state: stateType) => state.auth.user);
+    const defaultImage = 'https://github.com/Ballursajeed/Blog-App/raw/refs/heads/main/client/public/default-profile-image.webp'
 
     const navigate = useNavigate();
     const checkAuth = useCheckAuth()
@@ -120,7 +121,7 @@ const Profile = () => {
 
 <div className="Profile-container">
   <div className="Profile-card">
-    <img src={user?.avatar ? user.avatar : '/default-profile-image.webp' } alt="Avatar" />
+    <img src={user?.avatar ? user.avatar : `${defaultImage}` } alt="Avatar" />
     <h2 className="Profile-fullname">{user.fullName}</h2>
     <p className="Profile-username">{user.username}</p>
     <button className='edit-btn' onClick={handleEdit}>edit</button>
