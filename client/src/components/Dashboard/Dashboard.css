@@ -2,10 +2,7 @@
     margin-top: 20px;
     margin-left: 20px;
 }
-.icons:hover{
- color: aqua;
- background-color: #fff;
-}
+
 .sidebar {
     margin: 10px;
     width: 15%;
@@ -42,6 +39,6 @@ ul{
     border-radius: 10px;
 }
 
-a:hover{
+.icons:hover{
     background-color: rgb(129, 218, 218);
 }

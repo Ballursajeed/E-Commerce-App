@@ -10,10 +10,10 @@ const SideBar = () => {
     <>
      <span>Dashboard</span>
         <ul>
-          <Link to={'/my-products'}><div className="icons"><AiFillProduct /></div>Products</Link>
-          <Link to={'/analytics'}><div className="icons"><TbDeviceAnalytics /></div>Analytics</Link>
-          <Link to={'/customers'}><div className="icons"><FaUsers /></div>Customers</Link>
-          <Link to={'/my-orders'}><div className="icons"><GrTransaction /></div>Transaction</Link>
+          <Link className="icons" to={'/my-products'}><div ><AiFillProduct /></div>Products</Link>
+          <Link className="icons" to={'/analytics'}><div ><TbDeviceAnalytics /></div>Analytics</Link>
+          <Link className="icons" to={'/customers'}><div ><FaUsers /></div>Customers</Link>
+          <Link className="icons" to={'/my-orders'}><div ><GrTransaction /></div>Transaction</Link>
         </ul>
     </>
      
