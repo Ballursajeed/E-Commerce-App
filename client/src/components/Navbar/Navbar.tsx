@@ -5,7 +5,18 @@ import { Link, useNavigate } from "react-router-dom";
 
 interface stateType {
   auth: {
-    user: string;
+    user: {
+      _id: string;
+      fullName: string;
+      email: string;
+      username: string;
+      password: string;
+      avatar?: string;
+      role:string;
+      isAdmin: Boolean;
+      accessToken: string;
+      products:Document[];
+    };
   };
 }
 
@@ -32,6 +43,9 @@ const Navbar = () => {
       console.error("Error during search:", error);
     }
   };
+  
+  console.log("User role:",user);
+  
 
   return (
     <>
@@ -53,14 +67,22 @@ const Navbar = () => {
               <Link to={"/"}>Home</Link>
             </button>
             <button className="nav-btn">
-              {user ? (
+              {user._id ? (
                 <Link to={"/profile"}>Account</Link>
               ) : (
                 <Link to={"/login"}>Login</Link>
               )}
             </button>
             <button className="nav-btn">
-               <Link to={'/become-admin'}>become a seller</Link>
+               {
+                user.role === 'seller' ? (
+                 <Link to={'/dashboard'}>Dashboard</Link>
+                )
+                 : 
+                (
+                  <Link to={'/become-admin'}>become a seller</Link>
+                )
+               }
             </button>
             <button className="nav-btn">
               <Link to={"/myOrder"}>Orders</Link>
