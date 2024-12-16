@@ -11,6 +11,7 @@ import SearchResult from "./components/SeachResult/SearchResult";
 import NewAdmin from "./components/NewAdmin/NewAdmin";
 import PolicyAgree from "./components/PolicyAgree/PolicyAgree";
 import Dashboard from "./components/Dashboard/Dashboard";
+import Profile from "./components/Profile/Profile";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/view" element={<ListProducts/>} />  
         <Route path="/single/:id" element={<GetSingleProduct/>} />  
         <Route path="/search" element={<SearchResult />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/become-admin" element={<NewAdmin />}>
           <Route path="agree" element={<PolicyAgree />} />
         </Route> 

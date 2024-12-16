@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 
-interface stateType {
+export interface stateType {
   auth: {
     user: {
       _id: string;
