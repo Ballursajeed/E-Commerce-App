@@ -1,0 +1,47 @@
+.dashboard{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.icons:hover{
+ color: aqua;
+ background-color: #fff;
+}
+.sidebar {
+    margin: 10px;
+    width: 15%;
+}
+.sidebar span{
+    font-size: 22px;
+}
+
+ul{
+    margin-top: 15px;
+    margin-left: 15px;
+    font-size: 22px;
+    width: 99%;
+    height: auto;
+    border: 1px solid rgb(227, 206, 206);
+    padding-top: 17px;
+    padding-left: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.sidebar > ul > a {
+    text-decoration: none;
+    display: flex;
+    color: black;
+    width: 200px;
+    flex-direction: row;
+    padding: 2px;
+    gap: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border: 1px solid rgb(244, 239, 239);
+    transition: 0.31s;
+    border-radius: 10px;
+}
+
+a:hover{
+    background-color: rgb(129, 218, 218);
+}

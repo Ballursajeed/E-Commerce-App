@@ -43,9 +43,6 @@ const Navbar = () => {
       console.error("Error during search:", error);
     }
   };
-  
-  console.log("User role:",user);
-  
 
   return (
     <>
