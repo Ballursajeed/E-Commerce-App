@@ -197,8 +197,6 @@ export const getAllCart = async(req:addCartTypes, res:Response) =>{
   })
     .sort({ createdAt: -1 }) // Sort by createdAt in descending order (most recent first)
     .lean();
-  console.log(products);
-  
 
   return res.status(200).json({
     message: "Carts Fetched Successfully!",

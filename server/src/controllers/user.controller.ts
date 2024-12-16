@@ -144,17 +144,24 @@ export const userLogout = async(req:middlewareValidateUserRequest, res:Response,
 
 res.status(200).json({
     message: "User LoggedOut Successfully!",
-    status:200,
+    success: true,
     user
 })
 
 }
 export const checkAuth = async(req:middlewareValidateUserRequest,res:Response) => {
   try {
-      const user = req.user; 
-      if (!user) {
+      const userId = req.user; 
+      if (!userId) {
           return res.status(401).json({ message: "Not authenticated" });
       }
+
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return res.status(404).json({ message: "User Not Found!" })
+      }
+
       res.status(200).json({ 
           message:"User Authenticated",
           success: true,
