@@ -70,7 +70,7 @@ const Navbar = () => {
                 <Link to={"/login"}>Login</Link>
               )}
             </button>
-            <button className="nav-btn">
+                 {user._id &&   <button className="nav-btn">
                {
                 user.role === 'seller' ? (
                  <Link to={'/dashboard'}>Dashboard</Link>
@@ -80,11 +80,12 @@ const Navbar = () => {
                   <Link to={'/become-admin'}>become a seller</Link>
                 )
                }
-            </button>
-            <button className="nav-btn">
+            </button> }
+          
+          { user._id &&  <button className="nav-btn">
               <Link to={"/myOrder"}>Orders</Link>
-            </button>
-            <button className="nav-btn">.
+            </button>}
+            <button className="nav-btn">
               <Link to={"/cart"}>Cart</Link>
             </button>
           </div>
