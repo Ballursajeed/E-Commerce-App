@@ -73,7 +73,7 @@ const Navbar = () => {
                  {user._id &&   <button className="nav-btn">
                {
                 user.role === 'seller' ? (
-                 <Link to={'/dashboard'}>Dashboard</Link>
+                 <Link to={'/dashboard/products'}>Dashboard</Link>
                 )
                  : 
                 (

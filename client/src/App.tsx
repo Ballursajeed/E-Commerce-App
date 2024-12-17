@@ -19,8 +19,16 @@ import GetOrders from "./components/GetOrder/GetOrders";
 import EditProduct from "./components/EditProduct/EditProduct";
 import Navbar from "./components/Navbar/Navbar";
 import NewProduct from "./components/NewProduct/NewProduct";
+import { useEffect } from "react";
+import { useCheckAuth } from "./hooks/useAuthCheck";
 
 function App() {
+
+  const checkAuth = useCheckAuth()
+
+  useEffect(() => {
+       checkAuth('/login')
+  },[])
 
   return (
     <>
