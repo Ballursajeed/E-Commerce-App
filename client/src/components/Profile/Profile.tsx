@@ -128,7 +128,6 @@ const Profile = () => {
     <button className='edit-btn' onClick={handleLogout}>logout</button>
     <button className='delete-btn' onClick={handleDelete}>delete Profile</button>
   </div>
-   
 </div>
 <ToastContainer />
 </>

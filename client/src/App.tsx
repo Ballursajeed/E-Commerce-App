@@ -12,6 +12,7 @@ import NewAdmin from "./components/NewAdmin/NewAdmin";
 import PolicyAgree from "./components/PolicyAgree/PolicyAgree";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Profile from "./components/Profile/Profile";
+import AdminProducts from "./components/AdminProducts/AdminProducts";
 
 function App() {
 
@@ -30,7 +31,9 @@ function App() {
         <Route path="/become-admin" element={<NewAdmin />}>
           <Route path="agree" element={<PolicyAgree />} />
         </Route> 
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+         <Route path="products" element={<AdminProducts />} />
+        </Route>
       </Routes>
     </>
   )
