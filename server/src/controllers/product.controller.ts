@@ -249,7 +249,7 @@ export const getAdminProducts = async(req: newProductRequest, res:Response, next
  
    res.status(200).json({
      message:"Fetched MY Blogs!",
-     status: 200,
+     success: true,
      products: productWithUser
    })
     
