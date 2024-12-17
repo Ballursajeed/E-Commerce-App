@@ -54,6 +54,38 @@
     background-color: #e09706;
 }
 
+.singleRight .buttons  #upp{
+    margin: 10px;
+    margin-right: 20px;
+    background-color: #f9f505;
+    color: black;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.singleRight .buttons #upp:hover {
+    background-color: #ead706;
+}
+
+.singleRight .buttons  #del{
+    background-color: #f90505;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.singleRight .buttons #del:hover {
+    background-color: #e09706;
+}
+
 .singleLeft .quantity{
     margin-top: 10px;
     display: flex;

@@ -16,11 +16,15 @@ import AdminProducts from "./components/AdminProducts/AdminProducts";
 import Analytics from "./components/Analytics/Analytics";
 import Customer from "./components/Customer/Customer";
 import GetOrders from "./components/GetOrder/GetOrders";
+import EditProduct from "./components/EditProduct/EditProduct";
+import Navbar from "./components/Navbar/Navbar";
+import NewProduct from "./components/NewProduct/NewProduct";
 
 function App() {
 
   return (
     <>
+    <Navbar />
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/register" element={<Register/>} />  
@@ -36,6 +40,9 @@ function App() {
         </Route> 
         <Route path="/dashboard" element={<Dashboard />}>
          <Route path="products" element={<AdminProducts />} />
+         <Route path="new" element={<NewProduct />} />
+         <Route path="manage-product/:id" element={<GetSingleProduct isSeller={true}/>} />
+         <Route path="update-product/:id" element={<EditProduct />} />
          <Route path="analytics" element={<Analytics />} />
          <Route path="customers" element={<Customer />} />
          <Route path="my-orders" element={<GetOrders />} />

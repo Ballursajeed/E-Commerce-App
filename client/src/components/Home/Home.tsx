@@ -1,5 +1,4 @@
 import { Slider } from "6pp";
-import Navbar from "../Navbar/Navbar"
 import "./Home.css"
 import GetProducts from "../GetProducts/GetProducts";
 import { Link } from "react-router-dom";
@@ -20,7 +19,6 @@ const Home = () => {
 
   return (
     <>
-    <Navbar />
     <div className="container">
       
       <div className="left">

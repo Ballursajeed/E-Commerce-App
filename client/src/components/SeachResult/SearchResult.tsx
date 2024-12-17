@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom"
 import { SERVER } from "../../constant";
-import Navbar from "../Navbar/Navbar";
 import SingleProduct from "../SingleProduct/SingleProduct";
 import "../ListProducts/ListProducts.css"
 import GetProducts from "../GetProducts/GetProducts";
@@ -101,7 +100,6 @@ const handleCategoryChange = async (e: React.ChangeEvent<HTMLSelectElement>) => 
 
   return (
     <div>
-    <Navbar />  
     <div className="listContainer">
     <button id='ham' className="listhHamburger" onClick={toggleMenu}>
       <span className="icon">🔍</span> Filters

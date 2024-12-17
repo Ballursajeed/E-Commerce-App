@@ -7,6 +7,47 @@
   margin-left: 5px;
 }
 
+.head{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-product-btn {
+  margin-right: 17px;
+  margin-bottom: 10px;
+  background-color: #007bff; /* Primary color */
+  color: white; /* Icon color */
+  border: none;
+  border-radius: 50%; /* Circular shape */
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-product-btn:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.add-product-btn:active {
+  transform: scale(0.95); /* Shrink on click for feedback */
+}
+
+.add-product-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.add-product-btn:focus {
+  outline: 2px solid #0056b3; /* Focus ring for accessibility */
+}
+
 /* Heading */
 .admin-content h2 {
   font-size: 24px;

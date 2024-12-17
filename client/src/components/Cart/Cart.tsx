@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useCheckAuth } from "../../hooks/useAuthCheck";
-import Navbar from "../Navbar/Navbar";
 import "./Cart.css"
 import axios from "axios";
 import { SERVER } from "../../constant";
@@ -43,7 +42,6 @@ useEffect(() => {
 
   return (
     <>
-      <Navbar />
       <div className="cart">
       <h1>Shopping Cart</h1>
       

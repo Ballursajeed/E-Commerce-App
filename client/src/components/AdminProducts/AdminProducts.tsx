@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { SERVER } from "../../constant";
 import { singleProductType } from "../GetSingleProduct/GetSingleProduct";
 import "./AdminProducts.css";
+import { useNavigate } from "react-router-dom";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState<singleProductType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 5;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,7 +38,15 @@ const AdminProducts = () => {
 
   return (
     <div className="admin-content">
+      <div className="head">
       <h2>Products</h2>
+      <button onClick={() => navigate('/dashboard/new')} className="add-product-btn" aria-label="Add Product">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
+    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+  </svg>
+</button>
+      </div>
+      
       <table>
         <thead>
           <tr>
@@ -57,7 +67,7 @@ const AdminProducts = () => {
               <td>{product.price}</td>
               <td>{product.stocks}</td>
               <td>
-                <button className="manage-btn">Manage</button>
+                <button onClick={() => {navigate(`/dashboard/manage-product/${product._id}`)}} className="manage-btn">Manage</button>
               </td>
             </tr>
           ))}

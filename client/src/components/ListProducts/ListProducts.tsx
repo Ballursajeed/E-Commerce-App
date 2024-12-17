@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import GetProducts from '../GetProducts/GetProducts'
-import Navbar from '../Navbar/Navbar'
 import "./ListProducts.css"
 import axios from 'axios';
 import { SERVER } from '../../constant';
@@ -77,7 +76,6 @@ const ListProducts = () => {
 
   return (
     <div>
-      <Navbar />  
       <div className="listContainer">
       <button id='ham' className="listhHamburger" onClick={toggleMenu}>
       <span className="icon">🔍</span> Filters

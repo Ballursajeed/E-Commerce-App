@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import Navbar from "../Navbar/Navbar"
 import "./GetSingleProduct.css"
 import axios, { AxiosError } from "axios"
 import { SERVER } from "../../constant"
@@ -20,7 +19,7 @@ import { ErrorResponse } from "../login/Login"
    updatedAt: string;
 }
 
-const GetSingleProduct = () => {
+const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
 
   const { id } = useParams();
   const [product,setProduct] = useState<singleProductType>({
@@ -106,10 +105,47 @@ const GetSingleProduct = () => {
       navigate(`/order/${product._id}/${counter}`)
      }
   }
+  
+  const handleDelete = async() => {
+    window.alert("Do you want to delete the Product?");
+
+    try {
+      const res = await axios.delete(`${SERVER}/product//delete/${id}`,{
+       withCredentials:true
+      });
+      if (res.data.success) {
+       toast.success('Product Deleted!', {
+         position: "top-center",
+         autoClose: 1000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         onClose: () => {
+           navigate("/dashboard/products")
+         }
+     })
+      }
+   } catch (error) {
+      
+     const axiosError = error as AxiosError<ErrorResponse>; 
+     console.log(axiosError.response);
+     toast.error(
+       `${axiosError?.response?.data?.message || "Something went wrong!"}`,
+       {
+       position: "top-center",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+     })
+   }
+
+  }
 
   return (
     <>
-      <Navbar />
     <div className="singleProduct">
       <div className="singleLeft">
       <div className="left-name">
@@ -145,10 +181,22 @@ const GetSingleProduct = () => {
           <button className="counterBtn" onClick={() => setCounter((prev) => prev+1)}>+</button>
         </div>
         <span id="right-span">Available: {product.stocks - counter}</span>
-        <div className="buttons">
-            <button id="add" onClick={addToCart}>Add To Cart</button>
-            <button id="buy" onClick={buyNow}>Buy Now</button>
-        </div>
+        {
+          isSeller ? 
+          <>
+            <div className="buttons">
+              <button id="upp" onClick={() => navigate(`/dashboard/update-product/${id}`)}>Update Product</button>
+              <button id="del" onClick={handleDelete}>Delete</button>
+            </div>
+          </> : 
+          <>
+            <div className="buttons">
+              <button id="add" onClick={addToCart}>Add To Cart</button>
+              <button id="buy" onClick={buyNow}>Buy Now</button>
+            </div>
+          </>
+        }
+        
 
         <div className="description">
             <span>Description:</span>

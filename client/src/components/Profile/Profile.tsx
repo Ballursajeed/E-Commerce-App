@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
-import Navbar, { stateType } from '../Navbar/Navbar';
+import  { stateType } from '../Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { SERVER } from '../../constant';
 import axios, { AxiosError } from 'axios';
@@ -117,7 +117,6 @@ const Profile = () => {
 
   return (
       <>
-      <Navbar />
 
 <div className="Profile-container">
   <div className="Profile-card">
