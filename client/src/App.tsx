@@ -13,6 +13,9 @@ import PolicyAgree from "./components/PolicyAgree/PolicyAgree";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Profile from "./components/Profile/Profile";
 import AdminProducts from "./components/AdminProducts/AdminProducts";
+import Analytics from "./components/Analytics/Analytics";
+import Customer from "./components/Customer/Customer";
+import GetOrders from "./components/GetOrder/GetOrders";
 
 function App() {
 
@@ -33,6 +36,9 @@ function App() {
         </Route> 
         <Route path="/dashboard" element={<Dashboard />}>
          <Route path="products" element={<AdminProducts />} />
+         <Route path="analytics" element={<Analytics />} />
+         <Route path="customers" element={<Customer />} />
+         <Route path="my-orders" element={<GetOrders />} />
         </Route>
       </Routes>
     </>

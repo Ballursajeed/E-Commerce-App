@@ -16,19 +16,19 @@ const SideBar = () => {
           </Link>
         </li>
         <li>
-          <Link className="sidebar-link" to={'/analytics'}>
+          <Link className="sidebar-link" to={'/dashboard/analytics'}>
             <TbDeviceAnalytics className="icon" />
             Analytics
           </Link>
         </li>
         <li>
-          <Link className="sidebar-link" to={'/customers'}>
+          <Link className="sidebar-link" to={'/dashboard/customers'}>
             <FaUsers className="icon" />
             Customers
           </Link>
         </li>
         <li>
-          <Link className="sidebar-link" to={'/my-orders'}>
+          <Link className="sidebar-link" to={'/dashboard/my-orders'}>
             <GrTransaction className="icon" />
             Transaction
           </Link>
