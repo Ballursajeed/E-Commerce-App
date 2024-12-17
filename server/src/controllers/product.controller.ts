@@ -7,7 +7,7 @@ import { IUser, User } from "../models/user.model";
 export const getAllProducts = async(req:newProductRequest, res: Response, next:NextFunction) => {
    
     try {
-        const products = await Product.find();
+        const products = await Product.find().sort({ createdAt: -1 });
     
         return res.status(200).json({
            message: "Products Fetched Successfully!",
