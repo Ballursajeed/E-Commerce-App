@@ -317,10 +317,10 @@ export const addProduct = async(req:newProductRequest, res: Response, next:NextF
 
     const product = await Product.create({
         name,
-        price,
+        price : Number(price),
         category,
         description,
-        stocks,
+        stocks: Number(stocks),
         owner: req.user,
         image: image?.url || undefined
     });
@@ -358,8 +358,8 @@ export const updateProduct = async(req:newProductRequest,res: Response, next:Nex
     
         if(description) product.description = description;
         if (name) product.name = name;
-        if (price) product.price = price;
-        if (stocks) product.stocks = stocks;
+        if (price) product.price = Number(price);
+        if (stocks) product.stocks = Number(stocks);
         if (category) product.category = category;
         if(image) product.image = image.url;
         
