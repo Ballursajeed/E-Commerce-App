@@ -36,7 +36,6 @@ const ListProducts = () => {
       try {
         const res = await axios.get(`${SERVER}/product/price/${sort}`);
         if (res.data.success) {
-          console.log("Price sort:", res.data);
           setProducts(res.data.products);
         }
       } catch (error) {
@@ -54,7 +53,6 @@ const ListProducts = () => {
       try {
         const res = await axios.get(`${SERVER}/product/getProductByCategory/${category}`);
         if (res.data.success) {
-          console.log("Category sort:", res.data);
           setProducts(res.data.products);
         }
       } catch (error) {

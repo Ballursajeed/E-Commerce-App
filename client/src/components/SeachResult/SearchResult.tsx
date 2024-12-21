@@ -19,14 +19,16 @@ const SearchResult = () => {
               const response = await axios.get(`${SERVER}/product/search?search=${query}`);
               setProducts(response.data.products);
 
+              if (response.data.success) {
+                setIsAll(false)
+              }
+
               if (response.data.products.length === 0) {
                  setProducts([]);
-                 console.log("I am Here!");
               }
 
             } catch (error) {
               console.error('Error fetching search results:', error);
-
             }
           };
       

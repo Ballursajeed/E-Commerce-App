@@ -1,8 +1,10 @@
 import { Slider } from "6pp";
 import "./Home.css"
 import GetProducts from "../GetProducts/GetProducts";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { SERVER } from "../../constant";
 
 const banners = [
   "https://res.cloudinary.com/dj5q966nb/image/upload/v1719253445/rmbjpuzctjdbtt8hewaz.png",
@@ -12,10 +14,28 @@ const banners = [
 const Home = () => {
 
   const [isCategoriesOpen, setCategoriesOpen] = useState(false);
+  const [categories,setCategory] = useState([]);
+  const navigate = useNavigate();
 
   const toggleCategories = () => {
     setCategoriesOpen(!isCategoriesOpen);
   };
+
+  useEffect(() => {
+    const fetchCategory = async() => {
+      const response = await axios.get(`${SERVER}/product/getAllCategories`);
+      if (response.data.success) {
+          setCategory(response.data.categories)
+      }
+    }    
+    fetchCategory()
+},[]);
+
+const handleCategoryChange = async (query:string) => {
+  
+  navigate(`search?query=${query}`)
+  
+};
 
   return (
     <>
@@ -35,42 +55,7 @@ const Home = () => {
               {/* Conditionally render categories list */}
               {isCategoriesOpen && (
                 <ul>
-                  <li>
-                    <a href="/search?category=electronics">Electronics</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=mobiles">Mobiles</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=laptops">Laptops</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=books">Books</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=fashion">Fashion</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=appliances">Appliances</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=furniture">Furniture</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=home decor">Home Decor</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=grocery">Grocery</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=beauty">Beauty</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=toys">Toys</a>
-                  </li>
-                  <li>
-                    <a href="/search?category=fitness">Fitness</a>
-                  </li>
+                  {categories.map((category) => <><li onClick={() => handleCategoryChange(category)}>{category}</li></>)}
                 </ul>
               )}
             </div>

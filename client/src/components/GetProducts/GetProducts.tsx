@@ -19,11 +19,7 @@ const GetProducts = ({
               const res = await axios.get(`${SERVER}/product/getAllProducts`);
               
               if (res.data.success) {
-              console.log(res.data.products);
-
                 setProducts(res.data.products);
-                console.log("products:",product);
-                
               }
               
         }
