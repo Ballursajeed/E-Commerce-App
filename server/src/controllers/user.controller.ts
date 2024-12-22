@@ -216,4 +216,33 @@ export const becomeSeller = async(req: Request,res: Response) => {
           });
 
 }
-  
+
+//admin
+export const getCurrentMonthUsers = async(req: Request, res: Response) => {
+  try {
+    const currentMonth = new Date().getMonth(); 
+    const currentYear = new Date().getFullYear(); 
+
+    const thisMonthUser = await User.find({
+      createdAt: {
+        $gte: new Date(currentYear, currentMonth, 1), 
+        $lt: new Date(currentYear, currentMonth + 1, 1), 
+      },
+    });
+
+
+    return res.status(200).json({
+      message: "Users fetched successfully!",
+      success: true,
+      users:thisMonthUser.length
+    });
+
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while fetching Users.",
+      error,
+    });
+  }
+}
