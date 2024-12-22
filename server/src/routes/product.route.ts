@@ -1,8 +1,7 @@
 import express from "express";
 import { upload } from "../middlewares/multer.middleware";
 import { isAdmin, isSeller } from "../middlewares/auth";
-import { 
-    addProduct, 
+import { addProduct, 
     deleteProduct, 
     getAdminProducts,
     getSearchResults,
@@ -14,8 +13,7 @@ import {
     getProductByCategory, 
     getProductByPrice, 
     getCurrentMonthProducts, 
-     
-} from "../controllers/product.controller";
+    getInventoryProducts } from "../controllers/product.controller";
 
 const route = express.Router()
 
@@ -45,5 +43,6 @@ route.route("/delete/:id").delete(isSeller as unknown as express.RequestHandler,
 
 //admin dashboard routes
 route.route("/admin/thisMonthProducts").get(isAdmin as unknown as express.RequestHandler,getCurrentMonthProducts as unknown as express.RequestHandler )
+route.route("/admin/inventory").get(isAdmin as unknown as express.RequestHandler,getInventoryProducts as unknown as express.RequestHandler )
 
 export default route

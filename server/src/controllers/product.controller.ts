@@ -449,3 +449,59 @@ export const getCurrentMonthProducts = async(req:Request,res: Response) => {
       }
 }
 
+export const getInventoryProducts = async(req:Request,res: Response) => {
+    try {
+        
+        const products = await Product.find({});
+
+        const totalProducts = products.length;
+
+        let categories: { [key: string]: number } = {
+        }
+        let inventory:{ [key: string]: string } = {
+               
+        }
+
+        const addToCategoryObject = (category:string) => {
+            for (const key in categories) {
+                if (categories.hasOwnProperty(key)) {
+                    if (category === key) {
+                        categories[key]++;
+                        return;
+                    }
+                }
+            }
+            categories[category] = 1;
+        }
+
+        const findPercentile = (categoryCount:number,category:string) => {
+
+                 let percentile = Math.round((categoryCount/totalProducts)*100);
+                 inventory[category] = String(percentile + '%');
+
+        }
+        
+        products.map((product) => addToCategoryObject(product.category));
+
+        for (const key in categories) {
+            if (categories.hasOwnProperty(key)) {
+               findPercentile(categories[key],key)
+            }
+        }
+
+        res.status(200).json({
+            message: "inventory fetched successfully!",
+            success: true,
+            inventory
+        })
+
+
+    } catch (error) {
+        console.error("Error fetching Products:", error);
+        return res.status(500).json({
+          success: false,
+          message: "Something went wrong while fetching Products.",
+          error,
+        });
+    }
+}
