@@ -98,3 +98,7 @@ export interface middlewareIsAdminRequest extends Request{
 export interface decodeMiddlewareType {
   _id: string; iat: number; exp: number;
 }
+
+export interface inventoryCategoryType {
+  String: Number
+}

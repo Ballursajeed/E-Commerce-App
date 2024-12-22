@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { AvatarType, newProductRequest } from "../types/types";
+import { AvatarType, inventoryCategoryType, newProductRequest } from "../types/types";
 import { uploadOnCloudinary } from "../utils/cloudinary";
 import { IProduct, Product } from "../models/product.model";
 import { IUser, User } from "../models/user.model";
@@ -35,7 +35,10 @@ export const getSearchResults = async(req:Request,res:Response) => {
      } 
  
      const results = await Product.find({
-         name: { $regex: search, $options: "i" }, // 'i' makes it case-insensitive
+        $or: [
+            { name: { $regex: search, $options: "i" } },       // Search in 'name'
+            { category: { $regex: search, $options: "i" } }   // Search in 'category'
+          ] 
        });
  
      if (!results) {
@@ -415,3 +418,34 @@ export const deleteProduct = async(req:Request,res: Response, next:NextFunction)
       });
    }
 }
+
+//admin dashboard routes
+export const getCurrentMonthProducts = async(req:Request,res: Response) => {
+    try {
+        const currentMonth = new Date().getMonth(); 
+        const currentYear = new Date().getFullYear(); 
+    
+        const thisMonthProducts = await Product.find({
+          createdAt: {
+            $gte: new Date(currentYear, currentMonth, 1), 
+            $lt: new Date(currentYear, currentMonth + 1, 1), 
+          },
+        });
+    
+    
+        return res.status(200).json({
+          message: "Users fetched successfully!",
+          success: true,
+          products:thisMonthProducts.length
+        });
+    
+      } catch (error) {
+        console.error("Error fetching Products:", error);
+        return res.status(500).json({
+          success: false,
+          message: "Something went wrong while fetching Products.",
+          error,
+        });
+      }
+}
+
