@@ -1,6 +1,6 @@
 import express from "express";
 import { isAdmin, validateUser } from "../middlewares/auth";
-import { deleteOrder, getAllOrders, getMyOrders, getSingleOrder, newOrder, processOrder } from "../controllers/order.controller";
+import { deleteOrder, getAllOrders, getCurrentMonthRevenueAndTransactions, getMyOrders, getSingleOrder, newOrder, processOrder } from "../controllers/order.controller";
 
 const route = express.Router()
 
@@ -39,6 +39,14 @@ route.route("/delete/:id")
     isAdmin as unknown as express.RequestHandler,
     deleteOrder as unknown as express.RequestHandler);
 
+
+ //admin routes
+ route.route('/admin/thisMonthRevenue').get(validateUser as unknown as express.RequestHandler, 
+    isAdmin as unknown as express.RequestHandler,
+    getCurrentMonthRevenueAndTransactions as unknown as express.RequestHandler);
+ route.route('/admin/thisMonthTransactions').get(validateUser as unknown as express.RequestHandler, 
+    isAdmin as unknown as express.RequestHandler,
+    getCurrentMonthRevenueAndTransactions as unknown as express.RequestHandler);
 
    
 export default route

@@ -266,3 +266,36 @@ export const deleteOrder = async(req:newOrderRequestType,res:Response) => {
         })
     }
 }
+
+//admin dashboard analytics:
+export const getCurrentMonthRevenueAndTransactions = async (req: Request, res: Response) => {
+  try {
+    const currentMonth = new Date().getMonth(); 
+    const currentYear = new Date().getFullYear(); 
+
+    const thisMonthOrders = await Order.find({
+      createdAt: {
+        $gte: new Date(currentYear, currentMonth, 1), 
+        $lt: new Date(currentYear, currentMonth + 1, 1), 
+      },
+    });
+
+    const revenue = thisMonthOrders.reduce((total, order) => total + order.totalAmount, 0);
+
+    return res.status(200).json({
+      message: "Revenue fetched successfully!",
+      success: true,
+      revenue,
+      transactions: thisMonthOrders.length
+    });
+
+  } catch (error) {
+    console.error("Error fetching revenue:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while fetching revenue.",
+      error,
+    });
+  }
+};
+
