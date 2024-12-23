@@ -1,5 +1,5 @@
 import {  Response } from "express";
-import { newOrderRequestType } from "../types/types";
+import {  newOrderRequestType } from "../types/types";
 import { Order } from "../models/order.model";
 import { Cart } from "../models/cart.models";
 import { User } from "../models/user.model";
@@ -275,7 +275,7 @@ export const getCurrentMonthRevenueAndTransactions = async (req: Request, res: R
 
     const thisMonthOrders = await Order.find({
       createdAt: {
-        $gte: new Date(currentYear, currentMonth, 1), 
+        $gte: new Date(currentYear, currentMonth, 1), // yyyy/mm/dd
         $lt: new Date(currentYear, currentMonth + 1, 1), 
       },
     });
@@ -299,3 +299,41 @@ export const getCurrentMonthRevenueAndTransactions = async (req: Request, res: R
   }
 };
 
+export const getAllMonthsRevenue = async(req: Request, res: Response) => {
+  try {
+    
+    const currentYear = new Date().getFullYear(); 
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const allMonthRevenue:Array<{month:string,revenue:number}> = [];
+
+    for (let i = 0; i < 12; i++) {
+     
+      const monthOrders = await Order.find({
+        createdAt: {
+          $gte: new Date(currentYear, i, 1), // yyyy/mm/dd
+          $lt: new Date(currentYear, i + 1, 1), 
+        },
+      });
+  
+      const revenue = monthOrders.reduce((total, order) => total + order.totalAmount, 0);
+      
+      allMonthRevenue.push({month:months[i],revenue})
+
+    }
+
+    res.status(200).json({
+      message: "All Month Revenue fetched successfully!",
+      success: true,
+      allMonthRevenue,
+    });
+
+  } catch (error) {
+    console.error("Error fetching revenue:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while fetching revenue.",
+      error,
+    });
+  }
+ 
+}
