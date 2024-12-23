@@ -313,12 +313,12 @@ export const getAllMonthsRevenue = async(req: Request, res: Response) => {
           $gte: new Date(currentYear, i, 1), // yyyy/mm/dd
           $lt: new Date(currentYear, i + 1, 1), 
         },
+
       });
   
       const revenue = monthOrders.reduce((total, order) => total + order.totalAmount, 0);
       
       allMonthRevenue.push({month:months[i],revenue})
-
     }
 
     res.status(200).json({
@@ -336,4 +336,25 @@ export const getAllMonthsRevenue = async(req: Request, res: Response) => {
     });
   }
  
+}
+
+export const getAllTransactions = async(req: Request, res: Response) => {
+    try {
+      
+      const orders = await Order.find({});
+
+      res.status(200).json({
+        message:"Transactions Fetched Successfully!",
+        success: true,
+        Transactions: orders
+      })
+
+    } catch (error) {
+      console.error("Error fetching Transactions:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Something went wrong while fetching Transactions.",
+        error,
+      });
+    }
 }
