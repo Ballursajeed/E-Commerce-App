@@ -358,3 +358,24 @@ export const getAllTransactions = async(req: Request, res: Response) => {
       });
     }
 }
+
+export const getTopTransactions = async(req: Request, res: Response) => {
+  try {
+    
+    const orders = await Order.find({}).sort({ totalAmount: -1 }).limit(5);
+
+    res.status(200).json({
+      message:"Transactions Fetched Successfully!",
+      success: true,
+      Transactions: orders
+    })
+
+  } catch (error) {
+    console.error("Error fetching Transactions:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while fetching Transactions.",
+      error,
+    });
+  }
+}
