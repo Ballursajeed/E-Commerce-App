@@ -32,6 +32,7 @@ const Navbar = () => {
   };
 
   const handleSearch = async () => {
+    setIsMenuOpen(false);
     if (!searchValue.trim()) {
       alert("Please enter a search term.");
       return;
@@ -49,44 +50,44 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="navbar-logo">
           <h1>E-Shop</h1>
-          <button className="hamburger" onClick={toggleMenu}>
+        </div>
+        <button className="hamburger" onClick={toggleMenu}>
           &#9776;
          </button>
-        </div>
-        
         <div className={`navbar-menu ${isMenuOpen ? "open" : ""}`}>
+       
           <div className="navbar-search">
             <input type="text" onChange={(e) => setSearchValue(e.target.value)} placeholder="Search for products..." />
             <button onClick={handleSearch} className="search-button">Search</button>
           </div>
           <div className="navbar-buttons">
             <button className="nav-btn">
-              <Link to={"/"}>Home</Link>
+              <Link to={"/"} onClick={() => setIsMenuOpen(false)}>Home</Link>
             </button>
             <button className="nav-btn">
               {user._id ? (
-                <Link to={"/profile"}>Account</Link>
+                <Link to={"/profile"} onClick={() => setIsMenuOpen(false)}>Account</Link>
               ) : (
-                <Link to={"/login"}>Login</Link>
+                <Link to={"/login"} onClick={() => setIsMenuOpen(false)}>Login</Link>
               )}
             </button>
                  {user._id &&   <button className="nav-btn">
                {
                 user.role === 'seller' ? (
-                 <Link to={'/dashboard/products'}>Dashboard</Link>
+                 <Link to={'/dashboard/products'} onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
                 )
                  : 
                 (
-                  <Link to={'/become-admin'}>become a seller</Link>
+                  <Link to={'/become-admin'} onClick={() => setIsMenuOpen(false)}>become a seller</Link>
                 )
                }
             </button> }
           
           { user._id &&  <button className="nav-btn">
-              <Link to={"/myOrder"}>Orders</Link>
+              <Link to={"/myOrder"} onClick={() => setIsMenuOpen(false)}>Orders</Link>
             </button>}
             <button className="nav-btn">
-              <Link to={"/cart"}>Cart</Link>
+              <Link to={"/cart"} onClick={() => setIsMenuOpen(false)}>Cart</Link>
             </button>
           </div>
         </div>

@@ -38,7 +38,7 @@ const AdminProducts = () => {
 
   return (
     <div className="admin-content">
-      <div className="head">
+      <div className="admin-head">
       <h2>Products</h2>
       <button onClick={() => navigate('/dashboard/new')} className="add-product-btn" aria-label="Add Product">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
