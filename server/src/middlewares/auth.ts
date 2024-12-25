@@ -10,7 +10,7 @@ export const validateUser = async(req:middlewareValidateUserRequest,res:Response
 
     if (!token) {
         return res.status(400).json({
-            message:"Unauthorized Request!",
+            message:"Please Login first!",
             success: false
         })
     }
