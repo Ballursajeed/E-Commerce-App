@@ -280,12 +280,23 @@ export const getCurrentMonthRevenueAndTransactions = async (req: Request, res: R
       },
     });
 
-    const revenue = thisMonthOrders.reduce((total, order) => total + order.totalAmount, 0);
+    const lastMonthOrders = await Order.find({
+      createdAt: {
+        $gte: new Date(currentYear, currentMonth - 1, 1), // yyyy/mm/dd
+        $lt: new Date(currentYear, currentMonth, 1), 
+      },
+    });
+
+    const thisMonthRevenue = thisMonthOrders.reduce((total, order) => total + order.totalAmount, 0);
+    const lastMonthRevenue = lastMonthOrders.reduce((total, order) => total + order.totalAmount, 0);
+
+    const revenueGrowRate = Math.round(((thisMonthRevenue - lastMonthRevenue)/lastMonthRevenue) * 100);
 
     return res.status(200).json({
       message: "Revenue fetched successfully!",
       success: true,
-      revenue,
+      revenue:thisMonthRevenue,
+      revenueGrowRate: String(revenueGrowRate + '%'),
       transactions: thisMonthOrders.length
     });
 
@@ -300,6 +311,7 @@ export const getCurrentMonthRevenueAndTransactions = async (req: Request, res: R
 };
 
 export const getAllMonthsRevenue = async(req: Request, res: Response) => {
+  
   try {
     
     const currentYear = new Date().getFullYear(); 
