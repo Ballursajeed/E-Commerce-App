@@ -19,16 +19,11 @@ import GetOrders from "./components/GetOrder/GetOrders";
 import EditProduct from "./components/EditProduct/EditProduct";
 import Navbar from "./components/Navbar/Navbar";
 import NewProduct from "./components/NewProduct/NewProduct";
-import { useEffect } from "react";
-import { useCheckAuth } from "./hooks/useAuthCheck";
+
 
 function App() {
 
-  const checkAuth = useCheckAuth()
-
-  useEffect(() => {
-       checkAuth('/login')
-  },[])
+  
 
   return (
     <>
@@ -47,13 +42,13 @@ function App() {
           <Route path="agree" element={<PolicyAgree />} />
         </Route> 
         <Route path="/dashboard" element={<Dashboard />}>
-         <Route path="products" element={<AdminProducts />} />
-         <Route path="new" element={<NewProduct />} />
-         <Route path="manage-product/:id" element={<GetSingleProduct isSeller={true}/>} />
-         <Route path="update-product/:id" element={<EditProduct />} />
-         <Route path="analytics" element={<Analytics />} />
-         <Route path="customers" element={<Customer />} />
-         <Route path="my-orders" element={<GetOrders />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="new" element={<NewProduct />} />
+          <Route path="manage-product/:id" element={<GetSingleProduct isSeller={true}/>} />
+          <Route path="update-product/:id" element={<EditProduct />} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="customers" element={<Customer />} />
+          <Route path="my-orders" element={<GetOrders />} />
         </Route>
       </Routes>
     </>

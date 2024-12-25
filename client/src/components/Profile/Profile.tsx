@@ -21,7 +21,7 @@ const Profile = () => {
 
     useEffect(() => {
         checkAuth('/');
-    })
+    },[])
 
     const handleDelete = async() => {
         window.alert("Do you want to delete Your Account?");
@@ -40,10 +40,6 @@ const Profile = () => {
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
-              onClose: () => {
-                setTimeout(() => { window.location.reload();},1000)
-              window.location.reload();
-              }
             })
             
           } else {
@@ -87,8 +83,7 @@ const Profile = () => {
               pauseOnHover: true,
               draggable: true,
               onClose: () => {
-                setTimeout(() => { window.location.reload();},1000)
-                window.location.reload();
+                setTimeout(() => window.location.reload(),1000)
               }
             })
             

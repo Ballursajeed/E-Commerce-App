@@ -96,14 +96,30 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
   }
 
   const buyNow = async() => {
-    const res = await axios.post(`${SERVER}/cart/addItems`,{
-      id,stocks: counter
-     },{
-      withCredentials:true
-     })
-     if (res.data.success) {
-      navigate(`/order/${product._id}/${counter}`)
-     }
+   try {
+     const res = await axios.post(`${SERVER}/cart/addItems`,{
+       id,stocks: counter
+      },{
+       withCredentials:true
+      })
+      if (res.data.success) {
+            navigate(`/order/${product._id}/${counter}`);
+      }
+   } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>; // Explicitly assert the error type
+
+        console.log(axiosError.response); // Now TypeScript knows this exists
+        toast.error(
+          `${axiosError?.response?.data?.message || "Something went wrong!"}`,
+          {
+          position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+        })
+   }
   }
   
   const handleDelete = async() => {
