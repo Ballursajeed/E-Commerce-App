@@ -1,5 +1,5 @@
 import express from "express";
-import { becomeSeller, checkAuth, getCurrentMonthUsers, userLogin, userLogout, userRegister } from "../controllers/user.controller";
+import { becomeSeller, checkAuth, editUser, getCurrentMonthUsers, updateAvatar, userLogin, userLogout, userRegister } from "../controllers/user.controller";
 import { upload } from "../middlewares/multer.middleware";
 import { isAdmin, validateUser } from "../middlewares/auth";
 
@@ -12,10 +12,17 @@ route.route("/register").post(upload.fields([
     }
 ]),userRegister as unknown as express.RequestHandler);
 
-route.route("/login").post(userLogin as unknown as express.RequestHandler)
-route.route("/logout").post(validateUser as unknown as express.RequestHandler,userLogout as unknown as express.RequestHandler)
-route.route("/become-seller").post(becomeSeller as unknown as express.RequestHandler)
-route.route("/me").get(validateUser as unknown as express.RequestHandler,checkAuth as unknown as express.RequestHandler)
+route.route("/login").post(userLogin as unknown as express.RequestHandler);
+route.route("/edit/:id").put(editUser as unknown as express.RequestHandler);
+route.route("/edit-avatar/:id").put(upload.fields([
+    {
+        name:"avatar",
+        maxCount: 1
+    }
+]),updateAvatar as unknown as express.RequestHandler);
+route.route("/logout").post(validateUser as unknown as express.RequestHandler,userLogout as unknown as express.RequestHandler);
+route.route("/become-seller").post(becomeSeller as unknown as express.RequestHandler);
+route.route("/me").get(validateUser as unknown as express.RequestHandler,checkAuth as unknown as express.RequestHandler);
 
 //admin routes
 route.route("/admin/thisMonthUsers").get(validateUser as unknown as express.RequestHandler,

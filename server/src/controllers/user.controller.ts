@@ -149,6 +149,131 @@ res.status(200).json({
 })
 
 }
+
+export const editUser = async(req:MulterRequest,res:Response, next: NextFunction) => { 
+  try {
+    const { id } = req.params;
+    const { username, fullName, email } = req.body;
+
+
+    const user = await User.findById({
+        _id:id
+    })
+
+    if (!user) {
+        return res.status(404).json({
+            message:"User Not Found!",
+            status: 404
+        })
+    }
+
+    if (!username && !fullName && !email) {
+      return res.status(400).json({
+        message:"Please Update atleast One of these fields!",
+        status:400
+      })  
+    }
+
+    const existedUserWithEmail = await User.findOne({email});
+    
+    if (existedUserWithEmail) {
+        return res.status(400).json({
+            message: "Email is already used by another user",
+            status: 400,
+         })
+    }
+
+    const existedUserWithUsername = await User.findOne({username});
+    
+    if (existedUserWithUsername) {
+        return res.status(400).json({
+            message: "Username is already used by another user",
+            status: 400,
+         })
+    }
+     
+
+    await User.findByIdAndUpdate({
+        _id:id
+    },{
+        username,
+        fullName,
+        email,
+    })
+
+    const updatedUser = await User.findById({_id:id})
+
+    res.status(200).json({
+        message: "User updated Successfully!",
+        success: true,
+        updatedUser
+    })
+
+} catch (error) {
+    return res.status(500).json({
+        message: "OOPS!! Something Went Wrong While updating a User!!",
+        status: 500,
+        error
+     })
+}
+
+} 
+
+export const updateAvatar = async(req:MulterRequest,res:Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById({
+        _id:id
+    })
+
+    if (!user) {
+        return res.status(404).json({
+            message:"User Not Found!",
+            status: 404
+        })
+    }
+   
+    let avatar
+
+    if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
+        const fileBuffer = req.files.avatar[0].buffer;
+        avatar = await uploadOnCloudinary(fileBuffer) as AvatarType;  
+    }
+
+    if (!avatar) {
+        return res.status(500).json({
+            message: "Something Went wrong while uploading image, please try again later!",
+            status: 500,
+         })
+    }
+   
+    await User.findByIdAndUpdate({
+       _id:id
+   },{
+      avatar: avatar.url
+       
+   })
+
+    const updatedUserWithAvatar = await User.findById({
+        _id:id
+    })
+
+   res.status(200).json({
+    message: "Avatar Updated Successfully!",
+    success: true,
+    updatedUserWithAvatar
+   })
+
+  } catch (error) {
+       return res.status(500).json({
+           message: "OOPS!! Something Went Wrong While updating a User!!",
+           status: 500,
+           error
+       })
+  }
+}
+
 export const checkAuth = async(req:middlewareValidateUserRequest,res:Response) => {
   try {
       const userId = req.user; 
