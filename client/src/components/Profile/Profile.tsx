@@ -23,47 +23,6 @@ const Profile = () => {
         checkAuth('/');
     },[])
 
-    const handleDelete = async() => {
-        window.alert("Do you want to delete Your Account?");
-        
-        try {
-          const res = await axios.delete(`${SERVER}/user/deleteUser/${user?._id}`, {
-            withCredentials: true
-          });
-          
-          if (res.status === 200) {
-            // Refresh the page after successful deletion
-            toast.success('Profile Deleted Successfully!', {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-            })
-            
-          } else {
-            console.error("Failed to delete the blog");
-          }
-        }   catch (error) {
-
-            const axiosError = error as AxiosError<ErrorResponse>; // Explicitly assert the error type
-    
-            console.log(axiosError.response); // Now TypeScript knows this exists
-            toast.error(
-              `${axiosError?.response?.data?.message || "Something went wrong!"}`,
-              {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-              }
-            );
-           }
-      }
-  
       const handleEdit = async() => {
            navigate(`/edit-profile/${user?._id}`)
       } 
@@ -119,8 +78,7 @@ const Profile = () => {
     <h2 className="Profile-fullname">{user.fullName}</h2>
     <p className="Profile-username">{user.username}</p>
     <button className='edit-btn' onClick={handleEdit}>edit</button>
-    <button className='edit-btn' onClick={handleLogout}>logout</button>
-    <button className='delete-btn' onClick={handleDelete}>delete Profile</button>
+    <button className='delete-btn' onClick={handleLogout}>logout</button>
   </div>
 </div>
 <ToastContainer />

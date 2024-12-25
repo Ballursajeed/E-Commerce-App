@@ -19,6 +19,7 @@ import GetOrders from "./components/GetOrder/GetOrders";
 import EditProduct from "./components/EditProduct/EditProduct";
 import Navbar from "./components/Navbar/Navbar";
 import NewProduct from "./components/NewProduct/NewProduct";
+import EditUser from "./components/EditUser/EditUser";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/single/:id" element={<GetSingleProduct/>} />  
         <Route path="/search" element={<SearchResult />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile/:id" element={<EditUser />} />
         <Route path="/become-admin" element={<NewAdmin />}>
           <Route path="agree" element={<PolicyAgree />} />
         </Route> 
