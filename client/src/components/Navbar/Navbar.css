@@ -37,12 +37,14 @@
 /* Navbar Menu */
 .navbar-menu {
   display: flex;
+  width: 90%;
   align-items: center;
   justify-content: space-between;
 }
 
 .navbar-search {
   flex: 1;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,7 +52,7 @@
 }
 
 .navbar-search input {
-  width: 60%;
+  width: 70%;
   padding: 8px;
   border: 1px solid #bdc3c7;
   border-radius: 4px 0 0 4px;
@@ -58,18 +60,20 @@
 }
 
 .navbar-search .search-button {
-  padding: 8px 12px;
+  padding: 12px 12px;
   background-color: #e74c3c;
   color: white;
   border: none;
-  border-radius: 0 4px 4px 0;
+  border-radius: 5px;
   cursor: pointer;
+  margin-left: 1px;
   font-size: 1rem;
 }
 
 .navbar-buttons {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  width: 28%;
 }
 
 .navbar-buttons .nav-btn {
@@ -149,7 +153,7 @@
   }
 
   .navbar-search {
-    width: 90%;
+    width: auto;
     margin: 10px auto;
   }
 
