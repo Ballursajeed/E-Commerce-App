@@ -2,7 +2,7 @@ import  { FormEvent, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import {SERVER} from "../../constant.ts"
 import { useNavigate } from 'react-router-dom';
-import '../Register/Register.css'
+import './newProduct.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import Loading from '../Loader/Loader.tsx';
@@ -18,6 +18,7 @@ const NewProduct = () => {
     const [category, setCategory] = useState('')
     const [description, setDescription] = useState('');
     const [stocks, setStocks] = useState('');
+    const [modelImage, setModelImage] = useState<File | null>(null);
     const [file, setFile] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);  // Add loading state
    
@@ -47,6 +48,10 @@ const NewProduct = () => {
          if (file) {
             formData.append("image",file)
          }
+         if (modelImage) {
+          const modelPath = `/models/${modelImage.name}`;
+          formData.append("modelImage", modelPath);
+        }
          const res = await axios.post(`${SERVER}/product/newProduct`,formData,
          {
           withCredentials:true,
@@ -148,7 +153,7 @@ const NewProduct = () => {
 
           <div>
             <label htmlFor="description">Description: </label>
-            <input type="text" 
+            <textarea 
                   placeholder='add Description...'
                   id='description' 
                   value={description}
@@ -158,20 +163,38 @@ const NewProduct = () => {
           </div>
 
           <div className='imageUpload'>
-    <label htmlFor='avatar'>Upload Product Image:</label>
-    <label className="customFileUpload">
-        <span className="uploadIcon">📁 Choose File</span> 
-        <p></p>
-        <input type="file" id="avatar" onChange={(e) => {
-            if (e.target.files) {
-              setFile(e.target.files[0]);
-            document.getElementById('fileName')!.textContent = e.target.files[0]?.name || "No file chosen";
-            }
-        }} 
-        required/>
-    </label>
-    <span id="fileName" className="fileName">No file chosen</span>
-</div>
+              <label htmlFor='avatar'>Upload Product Image:</label>
+              <label className="customFileUpload">
+                <span className="uploadIcon">📁 Choose File</span> 
+                <p></p>
+                <input type="file" id="avatar" onChange={(e) => {
+                    if (e.target.files) {
+                      setFile(e.target.files[0]);
+                    document.getElementById('fileName')!.textContent = e.target.files[0]?.name || "No file chosen";
+                    }
+                }} 
+                required/>
+            </label>
+            <span id="fileName" className="fileName">No file chosen</span>
+          </div>
+          <div>
+            <span id='span3d'>if you have hosted 3D model of your product then you can upload</span>
+            <div className='imageUpload-3d'>
+              <label htmlFor='3d'>upload 3D Model:</label>
+              <label className="customFileUpload">
+                <span className="uploadIcon">📁 Choose File</span> 
+                <p></p>
+                <input type="file" id="3d" accept=".glb,.gltf,.obj,.fbx,.stl,.dae,.ply,.3ds" onChange={(e) => {
+                    if (e.target.files) {
+                      setModelImage(e.target.files[0]);
+                    document.getElementById('3dfileName')!.textContent = e.target.files[0]?.name || "No file chosen";
+                    }
+                }} 
+                required/>
+            </label>
+            <span id="3dfileName" className="fileName">No file chosen</span>
+          </div>
+          </div>
           <button type='submit' className='btn'>Submit</button>
 
         </form>

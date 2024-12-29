@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
+    "@react-three/drei": "^9.120.4",
+    "@react-three/fiber": "^8.17.10",
     "@reduxjs/toolkit": "^2.4.0",
     "@stripe/react-stripe-js": "^3.0.0",
     "@stripe/stripe-js": "^5.2.0",
@@ -26,12 +28,14 @@
     "react-responsive": "^10.0.0",
     "react-router-dom": "^7.0.1",
     "react-toastify": "^10.0.6",
-    "run": "^1.5.0"
+    "run": "^1.5.0",
+    "three": "^0.171.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.171.0",
     "@vitejs/plugin-react": "^4.3.3",
     "eslint": "^9.13.0",
     "eslint-plugin-react-hooks": "^5.0.0",

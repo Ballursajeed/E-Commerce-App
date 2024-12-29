@@ -13,6 +13,7 @@ import { ErrorResponse } from "../login/Login"
    createdAt: string;
    description:string;
    image: string;
+   modelImage: string;  
    name: string;
    price: number;
    stocks: number;
@@ -28,6 +29,7 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
    createdAt: '',
    description:'',
    image: '',
+   modelImage: '',
    name: '',
    price: 0,
    stocks: 1,
@@ -167,9 +169,9 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
       <div className="left-name">
             <h1>{product.name}</h1>
         </div>
-        <div className="image">
+         <div className="image">
             <img src={product.image} alt="hello" />
-        </div>
+        </div> 
         <div className="quantity">
           <button className="counterBtn" onClick={counterNagativeHandler}>-</button>
           <p>quantity:{counter}</p>
