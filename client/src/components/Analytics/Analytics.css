@@ -1,0 +1,91 @@
+.analytics-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.search-analytics {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-analytics input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+    width: 300px;
+    transition: all 0.3s ease;
+}
+
+.search-analytics input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.search-an {
+    font-size: 24px;
+    background: none;
+    color: #007bff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.analytics-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification {
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+}
+
+.notification:hover {
+    color: #007bff;
+}
+
+.admin-avatar > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.admin-avatar > img:hover {
+    transform: scale(1.1);
+}
+
+.kpi{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.chart-inventory{
+    display: flex;
+    flex-direction: row;
+}
+
+.chart{
+    width: 60%;
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
