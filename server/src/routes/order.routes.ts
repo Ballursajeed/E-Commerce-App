@@ -41,10 +41,7 @@ route.route("/delete/:id")
 
 
  //admin routes
- route.route('/admin/thisMonthRevenue').get(validateUser as unknown as express.RequestHandler, 
-    isAdmin as unknown as express.RequestHandler,
-    getCurrentMonthRevenueAndTransactions as unknown as express.RequestHandler);
- route.route('/admin/thisMonthTransactions').get(validateUser as unknown as express.RequestHandler, 
+ route.route('/admin/thisMonthRevenueAndTransacions').get(validateUser as unknown as express.RequestHandler, 
     isAdmin as unknown as express.RequestHandler,
     getCurrentMonthRevenueAndTransactions as unknown as express.RequestHandler);
 route.route('/admin/allMonthRevenue').get(validateUser as unknown as express.RequestHandler, 

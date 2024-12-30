@@ -10,31 +10,37 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-
-
 const bufferToStream = (buffer: Buffer) => {
     const readable = new Readable();
     readable.push(buffer);
-    readable.push(null);
+    readable.push(null); // end of the stream
     return readable;
 };
 
-const uploadOnCloudinary = (fileBuffer: Buffer) => {
-    return new Promise((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream(
-            { resource_type: 'auto' }, 
-            (error, result) => {
-                if (error) {
-                    console.error("Cloudinary upload error:", error);
-                    reject(error);
-                } else {
-                    resolve(result);
+const uploadOnCloudinary = async (fileBuffer: Buffer) => {
+    try {
+        // Use Promise to wrap the upload stream logic and await its resolution
+        const result = await new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                { resource_type: 'auto' }, // auto handles different formats
+                (error, result) => {
+                    if (error) {
+                        console.error("Cloudinary upload error:", error);
+                        reject(error); // Reject promise with error
+                    } else {
+                        resolve(result); // Resolve promise with result
+                    }
                 }
-            }
-        );
+            );
 
-        bufferToStream(fileBuffer).pipe(stream);
-    });
+            bufferToStream(fileBuffer).pipe(stream); // Convert buffer to stream and upload
+        });
+
+        return result; // Return the result on successful upload
+    } catch (error) {
+        console.error("Failed to upload file to Cloudinary:", error);
+        throw error; // Rethrow or handle the error appropriately
+    }
 };
 
 export { uploadOnCloudinary };

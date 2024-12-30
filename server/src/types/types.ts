@@ -18,6 +18,7 @@ export interface MulterRequest extends Request {
   export interface newProductRequest extends Request {
     files: {
       image?: Express.Multer.File[]; // The avatar field will be an array of files
+      modelImage?: Express.Multer.File[]; // The avatar field will be an array of files
     };
     body: {
       name: string;
@@ -26,6 +27,7 @@ export interface MulterRequest extends Request {
       price: number;
       stocks: number;
       owner: Document;
+      modelImage: string;
       };
       user: IUser;
       userId: string;
@@ -70,8 +72,6 @@ export interface AvatarType {
         folder:string,
         original_filename: string,
         api_key: string
-      
-      
 }
 
 export interface loginUserRequest {

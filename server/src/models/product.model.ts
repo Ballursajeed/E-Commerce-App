@@ -9,6 +9,7 @@ export interface IProduct extends Document {
     image:string;
     stocks: number;
     owner: Document;
+    modelImage?: string;
 }
 
 const productSchema = new Schema<IProduct>(
@@ -27,6 +28,9 @@ const productSchema = new Schema<IProduct>(
     },
     image: {
        type: String,
+    },
+    modelImage:{
+        type:String,
     },
     stocks:{
         type: Number,

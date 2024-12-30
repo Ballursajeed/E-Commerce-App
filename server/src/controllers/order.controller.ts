@@ -290,14 +290,25 @@ export const getCurrentMonthRevenueAndTransactions = async (req: Request, res: R
     const thisMonthRevenue = thisMonthOrders.reduce((total, order) => total + order.totalAmount, 0);
     const lastMonthRevenue = lastMonthOrders.reduce((total, order) => total + order.totalAmount, 0);
 
-    const revenueGrowRate = Math.round(((thisMonthRevenue - lastMonthRevenue)/lastMonthRevenue) * 100);
+    let revenueGrowRate = 0;
+
+    if (lastMonthRevenue === 0 || lastMonthRevenue < 0 || typeof lastMonthRevenue === null || typeof lastMonthRevenue === undefined) {
+       revenueGrowRate = thisMonthRevenue * 100;
+    }
+    if (lastMonthRevenue > 0) {
+       revenueGrowRate = Math.round(((thisMonthRevenue - lastMonthRevenue)/lastMonthRevenue) * 100);
+    }
+   
+    
+    const transactionGrowRate = Math.round(((thisMonthOrders.length - lastMonthOrders.length)/lastMonthOrders.length) * 100);
 
     return res.status(200).json({
       message: "Revenue fetched successfully!",
       success: true,
       revenue:thisMonthRevenue,
-      revenueGrowRate: String(revenueGrowRate + '%'),
-      transactions: thisMonthOrders.length
+      revenueGrowRate: revenueGrowRate,
+      transactions: thisMonthOrders.length,
+      transactionGrowRate,
     });
 
   } catch (error) {

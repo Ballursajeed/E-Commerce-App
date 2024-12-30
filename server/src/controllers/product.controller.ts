@@ -263,7 +263,7 @@ export const getAdminProducts = async(req: newProductRequest, res:Response, next
          .sort({ createdAt: -1 }) // Sort by createdAt in descending order (most recent first)
          .lean();
       
-        let productWithUser = [];
+        let productWithUser:IProduct[]=[];
         for (let i = 0; i < products.length; i++) {
           let product = products[i] as IProduct ;
           let user:IUser
@@ -291,7 +291,7 @@ export const getAdminProducts = async(req: newProductRequest, res:Response, next
 }
 
 export const addProduct = async(req:newProductRequest, res: Response, next:NextFunction) => {
-    const { name, price, category, description, stocks } = req.body
+    const { name, price, category, description, stocks, modelImage } = req.body
 
     if (!name || !price || !category || !description || !stocks) {
         return res.status(400).json({
@@ -306,7 +306,7 @@ export const addProduct = async(req:newProductRequest, res: Response, next:NextF
         const fileBuffer = req.files.image[0].buffer;
         image = await uploadOnCloudinary(fileBuffer) as AvatarType;  
     }
-
+  
     const id = req.userId 
 
     const user = await User.findById(id);
@@ -325,7 +325,8 @@ export const addProduct = async(req:newProductRequest, res: Response, next:NextF
         description,
         stocks: Number(stocks),
         owner: req.user,
-        image: image?.url || undefined
+        image: image?.url || undefined,
+        modelImage,
     });
 
    user.products.push(product);
@@ -432,11 +433,28 @@ export const getCurrentMonthProducts = async(req:Request,res: Response) => {
           },
         });
     
-    
+        const lastMonthProducts = await Product.find({
+            createdAt: {
+              $gte: new Date(currentYear, currentMonth - 1, 1), // yyyy/mm/dd
+              $lt: new Date(currentYear, currentMonth, 1), 
+            },
+          });
+          let productGrowthRate = 0;
+
+          if (lastMonthProducts.length === 0) {
+            productGrowthRate = thisMonthProducts.length * 100;
+          }
+  
+          if (lastMonthProducts.length > 0) {
+             productGrowthRate = Math.round(((thisMonthProducts.length - lastMonthProducts.length)/lastMonthProducts.length) * 100);
+          }
+          
         return res.status(200).json({
-          message: "Users fetched successfully!",
+          message: "Products fetched successfully!",
           success: true,
-          products:thisMonthProducts.length
+          products:thisMonthProducts.length,
+          productGrowthRate,
+          lastMonthProducts:lastMonthProducts.length
         });
     
       } catch (error) {

@@ -1,5 +1,5 @@
 import {  Response } from "express";
-import { Product } from "../models/product.model";
+import { IProduct, Product } from "../models/product.model";
 import { Cart } from "../models/cart.models";
 import { addCartTypes } from "../types/types";
 import mongoose from "mongoose";
@@ -30,7 +30,7 @@ export const addItems = async(req:addCartTypes, res:Response) => {
              success: false
          })
         }
-        let items = [];
+        let items:IProduct[] = [];
         items.push(product)
         let total = 0;
  

@@ -348,18 +348,27 @@ export const getCurrentMonthUsers = async(req: Request, res: Response) => {
     const currentMonth = new Date().getMonth(); 
     const currentYear = new Date().getFullYear(); 
 
-    const thisMonthUser = await User.find({
+    const thisMonthUsers = await User.find({
       createdAt: {
         $gte: new Date(currentYear, currentMonth, 1), 
         $lt: new Date(currentYear, currentMonth + 1, 1), 
       },
     });
 
+        const lastMonthUsers = await User.find({
+          createdAt: {
+            $gte: new Date(currentYear, currentMonth - 1, 1), // yyyy/mm/dd
+            $lt: new Date(currentYear, currentMonth, 1), 
+          },
+        });
+
+        const usersGrowthRate = Math.round(((thisMonthUsers.length - lastMonthUsers.length)/lastMonthUsers.length) * 100);
 
     return res.status(200).json({
       message: "Users fetched successfully!",
       success: true,
-      users:thisMonthUser.length
+      users:thisMonthUsers.length,
+      usersGrowthRate
     });
 
   } catch (error) {
