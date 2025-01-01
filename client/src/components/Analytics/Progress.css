@@ -3,11 +3,12 @@
     width: 100%;
     margin-top:7px;
     background-color: #f5f5f5;
+    border: 1px solid rgb(225, 221, 221);
     border-radius: 40px;
 }
 
 .childDiv{
     height: 100%;
-    background-color: gray;
+    background-color: rgb(101, 100, 100);
     border-radius:40px;
 }

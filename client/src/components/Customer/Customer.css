@@ -1,0 +1,9 @@
+.customers{
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    text-align: center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 10px;
+}

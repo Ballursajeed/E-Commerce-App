@@ -48,7 +48,7 @@ function App() {
           <Route path="new" element={<NewProduct />} />
           <Route path="manage-product/:id" element={<GetSingleProduct isSeller={true}/>} />
           <Route path="update-product/:id" element={<EditProduct />} />
-           <Route path="analytics" element={<Analytics />} /> {/* // still need to build(backend is complete) */}
+          <Route path="analytics" element={<Analytics />} /> {/* // still need to build(backend is complete) */}
           <Route path="customers" element={<Customer />} />{/* // incomplete */}
           <Route path="my-orders" element={<GetOrders />} /> {/*  // incomplete */}
         </Route>
