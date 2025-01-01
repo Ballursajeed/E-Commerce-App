@@ -51,13 +51,6 @@ const Analytics = () => {
     ]
   });
 
-  const progresstext = {
-    padding: 10,
-    color: 'black',
-    fontWeight: 900
-  }
-
-
   const handleSearch = () => {
   console.log("searched:",searchvalue);
   }
