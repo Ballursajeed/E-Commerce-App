@@ -16,7 +16,6 @@
     background-color: white;
     color: black;
     padding: 20px;
-    height: 100vh;
     display: flex;
     flex-direction: column; /* Corrected from 'flexbox' to 'column' */
     box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);

@@ -18,6 +18,14 @@ interface revenueType {
       revenue: Number
 }
 
+interface transactionType {
+  _id:String,
+  items: String[],
+  discount: Number,
+  totalAmount: Number,
+  status: String,
+}
+
 
 
 const Analytics = () => {
@@ -25,6 +33,7 @@ const Analytics = () => {
   const [searchvalue,setSearchValue] = useState('');
   const [revenue,setRevenue] = useState('');
   const [transacions,setTransacions] = useState('');
+  const [topTransactions,setTopTransacions] = useState([]);
   const [products,setProducts] = useState('');
   const [users,setUsers] = useState('');
   const [data,setData] = useState([]);
@@ -117,21 +126,28 @@ const Analytics = () => {
           });
           
           if (response.data.success) {
-              console.log(response.data);
               setCategory(response.data.inventory)
           }
     }    
+    const topTransacions = async() => {
+      const response = await axios.get(`${SERVER}/order/admin/topTransactions`,{
+        withCredentials:true,
+      });
+      
+      if (response.data.success) {
+          console.log(response.data);
+          setTopTransacions(response.data.Transactions)
+      }
+    }
 
     revenueAndTransactions();
     products();
     users();
     getAllMonthRevenue();
     fetchCategory();
+    topTransacions();
 
   },[]);
-
-  console.log("state:",categories);
-  
 
   return (
     <div className="analytics">
@@ -177,6 +193,35 @@ const Analytics = () => {
                   )
                   }
         </div>
+       </div>
+       <div className="transactions">
+         <h1>Top Transactions</h1>
+           <table>
+                 <thead>
+                   <tr>
+                     <th>Id</th>
+                     <th>Quantity</th>
+                     <th>Discount</th>
+                     <th>Amount</th>
+                     <th>Status</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   {topTransactions.map((transaction: transactionType) => (
+                     <tr key={Number(transaction._id)}>
+                       <td>
+                          {transaction._id}
+                       </td>
+                       <td>{`${transaction.items.length}`}</td>
+                       <td>{`${transaction.discount || 0}`}</td>
+                       <td>{`₹ ${transaction.totalAmount}`}</td>
+                       <td>
+                       {`${transaction.status}`}
+                       </td>
+                     </tr>
+                   ))}
+                 </tbody>
+               </table>
        </div>
      </div>
     </div>
