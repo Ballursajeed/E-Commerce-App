@@ -190,7 +190,7 @@ const NewProduct = () => {
                     document.getElementById('3dfileName')!.textContent = e.target.files[0]?.name || "No file chosen";
                     }
                 }} 
-                required/>
+                />
             </label>
             <span id="3dfileName" className="fileName">No file chosen</span>
           </div>
