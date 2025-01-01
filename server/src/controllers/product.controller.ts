@@ -476,7 +476,7 @@ export const getInventoryProducts = async(req:Request,res: Response) => {
 
         let categories: { [key: string]: number } = {
         }
-        let inventory:{ [key: string]: string } = {
+        let inventory:{ [key: string]: number } = {
                
         }
 
@@ -495,7 +495,7 @@ export const getInventoryProducts = async(req:Request,res: Response) => {
         const findPercentile = (categoryCount:number,category:string) => {
 
                  let percentile = Math.round((categoryCount/totalProducts)*100);
-                 inventory[category] = String(percentile + '%');
+                 inventory[category] = Number(percentile);
 
         }
         
