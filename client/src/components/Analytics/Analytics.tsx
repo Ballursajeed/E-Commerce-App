@@ -9,6 +9,7 @@ import KipCard from "./KipCard";
 import axios from "axios";
 import { SERVER } from "../../constant";
 import { BarChart } from "./BarChart";
+import Progress_bar from "./Progress";
 
 Chart.register(CategoryScale);
 
@@ -16,6 +17,8 @@ interface revenueType {
       month: String,
       revenue: Number
 }
+
+
 
 const Analytics = () => {
 
@@ -25,6 +28,7 @@ const Analytics = () => {
   const [products,setProducts] = useState('');
   const [users,setUsers] = useState('');
   const [data,setData] = useState([]);
+  const [categories,setCategory] = useState<{ [key: string]: number }>({});
 
   const [revenueGrowth,setRevenueGrowth] = useState(0);
   const [transacionsGrowth,setTransacionsGrowth] = useState(0);
@@ -46,6 +50,12 @@ const Analytics = () => {
       }
     ]
   });
+
+  const progresstext = {
+    padding: 10,
+    color: 'black',
+    fontWeight: 900
+  }
 
 
   const handleSearch = () => {
@@ -70,7 +80,6 @@ const Analytics = () => {
       const resonse = await axios.get(`${SERVER}/product/admin/thisMonthProducts`,{
         withCredentials:true
       });
-      console.log(resonse.data);
       if (resonse.data.success) {
          setProducts(resonse.data.products)
          setProductsGrowth(resonse.data.productGrowthRate)
@@ -80,7 +89,6 @@ const Analytics = () => {
       const resonse = await axios.get(`${SERVER}/user/admin/thisMonthUsers`,{
         withCredentials:true
       });
-      console.log(resonse.data);
       if (resonse.data.success) {
          setUsers(resonse.data.users)
          setUsersGrowth(resonse.data.usersGrowthRate)
@@ -91,7 +99,6 @@ const Analytics = () => {
         withCredentials:true
       });
        if (resonse.data.success) {
-        console.log("response:",resonse.data);
         
         setData(resonse.data.allMonthRevenue);
         setChartData({
@@ -111,14 +118,27 @@ const Analytics = () => {
         })
        }
     }
+    const fetchCategory = async() => {
+          const response = await axios.get(`${SERVER}/product/admin/inventory`,{
+            withCredentials:true,
+          });
+          
+          if (response.data.success) {
+              console.log(response.data);
+              setCategory(response.data.inventory)
+          }
+    }    
 
     revenueAndTransactions();
     products();
     users();
-    getAllMonthRevenue()
+    getAllMonthRevenue();
+    fetchCategory();
+
   },[]);
 
-console.log('data:', chartData);
+  console.log("state:",categories);
+  
 
   return (
     <div className="analytics">
@@ -149,7 +169,20 @@ console.log('data:', chartData);
          <BarChart chartData={chartData} />
         </div>
         <div className="inventory">
-          boc
+          <h1>Inventory</h1>
+                  {
+                    Object.keys(categories).map((key) => {
+                    return (
+                      <div className="keys"> 
+                        <div>{key}</div>
+                          <Progress_bar progress={`${categories[key]}%`} />                          
+                        <div>{`${categories[key]}%`}</div>
+                      </div>
+                   
+                    )
+                    }
+                  )
+                  }
         </div>
        </div>
      </div>

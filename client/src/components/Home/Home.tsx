@@ -40,9 +40,7 @@ const handleCategoryChange = async (query:string) => {
   return (
     <>
     <div className="container">
-      
       <div className="left">
-     
         <aside>
             <div className="categories">
               <h1>
