@@ -20,6 +20,9 @@ import EditProduct from "./components/EditProduct/EditProduct";
 import Navbar from "./components/Navbar/Navbar";
 import NewProduct from "./components/NewProduct/NewProduct";
 import EditUser from "./components/EditUser/EditUser";
+import GetSingleOrder from "./components/GetSingleOrder/GetSingleOrder";
+import EditOrder from "./components/EditOrder/EditOrder";
+import GetSingleCutomer from "./components/GetSingleCustomer/GetSingleCutomer";
 
 
 function App() {
@@ -48,9 +51,12 @@ function App() {
           <Route path="new" element={<NewProduct />} />
           <Route path="manage-product/:id" element={<GetSingleProduct isSeller={true}/>} />
           <Route path="update-product/:id" element={<EditProduct />} />
-          <Route path="analytics" element={<Analytics />} /> {/* // still need to build(backend is complete) */}
-          <Route path="customers" element={<Customer />} />{/* // incomplete */}
-          <Route path="my-orders" element={<GetOrders />} /> {/*  // incomplete */}
+          <Route path="manage-order/:id" element={<GetSingleOrder />} />
+          <Route path="update-order/:id" element={<EditOrder />} />
+          <Route path="manage-customer/:id" element={<GetSingleCutomer />} />
+          <Route path="analytics" element={<Analytics />} /> 
+          <Route path="customers" element={<Customer />} />
+          <Route path="my-orders" element={<GetOrders />} /> 
         </Route>
       </Routes>
     </>

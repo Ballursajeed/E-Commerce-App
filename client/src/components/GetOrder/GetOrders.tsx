@@ -15,7 +15,7 @@ const GetOrders = () => {
 
   const [transactions, setTransactions] = useState<TransactionType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
+  const productsPerPage = 10;
   const navigate = useNavigate();
   
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -44,7 +44,7 @@ const GetOrders = () => {
 
   return (
     <div className="get-transacions">
-      <h2>Customers</h2>
+      <h2>Transactions</h2>
       <table>
         <thead>
           <tr>
@@ -70,7 +70,7 @@ const GetOrders = () => {
               <td>{transaction.status}</td>
               <td>
                 <button 
-                  onClick={() => navigate(`/dashboard/manage-product/${transaction._id}`)} 
+                  onClick={() => navigate(`/dashboard/manage-order/${transaction._id}`)} 
                   className="manage-btn"
                 >
                   Manage

@@ -22,7 +22,7 @@ const Customer = () => {
 
   const [customers,setCustomers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
+  const productsPerPage = 7;
 
   const navigate = useNavigate();
 
@@ -77,7 +77,7 @@ const Customer = () => {
                        <td>{`${customer.email}`}</td>
                        <td>{`${customer.role || 'user'}`}</td>
                        <td>
-                        <button onClick={() => {navigate(`/dashboard/manage-product/${customer._id}`)}} className="manage-btn">Info</button>
+                        <button onClick={() => {navigate(`/dashboard/manage-customer/${customer._id}`)}} className="manage-btn">Info</button>
                       </td>
                      </tr>
                    ))}
