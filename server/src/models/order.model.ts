@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema(
             {
                 
              type:mongoose.Schema.Types.ObjectId,
-             ref: "Products"
+             ref: "Product"
                 
             },
         ],

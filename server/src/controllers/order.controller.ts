@@ -134,43 +134,39 @@ try {
 }
 
 //Admin use
-export const getSingleOrder = async(req:newOrderRequestType,res:Response) => { //admin only
-    try {
-        
-     const { id } = req.params;
+export const getSingleOrder = async (req, res) => { 
+  try {
+      const { id } = req.params;
 
-     const user = await User.findById(id);
+      // Find the order and populate the 'items' field
+      const order = await Order.findById(id).populate({
+          path: 'items',               // Reference to 'items' in the Order schema
+          select: 'name price image category' // Select required fields from Product
+      });
 
-     if (!user) {
-        return res.status(500).json({
-            message:"User not Found!",
-            success: false,
-         })
-     }
+      // If no order found
+      if (!order) {
+          return res.status(404).json({
+              message: "Order not Found!",
+              success: false
+          });
+      }
 
-     const order = await Order.findOne({customer: user});
-    
-        if(!order) {
-            return res.status(404).json({
-                message: "Order not Found!",
-                success: false
-            })
-        }
-    
-        return res.status(200).json({
-            message: "User's Order Fetched!",
-            success: true,
-            order
-        })
+      // Return the populated order
+      return res.status(200).json({
+          message: "Single Order Fetched!",
+          success: true,
+          order
+      });
 
-    } catch (error) {
-        return res.status(500).json({
-            message:"Something Went Wrong!",
-            success: false,
-            error
-         })
-    }
-}
+  } catch (error) {
+      return res.status(500).json({
+          message: "Something Went Wrong!",
+          success: false,
+          error
+      });
+  }
+};
 
 export const getAllOrders = async(req:newOrderRequestType,res:Response) => { //admin only
    try {
