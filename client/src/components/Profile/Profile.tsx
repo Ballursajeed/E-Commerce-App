@@ -42,7 +42,7 @@ const Profile = () => {
               pauseOnHover: true,
               draggable: true,
               onClose: () => {
-                setTimeout(() => window.location.reload(),1000)
+                 window.location.reload()
               }
             })
             
