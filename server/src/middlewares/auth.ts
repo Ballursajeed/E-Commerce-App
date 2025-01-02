@@ -91,17 +91,10 @@ export const isSeller = async(req:middlewareIsAdminRequest,res:Response,next:Nex
          }) 
       }
 
-    if(user.isAdmin === false){
-       return res.status(400).json({
-            message:"Unauthorized Request! You're not Admin",
-            success: false
-       })
-    }
-    
+
     if (user.role === 'seller') {
         req.user = user 
         req.userId = user._id
         next()
     }
-
 }
