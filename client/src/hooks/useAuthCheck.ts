@@ -25,7 +25,6 @@ export const useCheckAuth = () => {
 
   } catch (error) {
       console.error('Failed to fetch user details:', error);
-      window.location.reload();
       navigate(`${path}`)
   }
   
