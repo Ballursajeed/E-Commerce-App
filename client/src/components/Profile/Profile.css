@@ -2,7 +2,8 @@
 .Profile-container {
     display: flex;
     justify-content: space-between; /* Space between profile and blogs */
-    align-items: flex-start; /* Aligns both elements at the top */
+    align-items: center; 
+    justify-content: center;
     padding: 5rem 2rem 2rem 2rem;
     gap: 1rem;
     margin-top: 60px;
