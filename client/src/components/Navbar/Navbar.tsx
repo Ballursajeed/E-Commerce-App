@@ -83,9 +83,9 @@ const Navbar = () => {
                }
             </button> }
           
-          { user._id &&  <button className="nav-btn">
+          {/* { user._id &&  <button className="nav-btn">
               <Link to={"/myOrder"} onClick={() => setIsMenuOpen(false)}>Orders</Link>
-            </button>}
+            </button>} */}
             <button className="nav-btn">
               <Link to={"/cart"} onClick={() => setIsMenuOpen(false)}>Cart</Link>
             </button>

@@ -1,5 +1,5 @@
 .listContainer{
-    margin-top: 80px;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -150,6 +150,34 @@
     display: flex;
     flex-direction: column;
     width: 80%;
+}
+
+.list-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.list-pagination button {
+  padding: 8px 12px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.list-pagination button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.list-pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
 }
 
 @media screen and (max-width: 768px) {

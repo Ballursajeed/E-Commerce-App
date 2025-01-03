@@ -13,6 +13,9 @@ const ListProducts = () => {
      const [isAll,setIsAll] = useState(true);
      const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+     const [currentPage, setCurrentPage] = useState(1);
+     const productsPerPage = 8; // 2 rows x 4 products per row
+
   useEffect(() => {
       const fetchCategory = async() => {
         const response = await axios.get(`${SERVER}/product/getAllCategories`);
@@ -37,6 +40,7 @@ const ListProducts = () => {
         const res = await axios.get(`${SERVER}/product/price/${sort}`);
         if (res.data.success) {
           setProducts(res.data.products);
+          setCurrentPage(1); // Reset pagination
         }
       } catch (error) {
         console.error("Error fetching price-sorted products:", error);
@@ -54,6 +58,7 @@ const ListProducts = () => {
         const res = await axios.get(`${SERVER}/product/getProductByCategory/${category}`);
         if (res.data.success) {
           setProducts(res.data.products);
+          setCurrentPage(1); // Reset pagination
         }
       } catch (error) {
         console.error("Error fetching category-sorted products:", error);
@@ -68,9 +73,17 @@ const ListProducts = () => {
     const res = await axios.get(`${SERVER}/product/price/${price}`);
     if (res.data.success) {
       setProducts(res.data.products)
+      setCurrentPage(1); // Reset pagination
     } 
 
   }
+
+   // Pagination logic
+   const indexOfLastProduct = currentPage * productsPerPage;
+   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+   const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
 
   return (
     <div>
@@ -118,14 +131,25 @@ const ListProducts = () => {
               isAll ?  <GetProducts /> :  
               <div className='productContainer'>
                 {
-                products.map((product,index) => {
+                currentProducts.map((product,index) => {
                   
                   return <SingleProduct key={index} product={product}/>
                 })
                 }
              </div> 
             }
-         
+          {/* Pagination Controls */}
+        { !isAll && <div className="list-pagination">
+                        {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, i) => (
+                            <button
+                                key={i}
+                                className={currentPage === i + 1 ? 'active' : ''}
+                                onClick={() => paginate(i + 1)}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                    </div>}
         </div>
       </div>
       

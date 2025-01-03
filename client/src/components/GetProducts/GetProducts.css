@@ -19,6 +19,34 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
+  .list-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .list-pagination button {
+    padding: 8px 12px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .list-pagination button:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .list-pagination button.active {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+
   @media only screen and (max-width: 768px) {
     .productContainer {
       display: flex;
