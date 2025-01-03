@@ -96,5 +96,10 @@ export const isSeller = async(req:middlewareIsAdminRequest,res:Response,next:Nex
         req.user = user 
         req.userId = user._id
         next()
+    } else {
+        return res.status(400).json({
+            message: "Sorry You're not a Seller",
+            status: 400,
+         }) 
     }
 }

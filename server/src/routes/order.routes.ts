@@ -39,21 +39,29 @@ route.route("/delete/:id")
     isAdmin as unknown as express.RequestHandler,
     deleteOrder as unknown as express.RequestHandler);
 
-
- //admin routes
+ //dashboard routes
  route.route('/admin/thisMonthRevenueAndTransacions').get(validateUser as unknown as express.RequestHandler, 
-    isAdmin as unknown as express.RequestHandler,
-    getCurrentMonthRevenueAndTransactions as unknown as express.RequestHandler);
+   isAdmin as unknown as express.RequestHandler,
+   getCurrentMonthRevenueAndTransactions as unknown as express.RequestHandler);
+
 route.route('/admin/allMonthRevenue').get(validateUser as unknown as express.RequestHandler, 
    isAdmin as unknown as express.RequestHandler,
    getAllMonthsRevenue as unknown as express.RequestHandler);
+
 route.route('/admin/allTransactions').get(validateUser as unknown as express.RequestHandler, 
    isAdmin as unknown as express.RequestHandler,
    getAllTransactions as unknown as express.RequestHandler);
+
 route.route('/admin/topTransactions').get(validateUser as unknown as express.RequestHandler, 
    isAdmin as unknown as express.RequestHandler,
    getTopTransactions as unknown as express.RequestHandler);   
+
 route.route('/admin/customers').get(validateUser as unknown as express.RequestHandler, 
    isAdmin as unknown as express.RequestHandler,
    getCustomers as unknown as express.RequestHandler);  
+
+//seller routes
+
+
+
 export default route

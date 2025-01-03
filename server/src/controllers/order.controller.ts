@@ -401,25 +401,11 @@ export const getTopTransactions = async(req: Request, res: Response) => {
 
 export const getCustomers = async(req: Request, res: Response) => {
   try {
-    const customers = await Order.find({})
-      .populate({
-        path: 'customer',
-        select: '-password -accessToken'
-      })
-      .lean();
-
-    const uniqueCustomers = Array.from(
-      new Map(
-        customers.map(order => [
-          order.customer._id.toString(),
-          order.customer
-        ])
-      ).values()
-    );
+    const customers = await User.find({});
 
     return res.status(200).json({
       success: true,
-      customers: uniqueCustomers
+       customers
     });
     
   } catch (error) {

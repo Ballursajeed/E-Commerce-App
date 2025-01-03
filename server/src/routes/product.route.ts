@@ -36,6 +36,7 @@ route.route("/newProduct").post(isSeller as unknown as express.RequestHandler,up
         maxCount: 1
     }
 ]),addProduct as unknown as express.RequestHandler);
+
 route.route("/update/:id").put(isSeller as unknown as express.RequestHandler,upload.fields([
     {
         name:"image",
