@@ -92,7 +92,7 @@ export const isSeller = async(req:middlewareIsAdminRequest,res:Response,next:Nex
       }
 
 
-    if (user.role === 'seller') {
+    if (user.role === 'seller' || user.role === 'admin') {
         req.user = user 
         req.userId = user._id
         next()
