@@ -20,6 +20,8 @@ import { ErrorResponse } from "../login/Login"
    updatedAt: string;
 }
 
+
+
 const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
 
   const { id } = useParams();
@@ -36,6 +38,8 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
    updatedAt: '',
   });
   const [counter,setCounter] = useState(product.stocks);
+  const [price,setPrice] = useState(product.price);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,20 +47,11 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
               const res = await axios.get(`${SERVER}/product/getSingleProduct/${id}`);
               if (res.data.success) {
                 setProduct(res.data.product)
+                setPrice(res.data.product.price)
               } 
         }
         singleProduct()
   },[])
-
-  const counterNagativeHandler = () => {
-        if (counter <= 1) {
-          setCounter(1);
-        }
-        else{
-          setCounter((prev) => prev - 1)
-
-        }
-  }
 
   const addToCart = async() => {
       try {
@@ -162,6 +157,21 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
 
   }
 
+  const counterAdd = () => {
+          setCounter((prev) => prev+1)
+          setPrice((prev) => prev + product.price)
+        }
+  
+  const counterNagativeHandler = () => {
+          if (counter === 1) {
+            setCounter(1);
+          }
+          else{
+            setCounter((prev) => prev - 1)
+            setPrice((prev) => prev - product.price)
+          }
+        }
+
   return (
     <>
     <div className="singleProduct">
@@ -175,7 +185,7 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
         <div className="quantity">
           <button className="counterBtn" onClick={counterNagativeHandler}>-</button>
           <p>quantity:{counter}</p>
-          <button className="counterBtn" onClick={() => setCounter((prev) => prev+1)}>+</button>
+          <button className="counterBtn" onClick={counterAdd}>+</button>
         </div>
         
         <span>Available: {product.stocks - counter}</span>
@@ -185,7 +195,7 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
             <h1>{product.name}</h1>
         </div>
         <div className="price">
-            ${product.price}
+            ${price} 
         </div>
         <div className="avaible">
           {
