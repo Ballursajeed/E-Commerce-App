@@ -52,7 +52,8 @@ function App() {
           <Route path="update-product/:id" element={<EditProduct />} />
           <Route path="manage-order/:id" element={<GetSingleOrder />} />
           <Route path="manage-customer/:id" element={<GetSingleCutomer />} />
-          <Route path="analytics" element={<Analytics />} /> 
+          <Route path="analytics" element={<Analytics />}/>
+          <Route path="admin-profile" element={<Profile />}/>
           <Route path="customers" element={<Customer />} />
           <Route path="my-orders" element={<GetOrders />} /> 
         </Route>

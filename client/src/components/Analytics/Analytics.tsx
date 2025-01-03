@@ -10,6 +10,9 @@ import axios from "axios";
 import { SERVER } from "../../constant";
 import { BarChart } from "./BarChart";
 import Progress_bar from "./Progress";
+import { useSelector } from "react-redux";
+import { stateType } from "../Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
 
 Chart.register(CategoryScale);
 
@@ -29,6 +32,9 @@ interface transactionType {
 
 
 const Analytics = () => {
+
+  const user = useSelector((state: stateType) => state.auth.user);
+  const navigate = useNavigate();
 
   const [searchvalue,setSearchValue] = useState('');
   const [revenue,setRevenue] = useState('');
@@ -161,8 +167,8 @@ const Analytics = () => {
        <MdNotificationsNone />
       </div> 
      
-      <div className="admin-avatar">
-         <img src="/images.png" alt="" />
+      <div className="admin-avatar" onClick={() => navigate('/dashboard/admin-profile')}>
+         <img src={user.avatar} alt="" />
       </div>
       </div>
      </div>
