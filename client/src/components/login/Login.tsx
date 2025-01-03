@@ -76,6 +76,11 @@ const Login = () => {
 
     }
 
+    const handleGuest = () => {
+      setUsername('admin');
+      setPassword('123');
+    }
+
   return (
     <>
     {
@@ -104,8 +109,11 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
             />
          </div>
-
       <button type='submit' className='btn'>Submit</button>
+      <p>or</p>
+      <div className="guest">
+          <button className='admin-btn' onClick={handleGuest}>Login as Admin</button>
+         </div>
       <div>
         <p>Not Registered?</p>
         <Link to="/register">Register</Link> 
