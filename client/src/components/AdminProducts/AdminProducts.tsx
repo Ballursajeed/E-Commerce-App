@@ -64,7 +64,7 @@ const AdminProducts = () => {
                 <img src={product.image} alt={product.name} />
               </td>
               <td>{product.name}</td>
-              <td>{product.price}</td>
+              <td>₹{product.price}</td>
               <td>{product.stocks}</td>
               <td>
                 <button onClick={() => {navigate(`/dashboard/manage-product/${product._id}`)}} className="manage-btn">Manage</button>

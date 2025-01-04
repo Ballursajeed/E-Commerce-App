@@ -195,7 +195,7 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
             <h1>{product.name}</h1>
         </div>
         <div className="price">
-            ${price} 
+          ₹{price} 
         </div>
         <div className="avaible">
           {

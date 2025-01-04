@@ -96,7 +96,7 @@ const CartItem = ({
         <div className="itemRight">
           <div className="info">
             <h1>{product.name}</h1>
-            <h3>Price: <span id="prc">${price}</span></h3>
+            <h3>Price: <span id="prc">₹{price}</span></h3>
           </div>
           <div className="counter">
             <button className="counterBtn" onClick={counterNagativeHandler}>-</button>

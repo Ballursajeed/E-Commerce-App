@@ -174,7 +174,7 @@ const Analytics = () => {
      </div>
      <div className="main-analytics">
        <div className="kpi">
-        <KipCard heading={'Revenue'} value={String('$'+revenue)} rate={revenueGrowth} color="blue"/>
+        <KipCard heading={'Revenue'} value={String('₹'+revenue)} rate={revenueGrowth} color="blue"/>
         <KipCard heading={'Users'} value={users} rate={usersGrowth} color="rgb(44, 145, 184)"/>
         <KipCard heading={'Transactions'} value={transacions} rate={transacionsGrowth} color="yellow"/>
         <KipCard heading={'Products'} value={products} rate={productsGrowth} color="darkblue"/>

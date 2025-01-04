@@ -50,7 +50,7 @@ useEffect(() => {
       }
 
       <div className="subTotal">
-        <span>SubToal(1 item): ${count}</span>
+        <span>SubToal(1 item): ₹{count}</span>
       </div>
      </div>
     </>

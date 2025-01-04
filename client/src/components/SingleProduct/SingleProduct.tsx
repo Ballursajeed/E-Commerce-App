@@ -29,7 +29,7 @@ const SingleProduct = ({
        <div className="cardContainer">
          <div className="cardleft">
             <h4><b id="name">{product.name}</b></h4>
-            <p id="price">${product.price}</p>
+            <p id="price">₹{product.price}</p>
          </div>
          <div className="stock">
             <span id="stock">only {product.stocks} left</span>
