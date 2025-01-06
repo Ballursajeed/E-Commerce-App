@@ -53,6 +53,12 @@ const Customer = () => {
   return (
     <div className="customers">
       <h2>Customers</h2>
+      {
+        currentCustomers.length === 0 
+        ? <>
+           <div className="no-items">You Don't have Customers Yet!</div>           
+          </>
+        :
       <table>
         <thead>
           <tr>
@@ -108,6 +114,8 @@ const Customer = () => {
           ))}
         </tbody>
       </table>
+      }
+
       {/* Pagination */}
       <div className="pagination">
         <button onClick={handlePrevPage} disabled={currentPage === 1}>

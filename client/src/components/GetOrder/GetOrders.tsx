@@ -45,6 +45,12 @@ const GetOrders = () => {
   return (
     <div className="get-transacions">
       <h2>Transactions</h2>
+      {
+         currentTransactions.length === 0 
+         ? <>
+            <div className="no-items">No Transactions Yet!</div>           
+           </>
+         :
       <table>
         <thead>
           <tr>
@@ -80,6 +86,8 @@ const GetOrders = () => {
           ))}
         </tbody>
       </table>
+      }
+
       <div className="pagination">
         <button onClick={handlePrevPage} disabled={currentPage === 1}>
           Previous

@@ -46,7 +46,11 @@ const AdminProducts = () => {
   </svg>
 </button>
       </div>
-      
+     { currentProducts.length === 0 
+          ? <>
+             <div className="no-items">You Don't have Products, you can add your products</div>           
+            </>
+          :
       <table>
         <thead>
           <tr>
@@ -58,7 +62,9 @@ const AdminProducts = () => {
           </tr>
         </thead>
         <tbody>
-          {currentProducts.map((product: singleProductType) => (
+          {
+          
+           currentProducts.map((product: singleProductType) => (
             <tr key={product._id}>
               <td>
                 <img src={product.image} alt={product.name} />
@@ -73,7 +79,7 @@ const AdminProducts = () => {
           ))}
         </tbody>
       </table>
-
+      }
       {/* Pagination */}
       <div className="pagination">
         <button onClick={handlePrevPage} disabled={currentPage === 1}>

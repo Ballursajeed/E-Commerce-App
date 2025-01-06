@@ -46,11 +46,15 @@ useEffect(() => {
       <h1>Shopping Cart</h1>
       
       {
-        products.map((item,index) => <CartItem product={item} key={index} slNo = {index}/>)
+        products.length === 0 
+        ? <>
+           <div className="no-items">No Items Added</div>           
+          </>
+        : products.map((item,index) => <CartItem product={item} key={index} slNo = {index}/>)
       }
 
       <div className="subTotal">
-        <span>SubToal(1 item): ₹{count}</span>
+        <span>SubToal({products.length} item): ₹{count}</span>
       </div>
      </div>
     </>
