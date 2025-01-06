@@ -4,10 +4,13 @@ import { TbDeviceAnalytics } from "react-icons/tb";
 import { FaUsers } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
 import { Link, useLocation } from "react-router-dom";
+import { stateType } from "../Navbar/Navbar";
+import { useSelector } from "react-redux";
 
 const SideBar = () => {
 
-  const location = useLocation()
+  const location = useLocation();
+  const user = useSelector((state: stateType) => state.auth.user);
 
   return (
       <ul>
@@ -19,10 +22,13 @@ const SideBar = () => {
           </Link>
         </li>
         <li>
-          <Link className={location.pathname==="/dashboard/analytics" ? "sidebar-link-active" : "sidebar-link"} to={'/dashboard/analytics'}>
-            <TbDeviceAnalytics className="icon" />
-            Analytics
-          </Link>
+          {
+             user.role === 'admin' && <Link className={location.pathname==="/dashboard/analytics" ? "sidebar-link-active" : "sidebar-link"} to={'/dashboard/analytics'}>
+             <TbDeviceAnalytics className="icon" />
+             Analytics
+           </Link>
+          }
+          
         </li>
         <li>
           <Link className={location.pathname==="/dashboard/customers" ? "sidebar-link-active" : "sidebar-link"} to={'/dashboard/customers'}>
