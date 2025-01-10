@@ -24,6 +24,7 @@ const Dashboard = () => {
     <div className='dashboard'>
    <div className="side-hamber">
    <button className="side-hamburger" onClick={toggleMenu}>
+     <span>Tools</span>
           &#9776;
     </button>
    </div>

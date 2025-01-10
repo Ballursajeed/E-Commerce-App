@@ -1,6 +1,108 @@
-.get-transacions{
+.get-transacions {
   height: 100vh;
   padding: 10px;
   margin: 10px;
   text-align: center;
+}
+
+#order-table {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #f9f9f9;
+  color: #555;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.mobile-view{
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-view{
+    display: block;
+  }
+
+  .order-table{
+    display: none;
+  }
+  
+  .get-transacions {
+    margin: 0;
+    padding: 2px;
+    text-align: center;
+    height: auto;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #order-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    font-size: 12px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-view{
+    display: block;
+  }
+  #order-table {
+    display: none;
+  }
+
+  .transaction-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .transaction-card div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+
+  .manage-btn {
+    margin-top: 10px;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
 }
