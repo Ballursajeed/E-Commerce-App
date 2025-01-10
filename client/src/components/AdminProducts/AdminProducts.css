@@ -137,3 +137,49 @@ td img {
 .pagination button:hover:not(:disabled) {
   background-color: #0056b3;
 }
+
+@media screen and (max-width: 768px) {
+
+  .admin-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-left: 5px;
+    padding-top: 19px;
+    margin-left: 5px;
+  }
+  
+
+  table {
+    width: 100%;
+    background-color: #fff;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  thead {
+    background-color: #f9f9f9;
+    color: #555;
+  }
+  
+  th,
+  td {
+    padding: 6px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  
+  td img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+}

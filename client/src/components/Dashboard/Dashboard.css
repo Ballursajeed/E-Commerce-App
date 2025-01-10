@@ -66,14 +66,69 @@
     font-size: 20px;
     margin-right: 10px;
   }
+  .side-hamburger{
+    display: none;
+  
+  }
   
   /* Mobile responsiveness */
   @media (max-width: 768px) {
+
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+    }
+
     .sidebar {
+      display: none;
       width: 200px;
       padding: 10px;
     }
+
+    .side-hamber{
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      margin-right: 18px;
+    }
+
+    .side-hamburger{
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      gap: 8px; /* Space between icon and text */
+      background-color: #007bff; /* Primary color */
+      color: #fff;
+      border: none;
+      border-radius: 20px; /* Rounded corners */
+      padding: 10px 16px; /* Comfortable padding */
+      font-size: 14px; /* Modern font size */
+      font-weight: 600; /* Slightly bold text */
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      transition: background-color 0.3s, transform 0.2s; /* Smooth animations */
+    }
   
+    .side-hamburger:hover {
+      background-color: #0056b3; /* Darker on hover */
+    }
+    
+    .side-hamburger:active {
+      transform: scale(0.95); /* Slight shrink effect */
+    }
+    
+    .side-hamburger .icon {
+      font-size: 16px; /* Icon size */
+      display: flex;
+      align-items: center;
+    }
+    
+    .side-hamburger{
+      margin-top: 10px;
+      width: 90px;
+      margin-left: 290px
+    }
+
     .sidebar-link {
       font-size: 14px;
     }
@@ -84,6 +139,15 @@
   
     .dashboard-title {
       font-size: 20px;
+    }
+
+    .sidebar.open{
+      width: auto;
+      display: flex; /* Display menu when open */
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      padding-bottom: 20px;
     }
   
     .main-dashboard {
