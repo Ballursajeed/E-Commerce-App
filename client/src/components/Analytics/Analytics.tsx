@@ -56,9 +56,9 @@ const Analytics = () => {
       {
         label: "Users Gained ",
         data: data.map((data:revenueType) => data.revenue),
-        width:1,
+        width:0.6,
         backgroundColor:[
-          "rgba(75,192,192,1)",
+          "rgb(11, 163, 239)",
         ],
         borderColor: "black",
         borderWidth: 1
@@ -110,14 +110,17 @@ const Analytics = () => {
         
         setData(resonse.data.allMonthRevenue);
         setChartData({
-          labels: resonse.data.allMonthRevenue.map((data:revenueType) => data.month), 
+          labels: resonse.data.allMonthRevenue.map((data:revenueType) => (
+
+            data.month
+          )), 
           datasets: [
             {
               label: "Revenue",
               data: resonse.data.allMonthRevenue.map((data:revenueType) => data.revenue),
-              width:1,
+              width:0.5,
               backgroundColor:[
-                "rgb(57, 81, 219)",
+                "rgb(50, 205, 50)",
               ],
               borderColor: "black",
               borderWidth: 1
@@ -202,7 +205,7 @@ const Analytics = () => {
        </div>
        <div className="transactions">
          <h1>Top Transactions</h1>
-           <table>
+           <table id="order-table">
                  <thead>
                    <tr>
                      <th>Id</th>
@@ -228,6 +231,33 @@ const Analytics = () => {
                    ))}
                  </tbody>
                </table>
+               <div className="mobile-view">
+          {topTransactions.map((transaction: transactionType) => (
+            <div className="transaction-card" key={Number(transaction._id)}>
+              <div>
+                <strong>Id:</strong> {transaction._id}
+              </div>
+              <div>
+                <strong>Quantity:</strong> {transaction.items.length}
+              </div>
+              <div>
+                <strong>Discount:</strong> {`${transaction.discount || 0}`}
+              </div>
+              <div>
+                <strong>Amount:</strong> {`₹ ${transaction.totalAmount}`}
+              </div>
+              <div>
+                <strong>Status:</strong> {transaction.status}
+              </div>
+              <button
+                onClick={() => navigate(`/dashboard/manage-order/${transaction._id}`)}
+                className="manage-btn"
+              >
+                Manage
+              </button>
+            </div>
+          ))}
+        </div>
        </div>
      </div>
     </div>

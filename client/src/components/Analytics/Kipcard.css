@@ -32,3 +32,35 @@
     color: rgb(213, 18, 18);
   }
   
+  @media (max-width: 768px) {
+    .kpi-card {
+      display: flex;
+      flex-direction: row;
+      gap: 1px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      width: 100px;
+      font-size: 9px;
+      height: 70px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 0;
+      background-color: #fff;
+      border-radius: 8px;
+      position: sticky; /* Make it static while scrolling */
+      top: 2rem;
+      cursor: pointer;
+  }
+
+  #ring{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+}
+  
+  }

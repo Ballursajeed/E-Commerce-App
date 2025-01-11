@@ -13,7 +13,7 @@ const KipCard = (
     <div>
       <div className="kpi-card">
        <div className="left-data">
-         <p>{heading}</p>
+         <p><strong>{heading}</strong></p>
          <h2>{value}</h2>
          {
             Number(rate) > 0 ? <div className="analytics-green"><HiTrendingUp />{`+${rate}%`}</div>
