@@ -123,7 +123,7 @@ const Analytics = () => {
                 "rgb(50, 205, 50)",
               ],
               borderColor: "black",
-              borderWidth: 1
+              borderWidth: 1,
             }
           ]
         })

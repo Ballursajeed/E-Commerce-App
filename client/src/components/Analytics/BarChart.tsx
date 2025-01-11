@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import "./BarChart.css"
+import "./BarChart.css";
 
 interface chartDataType {
   labels: String[], 
@@ -47,7 +47,8 @@ export const BarChart = ({ chartData }:{
       <h2 style={{ textAlign: "center" }}>Revenue of this Year</h2>
       <Bar
         data={customChartData}
-        options={{
+        options={
+          {
           plugins: {
             title: {
               display: true,

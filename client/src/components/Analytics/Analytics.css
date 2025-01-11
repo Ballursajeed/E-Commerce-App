@@ -170,16 +170,17 @@
     }
 
     .chart{
-        width: 90%;
-        height: auto;
-        padding: 2px;
-        margin: 2px;
-        margin-left: 15px;
+        width: 90%; /* Use a percentage for responsiveness */
+        max-width: 600px; /* Set a maximum width */
+        height: auto; /* Let the height adjust automatically */
+        aspect-ratio: 4 / 3; /* Maintain a common chart aspect ratio */
+        padding: 20px;
+        margin: 20px auto; /* Center the chart */
         background-color: #fff;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         border-radius: 8px;
     }
-
+    
     .inventory{
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         width: 270px;

@@ -158,8 +158,8 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
   }
 
   const counterAdd = () => {
-          setCounter((prev) => prev+1)
           setPrice((prev) => prev + product.price)
+          setCounter((prev) => prev+1)
         }
   
   const counterNagativeHandler = () => {
@@ -206,7 +206,7 @@ const GetSingleProduct = ({isSeller}:{isSeller?:boolean}) => {
         <div className="right-quantity">
           <button className="counterBtn" onClick={counterNagativeHandler}>-</button>
           <p>quantity:{counter}</p>
-          <button className="counterBtn" onClick={() => setCounter((prev) => prev+1)}>+</button>
+          <button className="counterBtn" onClick={counterAdd}>+</button>
         </div>
         <span id="right-span">Available: {product.stocks - counter}</span>
         {
