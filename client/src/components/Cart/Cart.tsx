@@ -6,6 +6,7 @@ import { SERVER } from "../../constant";
 import CartItem from "../CartItem/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { setAmount } from "../../subTotal/subTotalSlice";
+import Loading from "../Loader/Loader";
 
 interface stateType {
   subTotal: {
@@ -17,23 +18,28 @@ interface stateType {
 const Cart = () => {
 
     const checkAuth = useCheckAuth();
-    const [products,setProducts] = useState([])
+    const [products,setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const count = useSelector((state:stateType) => state.subTotal.amount);
     const dispatch = useDispatch();
 
 useEffect(() => {
    checkAuth('/login');
    const getMyCart = async() => {
+    setLoading(true)
      const res = await axios.get(`${SERVER}/cart/getCart`,{
       withCredentials: true
      });
      console.log(res.data.carts);
      if (res.data.success) {
       setProducts(res.data.products)
-      dispatch(setAmount(res.data.carts[0].total))
+      dispatch(setAmount(res.data.carts[0].total));
+      setLoading(false)
      }
      if (res.data.products.length === 0) {
       dispatch(setAmount(0))
+      setLoading(false)
      }
    }
    getMyCart()
@@ -44,7 +50,9 @@ useEffect(() => {
     <>
       <div className="cart">
       <h1>Shopping Cart</h1>
-      
+      {
+        loading && <><Loading /></>
+      }
       {
         products.length === 0 
         ? <>

@@ -26,8 +26,6 @@ import GetSingleCutomer from "./components/GetSingleCustomer/GetSingleCutomer";
 
 function App() {
 
-  
-
   return (
     <>
     <Navbar />

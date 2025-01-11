@@ -4,6 +4,7 @@ import axios from "axios";
 import { SERVER } from "../../constant";
 import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa"; // Import star icon from react-icons
+import Loading from "../Loader/Loader";
 
 const Customer = () => {
   interface singleCustomer {
@@ -21,6 +22,8 @@ const Customer = () => {
 
   const [customers, setCustomers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
   const productsPerPage = 7;
 
   const navigate = useNavigate();
@@ -39,12 +42,14 @@ const Customer = () => {
 
   useEffect(() => {
     const fetchCustomers = async () => {
+      setLoading(true)
       const response = await axios.get(`${SERVER}/order/admin/customers`, {
         withCredentials: true,
       });
 
       if (response.data.success) {
         setCustomers(response.data.customers);
+        setLoading(false);
       }
     };
     fetchCustomers();
@@ -53,6 +58,9 @@ const Customer = () => {
   return (
     <div className="customers">
       <h2>Customers</h2>
+      {
+        loading && <><Loading /></>
+      }
       {
         currentCustomers.length === 0 
         ? <>

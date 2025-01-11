@@ -4,21 +4,26 @@ import { SERVER } from "../../constant";
 import { singleProductType } from "../GetSingleProduct/GetSingleProduct";
 import "./AdminProducts.css";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loader/Loader";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState<singleProductType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const productsPerPage = 5;
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true)  
       const res = await axios.get(`${SERVER}/product/getMyProducts`, {
         withCredentials: true,
       });
 
       if (res.data.success) {
         setProducts(res.data.products);
+        setLoading(false);
       }
     };
     fetchProducts();
@@ -46,6 +51,9 @@ const AdminProducts = () => {
   </svg>
 </button>
       </div>
+      {
+        loading && <><Loading /></>
+      }
      { currentProducts.length === 0 
           ? <>
              <div className="no-items">You Don't have Products, you can add your products</div>           

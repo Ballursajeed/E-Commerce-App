@@ -3,6 +3,7 @@ import SingleProduct from '../SingleProduct/SingleProduct'
 import "./GetProducts.css"
 import axios from 'axios'
 import { SERVER } from '../../constant'
+import Loading from '../Loader/Loader'
 
 interface myPropTypes {
   limit?: number
@@ -38,6 +39,8 @@ const GetProducts = ({
 
   return (
    <>
+   {
+    product.length === 0 ? <><Loading /></> : 
      <div className='productContainer'>
    
    {
@@ -51,6 +54,8 @@ const GetProducts = ({
     })
    }
   </div>
+}
+
 
 
 {/* Pagination Controls */}
@@ -69,5 +74,6 @@ const GetProducts = ({
    </>
   )
 }
+
 
 export default GetProducts

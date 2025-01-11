@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { SERVER } from "../../constant";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loader/Loader";
 
 const GetOrders = () => {
   interface TransactionType {
@@ -15,6 +16,8 @@ const GetOrders = () => {
 
   const [transactions, setTransactions] = useState<TransactionType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
   const productsPerPage = 10;
   const navigate = useNavigate();
   
@@ -32,11 +35,13 @@ const GetOrders = () => {
 
   useEffect(() => {
     const fetchCustomers = async() => {
+      setLoading(true);
       const response = await axios.get(`${SERVER}/order/admin/allTransactions`, {
         withCredentials: true
       });
       if (response.data.success) {
-        setTransactions(response.data.Transactions)
+        setTransactions(response.data.Transactions);
+        setLoading(false);
       }
     }
     fetchCustomers();
@@ -45,6 +50,9 @@ const GetOrders = () => {
   return (
     <div className="get-transacions">
     <h2>Transactions</h2>
+    {
+        loading && <><Loading /></>
+      }
     {currentTransactions.length === 0 ? (
       <div className="no-items">No Transactions Yet!</div>
     ) : (
