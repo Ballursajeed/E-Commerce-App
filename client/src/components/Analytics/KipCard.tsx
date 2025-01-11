@@ -10,7 +10,7 @@ const KipCard = (
     }:{heading:String, value: String, rate: Number,color:string}
 ) => {
   return (
-    <div>
+    <>
       <div className="kpi-card">
        <div className="left-data">
          <p><strong>{heading}</strong></p>
@@ -29,7 +29,7 @@ const KipCard = (
      </div>
     </div>
   </div>
-    </div>
+    </>
   )
 }
 
