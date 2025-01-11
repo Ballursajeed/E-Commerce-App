@@ -191,12 +191,12 @@ const GetSingleOrder = () => {
         </div> 
        <div className="Info">
         <strong>Amount Info</strong>
-        <p>Sub Total: {`₹ ${order.totalAmount}`}</p>
-        <p>Shipping Charges: {`₹ ${Shipping || 0}`}</p>
-        <p>Tax: {`₹ ${tax}`}</p>
+        <p>Sub Total: {`₹${order.totalAmount}`}</p>
+        <p>Shipping Charges: {`₹${Shipping || 0}`}</p>
+        <p>Tax: {`₹${tax}`}</p>
         <p>paymentMethod: {`${order.paymentMethod}`}</p>
         
-        <p>Total: {`₹ ${total}`}</p>
+        <p>Total: {`₹${total}`}</p>
        </div>
        <div className="Info">
         <strong>Status Info</strong>
