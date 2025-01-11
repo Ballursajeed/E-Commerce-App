@@ -74,7 +74,7 @@ const Navbar = () => {
                  {user._id &&   <button className="nav-btn">
                {
                 user.role === 'seller' || user.role === 'admin' ? (
-                 <Link to={'/dashboard/products'} onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
+                 <Link to={'/dashboard/analytics'} onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
                 )
                  : 
                 (
