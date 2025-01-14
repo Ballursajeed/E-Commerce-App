@@ -1,4 +1,4 @@
-import  { FormEvent, useState } from 'react';
+import  { FormEvent, useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import {SERVER} from "../../constant.ts"
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,11 +16,19 @@ const EditProduct = () => {
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [category, setCategory] = useState('')
+    const [allCategory, setAllCategory] = useState([])
     const [description, setDescription] = useState('');
+    
     const [stocks, setStocks] = useState('');
     const [file, setFile] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);  // Add loading state
-   
+    const [isInputEnabled, setIsInputEnabled] = useState(false);
+
+    const handleNewCategoryToggle = () => {
+      setIsInputEnabled(!isInputEnabled);
+      setCategory(''); // Clear the input if toggling to add a new category
+    };
+  
     const { id } = useParams();
     const navigate = useNavigate()
 
@@ -95,6 +103,17 @@ const EditProduct = () => {
 
     }
 
+     useEffect(() => {
+            const fetchCategory = async() => {
+              const response = await axios.get(`${SERVER}/product/getAllCategories`);
+              if (response.data.success) {
+                setAllCategory(response.data.categories)
+              }
+            }    
+            fetchCategory()
+        },[]);
+    
+
   return (
     <>
     {
@@ -133,14 +152,41 @@ const EditProduct = () => {
           </div>
 
           <div>
-            <label htmlFor="category">Change Category: </label>
-            <input type="text" 
-                  placeholder='Change Category...'
-                  id='category' 
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-            />
-          </div>
+      <label htmlFor="category">Category: </label>
+
+      {!isInputEnabled && (
+        <select
+          id="category-select"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="categorySelect"
+          required
+        >
+          <option value="" disabled>Select a category...</option>
+          {allCategory.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      )}
+
+      {isInputEnabled && (
+        <input
+          type="text"
+          placeholder="Add Category..."
+          id="category-input"
+          className="categoryInput"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        />
+      )}
+
+      <button type="button" onClick={handleNewCategoryToggle} className='toggleCategoryButton'>
+        {isInputEnabled ? 'Choose from existing categories' : 'Create/Add New Category'}
+      </button>
+    </div>
 
           <div>
             <label htmlFor="description">Change Description: </label>
