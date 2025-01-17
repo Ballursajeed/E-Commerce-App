@@ -14,6 +14,25 @@ interface ErrorResponse {
   message: string;
 }
 
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      fontSize: '16px',
+      color: '#424770',
+      '::placeholder': {
+        color: '#aab7c4',
+      },
+    },
+    invalid: {
+      color: '#9e2146',
+    },
+  },
+  hidePostalCode: true,
+  classes: {
+    base: 'stripe-card-element',
+  },
+};
+
 const Order = () => {
   const { id, stocks } = useParams();
 
@@ -208,17 +227,22 @@ const Order = () => {
           </form>
         ) : (
           <Elements stripe={stripePromise}>
-            <div>
-              <CardElement />
-              <button
-                className='btn'
-                onClick={handleCardPayment}
-                disabled={!stripe || loading}
-              >
-                Pay Now
-              </button>
+          <div className="card-container">
+            <div className="card-details-section">
+              <label className="card-label">Card Information</label>
+              <div className="card-element-wrapper">
+                <CardElement options={CARD_ELEMENT_OPTIONS} />
+              </div>
             </div>
-          </Elements>
+            <button
+              className="btn payment-button"
+              onClick={handleCardPayment}
+              disabled={!stripe || loading}
+            >
+              {loading ? 'Processing...' : 'Pay Now'}
+            </button>
+          </div>
+        </Elements>
         )}
       </div>
       <ToastContainer />
