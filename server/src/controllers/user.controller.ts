@@ -2,6 +2,7 @@ import { CookieOptions, NextFunction, Request, Response } from "express";
 import { AvatarType, loginUserRequest, middlewareValidateUserRequest, MulterRequest } from "../types/types";
 import { User } from "../models/user.model";
 import { uploadOnCloudinary } from "../utils/cloudinary";
+import { isValidEmail } from "../utils/validate";
 
 export const userRegister = async(req:MulterRequest,res:Response, next: NextFunction) => {
 
@@ -12,6 +13,13 @@ export const userRegister = async(req:MulterRequest,res:Response, next: NextFunc
               return res.status(400).json({
                   message: "All fields are required!",
                   success:false
+              })
+         }
+
+         if (!isValidEmail(email)) {
+              return res.status(400).json({
+                  message: "Invalid email format",
+                  success: false
               })
          }
   
@@ -26,7 +34,7 @@ export const userRegister = async(req:MulterRequest,res:Response, next: NextFunc
   
         const existedEmail = await User.findOne({email});
   
-         if(existedUsername) {
+         if(existedEmail) {
           return res.status(400).json({
               message:"Email is already Exist!",
               success: false
